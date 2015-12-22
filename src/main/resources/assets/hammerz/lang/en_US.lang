@@ -1,0 +1,34 @@
+//English language file for Hammerz
+
+//Items
+item.WoodHammer.name=Wood Hammer
+item.StoneHammer.name=Stone Hammer
+item.IronHammer.name=Iron Hammer
+item.GoldHammer.name=Gold Hammer
+item.DiamondHammer.name=Diamond Hammer
+
+item.DarkSteelHammer.name=Dark Hammer
+item.CopperHammer.name=Copper Hammer
+item.TinHammer.name=Tin Hammer
+item.NickelHammer.name=Nickel Hammer
+item.SilverHammer.name=Silver Hammer
+item.LeadHammer.name=Lead Hammer
+item.ElectrumHammer.name=Electrum Hammer
+item.InvarHammer.name=Invar Hammer
+item.BronzeHammer.name=Bronze Hammer
+item.PlatinumHammer.name=Platinum Hammer
+item.SteelHammer.name=Steel Hammer
+item.ThaumiumHammer.name=Thaumium Hammer
+item.ManasteelHammer.name=Manasteel Hammer
+item.ElvenElementiumHammer.name=Elementium Hammer
+item.BedrockHammer.name=Bedrock Hammer
+item.HSLAHammer.name=HSLA Hammer
+
+
+//Phrases
+keyword.durability=Durability
+phrase.hammerz.hammerinfo1=Mines in 3x3 (unless sneaking)
+phrase.hammerz.hammerinfo2=Places torches from inventory with right click
+phrase.hammerz.holdshift=<Hold Shift>
+phrase.hammerz.botania1=Consumes mana instead of taking damage if possible
+phrase.hammerz.botania2=Doesn't drop "junk" while mining
