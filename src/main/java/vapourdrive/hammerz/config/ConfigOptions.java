@@ -6,6 +6,10 @@ public class ConfigOptions
 {
 	public static boolean AddToolInfo;
 	public static boolean AddDurabilityInfo;
+	public static float DurabilityMultiplier;
+	public static float EfficiencyMultiplier;
+	public static boolean CanShiftMine;
+	
 	//Enabling
 	public static boolean[] VanillaHammerEnabling;
 	public static boolean[] EnderIOHammerEnabling;
@@ -32,6 +36,9 @@ public class ConfigOptions
 	public static float ChanceOne;
 	public static float ChanceTwo;
 	public static float ChanceThree;
+	
+	//RotaryCraft
+	public static boolean RotaryCraftSilkTouch;
 
 	public static boolean UseUnityTextures;
 

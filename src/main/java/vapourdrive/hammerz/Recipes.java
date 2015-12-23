@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import vapourdrive.hammerz.config.ConfigOptions;
 import vapourdrive.hammerz.items.HZ_Items;
 import vapourdrive.hammerz.utils.RandomUtils;
 import Reika.RotaryCraft.API.RecipeInterface;
@@ -68,15 +69,20 @@ public class Recipes
 				"bbb", " s ", " s ", 's', stick, 'b', OreDict
 		}));
 	}
-	
 
 	public static void registerRotaryCraftRecipe()
 	{
 		ItemStack hammer = new ItemStack(HZ_Items.BedrockHammer);
-		hammer.addEnchantment(Enchantment.silkTouch, 1);
+		if (ConfigOptions.RotaryCraftSilkTouch)
+		{
+			hammer.addEnchantment(Enchantment.silkTouch, 1);
+		}
 		ItemStack bedrock = new ItemStack(RandomUtils.getItemStackFromString("RotaryCraft", "rotarycraft_block_deco", 1).getItem(), 1, 4);
 		ItemStack shaft = new ItemStack(RandomUtils.getItemStackFromString("RotaryCraft", "rotarycraft_item_shaftcraft", 1).getItem(), 1, 2);
-		ShapedOreRecipe recipe = new ShapedOreRecipe(hammer, new Object[]{"DDD", " S ", " S ", 'D', bedrock, 'S', shaft});
+		ShapedOreRecipe recipe = new ShapedOreRecipe(hammer, new Object[]
+		{
+				"DDD", " S ", " S ", 'D', bedrock, 'S', shaft
+		});
 		RecipeInterface.blastfurn.addAPIRecipe(hammer, 1000, recipe, 4, 0);
 	}
 }

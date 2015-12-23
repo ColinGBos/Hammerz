@@ -48,22 +48,23 @@ public class DarkHammer extends Hammer implements IEnergyContainerItem
 	}
 
 	@Override
-	public void handleDamage(Block breakBlock, ItemStack stack, EntityPlayer player)
+	public boolean handleDamage(Block breakBlock, ItemStack stack, EntityPlayer player)
 	{
 		if (isEmpowered(stack))
 		{
 			if (!player.capabilities.isCreativeMode)
 			{
-				attemptDamage(breakBlock, stack, UpgradeManager.getChance(getEmpoweredment(stack)), player);
+				return attemptDamage(breakBlock, stack, UpgradeManager.getChance(getEmpoweredment(stack)), player);
 			}
+			return true;
 		}
 		else
 		{
-			super.handleDamage(breakBlock, stack, player);
+			return super.handleDamage(breakBlock, stack, player);
 		}
 	}
 
-	public void attemptDamage(Block breakBlock, ItemStack stack, float chance, EntityPlayer player)
+	public boolean attemptDamage(Block breakBlock, ItemStack stack, float chance, EntityPlayer player)
 	{
 		boolean wasEnergised = false;
 		Random rand = new Random();
@@ -75,6 +76,7 @@ public class DarkHammer extends Hammer implements IEnergyContainerItem
 				{
 					this.extractEnergy(stack, ConfigOptions.EIOToolObsidianEnergyUse, false);
 					wasEnergised = true;
+					return true;
 				}
 			}
 			else
@@ -83,13 +85,15 @@ public class DarkHammer extends Hammer implements IEnergyContainerItem
 				{
 					this.extractEnergy(stack, ConfigOptions.EIOToolEnergyuse, false);
 					wasEnergised = true;
+					return true;
 				}
 			}
 		}
 		if (!wasEnergised)
 		{
-			stack.damageItem(1, player);
+			return super.handleDamage(breakBlock, stack, player);
 		}
+		return false;
 	}
 	
     @SideOnly(Side.CLIENT)

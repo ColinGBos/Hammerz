@@ -8,6 +8,12 @@ public class ConfigHandler
 {
 	public static File EnderIOCFG;
 	public static File HammerzCFG;
+	
+	public static void preInit(File configPath)
+	{
+		HammerzConfig.preInit(new File(configPath + "/hammerz/" + "Hammerz.cfg"));
+		
+	}
 
 	public static void init(File configPath)
 	{

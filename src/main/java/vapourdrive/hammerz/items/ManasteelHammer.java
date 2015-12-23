@@ -15,10 +15,10 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 
-@Optional.InterfaceList
-({
-	@Optional.Interface(modid = "Botania", iface = "vazkii.botania.api.mana.IManaUsingItem", striprefs = true),
-	@Optional.Interface(modid = "Botania", iface = "vazkii.botania.api.mana.ManaItemHandler", striprefs = true)
+@Optional.InterfaceList(
+{
+		@Optional.Interface(modid = "Botania", iface = "vazkii.botania.api.mana.IManaUsingItem", striprefs = true),
+		@Optional.Interface(modid = "Botania", iface = "vazkii.botania.api.mana.ManaItemHandler", striprefs = true)
 })
 public class ManasteelHammer extends Hammer implements IManaUsingItem
 {
@@ -33,7 +33,7 @@ public class ManasteelHammer extends Hammer implements IManaUsingItem
 	{
 		super(material, name);
 	}
-	
+
 	@Override
 	public void addExpandedInfo(ItemStack stack, EntityPlayer player, List list, boolean useExtraInformation)
 	{
@@ -61,11 +61,15 @@ public class ManasteelHammer extends Hammer implements IManaUsingItem
 		return true;
 	}
 
-	public void handleDamage(Block breakBlock, ItemStack stack, EntityPlayer player)
+	public boolean handleDamage(Block breakBlock, ItemStack stack, EntityPlayer player)
 	{
 		if (!ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) player, MANA_PER_DAMAGE, true))
 		{
-			stack.damageItem(1, player);
+			return super.handleDamage(breakBlock, stack, player);
+		}
+		else
+		{
+			return true;
 		}
 	}
 

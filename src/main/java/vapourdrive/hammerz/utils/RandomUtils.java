@@ -1,9 +1,5 @@
 package vapourdrive.hammerz.utils;
 
-import org.apache.logging.log4j.Level;
-
-import vapourdrive.hammerz.Hammerz;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -20,13 +16,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
+import org.apache.logging.log4j.Level;
+
+import vapourdrive.hammerz.Hammerz;
+import cpw.mods.fml.common.registry.GameRegistry;
+
 public class RandomUtils
 {
-	
+
 	public static ItemStack getItemStackFromString(String ModId, String ItemStackName, int StackSize)
 	{
 		ItemStack stack = GameRegistry.findItemStack(ModId, ItemStackName, StackSize);
-		if(stack == null)
+		if (stack == null)
 		{
 			Hammerz.log.log(Level.INFO, "Attempt to find: " + ModId + ", " + ItemStackName + " Failed");
 		}
@@ -72,97 +73,92 @@ public class RandomUtils
 		{
 			return false;
 		}
-
 		EntityPlayerMP playerMP = null;
-
 		if (player instanceof EntityPlayerMP)
 		{
 			playerMP = (EntityPlayerMP) player;
 		}
-
 		int meta = world.getBlockMetadata(x, y, z);
-
-		ItemStack stack = player.getCurrentEquippedItem();
-		if (stack == null || !ForgeHooks.canHarvestBlock(block, player, meta))
+		// only effective materials
+		ItemStack item = player.getCurrentEquippedItem();
+		if (!(item.getItem().getToolClasses(item).contains(block.getHarvestTool(meta)) || item.getItem().func_150893_a(item, block) > 1.0f))
 		{
 			return false;
 		}
 
+		if (!ForgeHooks.canHarvestBlock(block, player, meta))
+		{
+			return false;
+		}
+		BreakEvent event = null;
 		if (playerMP != null)
 		{
-			BreakEvent event = ForgeHooks.onBlockBreakEvent(world, playerMP.theItemInWorldManager.getGameType(), playerMP, x, y, z);
-
-			int drop = event.getExpToDrop();
-			block.dropXpOnBlockBreak(world, x, y, z, drop);
-
+			event = ForgeHooks.onBlockBreakEvent(world, playerMP.theItemInWorldManager.getGameType(), playerMP, x, y, z);
 			if (event.isCanceled())
 			{
 				return false;
 			}
 		}
-
 		if (player.capabilities.isCreativeMode)
 		{
 			if (!world.isRemote)
 			{
-				world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) | (world.getBlockMetadata(x, y, z) << 12));
 				block.onBlockHarvested(world, x, y, z, meta, player);
+			}
+			else
+			{
+				world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) | (meta << 12));
 			}
 
 			if (block.removedByPlayer(world, player, x, y, z, false))
 			{
-
 				block.onBlockDestroyedByPlayer(world, x, y, z, meta);
 			}
-
 			if (!world.isRemote)
 			{
 				playerMP.playerNetServerHandler.sendPacket(new S23PacketBlockChange(x, y, z, world));
 			}
 			else
 			{
-				Minecraft.getMinecraft().getNetHandler().addToSendQueue(new C07PacketPlayerDigging(2, x, y, z, side));
+				Minecraft.getMinecraft().getNetHandler()
+						.addToSendQueue(new C07PacketPlayerDigging(2, x, y, z, Minecraft.getMinecraft().objectMouseOver.sideHit));
 			}
-			
 			return true;
 		}
-
+		world.playAuxSFXAtEntity(player, 2001, x, y, z, Block.getIdFromBlock(block) | (meta << 12));
 		if (!world.isRemote)
 		{
 			block.onBlockHarvested(world, x, y, z, meta, player);
-
 			if (block.removedByPlayer(world, player, x, y, z, true))
 			{
 				block.onBlockDestroyedByPlayer(world, x, y, z, meta);
-				if (!player.capabilities.isCreativeMode)
+				block.harvestBlock(world, player, x, y, z, meta);
+				if (event != null)
 				{
-					block.harvestBlock(world, player, x, y, z, meta);
+					block.dropXpOnBlockBreak(world, x, y, z, event.getExpToDrop());
 				}
-				world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) | (world.getBlockMetadata(x, y, z) << 12));
 			}
-
 			playerMP.playerNetServerHandler.sendPacket(new S23PacketBlockChange(x, y, z, world));
 		}
-
 		else
 		{
 			if (block.removedByPlayer(world, player, x, y, z, true))
 			{
 				block.onBlockDestroyedByPlayer(world, x, y, z, meta);
 			}
-
-			Minecraft.getMinecraft().getNetHandler().addToSendQueue(new C07PacketPlayerDigging(2, x, y, z, side));
+			Minecraft.getMinecraft().getNetHandler()
+					.addToSendQueue(new C07PacketPlayerDigging(2, x, y, z, Minecraft.getMinecraft().objectMouseOver.sideHit));
 		}
 		return true;
 	}
-	
-	
+
 	public static NBTTagCompound getNBT(ItemStack stack)
 	{
-		if (stack.stackTagCompound == null) {
-            stack.stackTagCompound = new NBTTagCompound();
-        }
-        return stack.stackTagCompound;
+		if (stack.stackTagCompound == null)
+		{
+			stack.stackTagCompound = new NBTTagCompound();
+		}
+		return stack.stackTagCompound;
 	}
 
 }

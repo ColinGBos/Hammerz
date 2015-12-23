@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.7.10-0.1.5.25"
+version = "1.7.10-0.1.5.27"
 group= "com.vapourdrive.Hammer" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Hammerz"
 

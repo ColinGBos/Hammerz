@@ -37,7 +37,7 @@ public class Hammer extends ItemPickaxe
 		super(material);
 		this.setUnlocalizedName(Name + "Hammer");
 		this.setCreativeTab(Hammerz.HZTab);
-		this.setMaxDamage(this.getMaxDamage() * 6);
+		this.setMaxDamage((int) (this.getMaxDamage() * ConfigOptions.DurabilityMultiplier));
 		name = Name;
 	}
 
@@ -65,7 +65,7 @@ public class Hammer extends ItemPickaxe
 
 	public void addStandardInfo(ItemStack stack, EntityPlayer player, List list, boolean useExtraInformation)
 	{
-		list.add(EnumChatFormatting.WHITE + "" +EnumChatFormatting.ITALIC + StatCollector.translateToLocal("phrase.hammerz.holdshift"));
+		list.add(EnumChatFormatting.WHITE + "" + EnumChatFormatting.ITALIC + StatCollector.translateToLocal("phrase.hammerz.holdshift"));
 		if (ConfigOptions.AddDurabilityInfo)
 		{
 			list.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("keyword.durability") + ": "
@@ -94,6 +94,10 @@ public class Hammer extends ItemPickaxe
 	{
 		World world = player.worldObj;
 		Block block = world.getBlock(x, y, z);
+		if ((player.isSneaking() && ConfigOptions.CanShiftMine) || block.getBlockHardness(world, x, y, z) == 0)
+		{
+			return false;
+		}
 
 		MovingObjectPosition object = RandomUtils.raytraceFromEntity(world, player, false, 4.5D);
 
@@ -127,24 +131,15 @@ public class Hammer extends ItemPickaxe
 
 		float strength = ForgeHooks.blockStrength(block, player, world, x, y, z);
 
-		if (player.isSneaking() /* && ConfigInfo.EnableHammerShiftOneBlock */)
+		for (int i = -xmove; i <= xmove; i++)
 		{
-			checkBlockBreak(world, player, x, y, z, stack, strength, block, side);
-		}
-
-		else
-		{
-			for (int i = -xmove; i <= xmove; i++)
+			for (int j = -ymove; j <= ymove; j++)
 			{
-				for (int j = -ymove; j <= ymove; j++)
+				for (int k = -zmove; k <= zmove; k++)
 				{
-					for (int k = -zmove; k <= zmove; k++)
+					if (i != x && j != y && k != z)
 					{
-						if (i != x && j != y && k != z)
-						{
-							world.getBlock(x + i, y + j, z + k).onBlockClicked(world, x + i, y + j, z + k, player);
-							checkBlockBreak(world, player, x + i, y + j, z + k, stack, strength, block, side);
-						}
+						checkBlockBreak(world, player, x + i, y + j, z + k, stack, strength, block, side);
 					}
 				}
 			}
@@ -158,17 +153,23 @@ public class Hammer extends ItemPickaxe
 	{
 		Block breakBlock = world.getBlock(x, y, z);
 		int metadata = world.getBlockMetadata(x, y, z);
-		if (ForgeHooks.canHarvestBlock(breakBlock, player, metadata) && stack.getItem().func_150897_b(breakBlock))
+		Material material = originalBlock.getMaterial();
+		if (breakBlock.getMaterial() == material && ForgeHooks.canHarvestBlock(breakBlock, player, metadata)
+				&& stack.getItem().func_150897_b(breakBlock))
 		{
 			float newStrength = ForgeHooks.blockStrength(breakBlock, player, world, x, y, z);
-			Material material = originalBlock.getMaterial();
-			if (newStrength > 0f && strength / newStrength <= 10f && breakBlock.getMaterial() == material)
+			if (newStrength > 0f && strength / newStrength <= 10f)
 			{
-				RandomUtils.breakBlock(world, breakBlock, x, y, z, side, player);
-
 				if ((double) breakBlock.getBlockHardness(world, x, y, z) != 0.0D)
 				{
-					handleDamage(breakBlock, stack, player);
+					if (handleDamage(breakBlock, stack, player))
+					{
+						RandomUtils.breakBlock(world, breakBlock, x, y, z, side, player);
+					}
+				}
+				else
+				{
+					RandomUtils.breakBlock(world, breakBlock, x, y, z, side, player);
 				}
 			}
 		}
@@ -182,19 +183,20 @@ public class Hammer extends ItemPickaxe
 		}
 	}
 
-	public void handleDamage(Block breakBlock, ItemStack stack, EntityPlayer player)
+	public boolean handleDamage(Block breakBlock, ItemStack stack, EntityPlayer player)
 	{
 		stack.damageItem(1, player);
+		if(stack.stackSize == 0)
+		{
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public float getDigSpeed(ItemStack stack, Block block, int meta)
 	{
-		if (ForgeHooks.isToolEffective(stack, block, meta))
-		{
-			return efficiencyOnProperMaterial * 0.5f;
-		}
-		return super.getDigSpeed(stack, block, meta) * 0.5f;
+		return super.getDigSpeed(stack, block, meta) * ConfigOptions.EfficiencyMultiplier;
 	}
 
 	@Override

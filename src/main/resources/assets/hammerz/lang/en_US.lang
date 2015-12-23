@@ -30,5 +30,6 @@ keyword.durability=Durability
 phrase.hammerz.hammerinfo1=Mines in 3x3 (unless sneaking)
 phrase.hammerz.hammerinfo2=Places torches from inventory with right click
 phrase.hammerz.holdshift=<Hold Shift>
+phrase.hammerz.holdctrl=<Hold CTRL>
 phrase.hammerz.botania1=Consumes mana instead of taking damage if possible
 phrase.hammerz.botania2=Doesn't drop "junk" while mining

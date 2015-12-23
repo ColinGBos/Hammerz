@@ -49,7 +49,7 @@ public class Hammerz
 	public void init(FMLInitializationEvent event)
 	{
 		Hammerz.log.log(Level.INFO, "Beginning Init");
-
+		ConfigHandler.preInit(ConfigPath);
 		HZ_Items.preInit();
 		ConfigHandler.init(ConfigPath);
 		HZ_Items.init();
