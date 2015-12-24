@@ -1,5 +1,7 @@
 package vapourdrive.hammerz.items;
 
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.ItemStack;
 import thaumcraft.api.IRepairable;
 import thaumcraft.api.ThaumcraftApi;
 import cpw.mods.fml.common.Optional;
@@ -11,5 +13,10 @@ public class ThaumiumHammer extends Hammer implements IRepairable
 	{
 		super(ThaumcraftApi.toolMatThaumium, Name);
 	}
+	
+	public EnumRarity getRarity(ItemStack stack)
+    {
+        return stack.isItemEnchanted() ? EnumRarity.rare : EnumRarity.uncommon;
+    }
 
 }

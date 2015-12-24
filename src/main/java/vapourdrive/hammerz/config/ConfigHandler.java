@@ -9,13 +9,13 @@ public class ConfigHandler
 	public static File EnderIOCFG;
 	public static File HammerzCFG;
 	
-	public static void preInit(File configPath)
+	public static void earlyInit(File configPath)
 	{
 		HammerzConfig.preInit(new File(configPath + "/hammerz/" + "Hammerz.cfg"));
 		
 	}
 
-	public static void init(File configPath)
+	public static void lateInit(File configPath)
 	{
 		if (Loader.isModLoaded("EnderIO"))
 		{

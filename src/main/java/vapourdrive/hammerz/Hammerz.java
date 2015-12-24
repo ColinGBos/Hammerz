@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import vapourdrive.hammerz.blocks.HZ_Blocks;
 import vapourdrive.hammerz.config.ConfigHandler;
 import vapourdrive.hammerz.creativetabs.HZCreativeTab;
 import vapourdrive.hammerz.handlers.EventsHandler;
@@ -27,6 +28,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 @Mod(modid = Reference.ModID, version = Reference.Version, name = Reference.Name)
 public class Hammerz
 {
+	public static boolean hasStorageBlock = false;
+	
 	@Instance(Reference.ModID)
 	public static Hammerz Instance;
 
@@ -42,16 +45,20 @@ public class Hammerz
 		Hammerz.log.log(Level.INFO, "Beginning preInit");
 		ConfigPath = event.getModConfigurationDirectory();
 		HZTab = new HZCreativeTab(CreativeTabs.getNextID(), "SS_CreativeTab");
-		OreDictHandler.init();
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
 		Hammerz.log.log(Level.INFO, "Beginning Init");
-		ConfigHandler.preInit(ConfigPath);
+		OreDictHandler.earlyInit();
+		ConfigHandler.earlyInit(ConfigPath);
+		
 		HZ_Items.preInit();
-		ConfigHandler.init(ConfigPath);
+		HZ_Blocks.init();
+		OreDictHandler.lateInit();
+
+		ConfigHandler.lateInit(ConfigPath);
 		HZ_Items.init();
 		Recipes.init();
 

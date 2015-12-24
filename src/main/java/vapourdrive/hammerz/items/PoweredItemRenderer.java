@@ -2,18 +2,17 @@ package vapourdrive.hammerz.items;
 
 import java.awt.Color;
 
-import org.lwjgl.opengl.GL11;
-
-import com.enderio.core.client.render.ColorUtil;
-import com.enderio.core.client.render.RenderUtil;
-import com.enderio.core.common.vecmath.Vector4f;
-
-import cofh.api.energy.IEnergyContainerItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
+
+import org.lwjgl.opengl.GL11;
+
+import com.enderio.core.client.render.ColorUtil;
+import com.enderio.core.client.render.RenderUtil;
+import com.enderio.core.common.vecmath.Vector4f;
 
 public class PoweredItemRenderer implements IItemRenderer
 {
@@ -60,19 +59,22 @@ public class PoweredItemRenderer implements IItemRenderer
 		double maxDam = item.getMaxDamage();
 		double dispDamage = item.getItemDamageForDisplay();
 		y = hasEnergyUpgrade ? 14 : 13;
-		if(item.getItemDamageForDisplay() != 0)
+		if (item.getItemDamageForDisplay() != 0)
 		{
 			renderBar(y, maxDam, dispDamage, Color.green, Color.red);
 		}
 
 		if (hasEnergyUpgrade)
 		{
-			IEnergyContainerItem armor = (IEnergyContainerItem) item.getItem();
-			maxDam = armor.getMaxEnergyStored(item);
-			dispDamage = armor.getEnergyStored(item);
-			y = 12;
-			Color color = new Color(0x2D, 0xCE, 0xFA); // electric blue
-			renderBar2(y, maxDam, maxDam - dispDamage, color, color);
+			if (item.getItem() instanceof DarkHammer)
+			{
+				DarkHammer renderItem = (DarkHammer) item.getItem();
+				maxDam = renderItem.getMaxEnergyStored(item);
+				dispDamage = renderItem.getEnergyStored(item);
+				y = 12;
+				Color color = new Color(0x2D, 0xCE, 0xFA); // electric blue
+				renderBar2(y, maxDam, maxDam - dispDamage, color, color);
+			}
 		}
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

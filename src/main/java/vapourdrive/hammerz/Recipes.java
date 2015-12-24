@@ -1,5 +1,8 @@
 package vapourdrive.hammerz;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Blocks;
@@ -7,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import vapourdrive.hammerz.config.ConfigOptions;
 import vapourdrive.hammerz.items.HZ_Items;
 import vapourdrive.hammerz.utils.RandomUtils;
@@ -19,6 +23,7 @@ public class Recipes
 {
 	public static void init()
 	{
+		registerStorageBlockRecipe("ingotVoid", "blockVoid");
 		registerHammerRecipe("stickWood", HZ_Items.WoodHammer, Blocks.log);
 		registerHammerRecipe("stickWood", HZ_Items.StoneHammer, Blocks.stone);
 		registerHammerRecipe("stickWood", HZ_Items.IronHammer, Blocks.iron_block);
@@ -36,8 +41,33 @@ public class Recipes
 		registerHammerRecipe("stickWood", HZ_Items.PlatinumHammer, "blockPlatinum");
 		registerHammerRecipe("stickWood", HZ_Items.SteelHammer, "blockSteel");
 		registerHammerRecipe("stickWood", HZ_Items.ThaumiumHammer, "blockThaumium");
+		registerHammerRecipe("stickWood", HZ_Items.VoidHammer, "blockVoid");
 		registerHammerRecipe("livingwoodTwig", HZ_Items.ManasteelHammer, "blockManasteel");
 		registerHammerRecipe("dreamwoodTwig", HZ_Items.ElvenElementiumHammer, "blockElvenElementium");
+	}
+
+	public static void registerStorageBlockRecipe(String ingot, String block)
+	{
+		ArrayList<ItemStack> blocks = OreDictionary.getOres(block);
+
+		Iterator iteratorBlocks = blocks.iterator();
+		while (iteratorBlocks.hasNext())
+		{
+			ItemStack stack = (ItemStack) iteratorBlocks.next();
+			GameRegistry.addRecipe(new ShapedOreRecipe(stack, new Object[]
+			{
+					"iii", "iii", "iii", 'i', ingot
+			}));
+		}
+
+		ArrayList<ItemStack> ingots = OreDictionary.getOres(ingot);
+
+		Iterator iteratorIngots = ingots.iterator();
+		while (iteratorIngots.hasNext())
+		{
+			ItemStack stack = (ItemStack) iteratorIngots.next();
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stack.getItem(), 9, stack.getItemDamage()), block));
+		}
 	}
 
 	public static void registerHammerRecipe(String stick, Item result, Block block)

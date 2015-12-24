@@ -42,6 +42,7 @@ public class HZ_Items
 	public static Item ElvenElementiumHammer;
 	public static Item HSLAHammer;
 	public static Item BedrockHammer;
+	public static Item VoidHammer;
 
 	public static void preInit()
 	{
@@ -61,6 +62,8 @@ public class HZ_Items
 			Hammerz.log.log(Level.INFO, "ThaumcraftCompat loading");
 
 			ThaumiumHammer = new ThaumiumHammer("Thaumium");
+			VoidHammer = new VoidHammer("Void");
+			Hammerz.hasStorageBlock = true;
 		}
 		if (Loader.isModLoaded("Botania"))
 		{
@@ -119,6 +122,7 @@ public class HZ_Items
 		if (Loader.isModLoaded("Thaumcraft"))
 		{
 			registerItem(ThaumiumHammer, "Thaumium", ConfigOptions.ThaumcraftHammerEnabling, 0);
+			registerItem(VoidHammer, "Void", ConfigOptions.ThaumcraftHammerEnabling, 1);
 		}
 		if(Loader.isModLoaded("RotaryCraft"))
 		{

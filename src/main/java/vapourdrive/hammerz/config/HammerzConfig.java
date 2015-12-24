@@ -32,13 +32,13 @@ public class HammerzConfig
 	};
 	public static boolean[] enabledThaumcrafHammers =
 	{
-		true
+			true, true
 	};
 	public static ArrayList enabledOreDictHammersArrayList = new ArrayList();
 
 	public static String enabledHammersComment = "Enabled Vanilla Hammers: Wood, Stone, Iron, Gold, Diamond";
 	public static String enabledEnderIOHammersComment = "Enabled EnderIO Hammers: DarkSteel";
-	public static String enabledThaumcraftHammersComment = "Enabled EnderIO Hammers: Thaumic";
+	public static String enabledThaumcraftHammersComment = "Enabled Thaumcraft Hammers: Thaumium, Void";
 	public static String enabledBotaniaHammersComment = "Enabled Botania Hammers: Manasteel, Elementium";
 	public static String enabledRotaryCraftHammersComment = "Enabled RotaryCraft Hammers: HSLA, Bedrock";
 	public static String enabledOreDictHammersComment = "Enabled OreDictionary Hammers: ";
@@ -54,11 +54,12 @@ public class HammerzConfig
 	{
 		config = new Configuration(hammerzCFG);
 		config.load();
-		ConfigOptions.DurabilityMultiplier = config.getFloat("Hammer Durability Multiplier", CatHammer, 6.0f, 1.0f, 9.0f, durabilityMultiplierComment);
+		ConfigOptions.DurabilityMultiplier = config.getFloat("Hammer Durability Multiplier", CatHammer, 6.0f, 1.0f, 9.0f,
+				durabilityMultiplierComment);
 		config.save();
 
 	}
-	
+
 	public static void init(File hammerzCFG)
 	{
 		config = new Configuration(hammerzCFG);
@@ -88,10 +89,13 @@ public class HammerzConfig
 			Reference.ResourcePath = Reference.ResourcePath + "unity/";
 		}
 		ConfigOptions.AddToolInfo = config.getBoolean("Enable Tool Info Addition", CatRandom, false, enableToolInfoComment);
-		ConfigOptions.AddDurabilityInfo = config.getBoolean("Enable Hammer Durability Info Addition", CatRandom, false, enableDurabilityInfoComment);
+		ConfigOptions.AddDurabilityInfo = config.getBoolean("Enable Hammer Durability Info Addition", CatRandom, false,
+				enableDurabilityInfoComment);
 		ConfigOptions.CanShiftMine = config.getBoolean("Enable Hammer Shift Mine", CatEnable, true, enableShiftMineComment);
-		ConfigOptions.RotaryCraftSilkTouch = config.getBoolean("Enable RotaryCraft Hammer Silk Touch", CatEnable, true, enableRocSilkTouchComment);
-		ConfigOptions.EfficiencyMultiplier = config.getFloat("Hammer Efficiency Multiplier", CatHammer, 0.25f, 0.05f, 1.0f, efficiencyMultiplierComment);
+		ConfigOptions.RotaryCraftSilkTouch = config.getBoolean("Enable RotaryCraft Hammer Silk Touch", CatEnable, true,
+				enableRocSilkTouchComment);
+		ConfigOptions.EfficiencyMultiplier = config.getFloat("Hammer Efficiency Multiplier", CatHammer, 0.25f, 0.05f, 1.0f,
+				efficiencyMultiplierComment);
 
 		config.save();
 	}

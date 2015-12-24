@@ -1,5 +1,8 @@
 //English language file for Hammerz
 
+//Blocks
+tile.BlockStorageVoid.name=Void metal Block
+
 //Items
 item.WoodHammer.name=Wood Hammer
 item.StoneHammer.name=Stone Hammer
@@ -19,6 +22,7 @@ item.BronzeHammer.name=Bronze Hammer
 item.PlatinumHammer.name=Platinum Hammer
 item.SteelHammer.name=Steel Hammer
 item.ThaumiumHammer.name=Thaumium Hammer
+item.VoidHammer.name=Void Hammer
 item.ManasteelHammer.name=Manasteel Hammer
 item.ElvenElementiumHammer.name=Elementium Hammer
 item.BedrockHammer.name=Bedrock Hammer
