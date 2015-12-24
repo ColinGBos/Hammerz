@@ -32,13 +32,13 @@ public class HammerzConfig
 	};
 	public static boolean[] enabledThaumcrafHammers =
 	{
-			true, true
+			true, true, true
 	};
 	public static ArrayList enabledOreDictHammersArrayList = new ArrayList();
 
 	public static String enabledHammersComment = "Enabled Vanilla Hammers: Wood, Stone, Iron, Gold, Diamond";
 	public static String enabledEnderIOHammersComment = "Enabled EnderIO Hammers: DarkSteel";
-	public static String enabledThaumcraftHammersComment = "Enabled Thaumcraft Hammers: Thaumium, Void";
+	public static String enabledThaumcraftHammersComment = "Enabled Thaumcraft Hammers: Thaumium, Void, HammerOfTheCore";
 	public static String enabledBotaniaHammersComment = "Enabled Botania Hammers: Manasteel, Elementium";
 	public static String enabledRotaryCraftHammersComment = "Enabled RotaryCraft Hammers: HSLA, Bedrock";
 	public static String enabledOreDictHammersComment = "Enabled OreDictionary Hammers: ";

@@ -183,14 +183,23 @@ public class Hammer extends ItemPickaxe
 		}
 	}
 
-	public boolean handleDamage(Block breakBlock, ItemStack stack, EntityPlayer player)
+	public boolean requestDamage(Block breakBlock, ItemStack stack, EntityPlayer player, int damage)
 	{
-		stack.damageItem(1, player);
-		if(stack.stackSize == 0)
+		if((stack.getMaxDamage() - stack.getItemDamage()) < damage)
+		{
+			return false;
+		}
+		stack.damageItem(damage, player);
+		if (stack.stackSize == 0)
 		{
 			return false;
 		}
 		return true;
+	}
+	
+	public boolean handleDamage(Block breakBlock, ItemStack stack, EntityPlayer player)
+	{
+		return requestDamage(breakBlock, stack, player, 1);
 	}
 
 	@Override
@@ -207,15 +216,28 @@ public class Hammer extends ItemPickaxe
 		{
 			if (player.getCurrentEquippedItem().getItem() instanceof Hammer)
 			{
-				ItemStack torchStack = new ItemStack(Blocks.torch);
-				if (player.inventory.hasItemStack(torchStack))
+				if (!player.isSneaking())
 				{
-					torchStack.getItem().onItemUse(torchStack, player, world, x, y, z, side, floatx, floaty, floatz);
-					player.inventory.consumeInventoryItem(torchStack.getItem());
-					return true;
+					ItemStack torchStack = new ItemStack(Blocks.torch);
+					if (player.inventory.hasItemStack(torchStack))
+					{
+						torchStack.getItem().onItemUse(torchStack, player, world, x, y, z, side, floatx, floaty, floatz);
+						player.inventory.consumeInventoryItem(torchStack.getItem());
+						return true;
+					}
+				}
+				else
+				{
+					return onItemShiftUse(stack, player, world, x, y, z, side, floatx, floaty, floatz);
 				}
 			}
 		}
+		return false;
+	}
+
+	public boolean onItemShiftUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float floatx,
+			float floaty, float floatz)
+	{
 		return false;
 	}
 
