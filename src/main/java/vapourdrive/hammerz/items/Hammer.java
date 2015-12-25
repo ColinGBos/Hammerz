@@ -68,7 +68,7 @@ public class Hammer extends ItemPickaxe
 		list.add(EnumChatFormatting.WHITE + "" + EnumChatFormatting.ITALIC + StatCollector.translateToLocal("phrase.hammerz.holdshift"));
 		if (ConfigOptions.AddDurabilityInfo)
 		{
-			list.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("keyword.durability") + ": "
+			list.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("hammerz.keyword.durability") + ": "
 					+ (stack.getMaxDamage() - stack.getItemDamage()) + "/" + stack.getMaxDamage());
 		}
 	}

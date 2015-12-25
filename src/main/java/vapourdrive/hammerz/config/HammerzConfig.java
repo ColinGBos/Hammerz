@@ -34,11 +34,17 @@ public class HammerzConfig
 	{
 			true, true, true
 	};
+	public static boolean[] enabledForbiddenMagicHammers =
+	{
+		true
+	};
+
 	public static ArrayList enabledOreDictHammersArrayList = new ArrayList();
 
 	public static String enabledHammersComment = "Enabled Vanilla Hammers: Wood, Stone, Iron, Gold, Diamond";
 	public static String enabledEnderIOHammersComment = "Enabled EnderIO Hammers: DarkSteel";
 	public static String enabledThaumcraftHammersComment = "Enabled Thaumcraft Hammers: Thaumium, Void, HammerOfTheCore";
+	public static String enabledForbiddenMagicHammersComment = "Enabled Forbidden Magic Hammers: Chameleon";
 	public static String enabledBotaniaHammersComment = "Enabled Botania Hammers: Manasteel, Elementium";
 	public static String enabledRotaryCraftHammersComment = "Enabled RotaryCraft Hammers: HSLA, Bedrock";
 	public static String enabledOreDictHammersComment = "Enabled OreDictionary Hammers: ";
@@ -73,6 +79,9 @@ public class HammerzConfig
 
 		ConfigOptions.ThaumcraftHammerEnabling = config.get(CatEnable, "ThaumcraftHammerEnabling", enabledThaumcrafHammers,
 				enabledThaumcraftHammersComment, true, enabledThaumcrafHammers.length).getBooleanList();
+
+		ConfigOptions.ForbiddenMagicHammerEnabling = config.get(CatEnable, "ForbiddenMagicHammerEnabling", enabledForbiddenMagicHammers,
+				enabledForbiddenMagicHammersComment, true, enabledForbiddenMagicHammers.length).getBooleanList();
 
 		ConfigOptions.BotaniaHammersEnabling = config.get(CatEnable, "BotaniaHammerEnabling", enabledBotaniaHammers,
 				enabledBotaniaHammersComment, true, enabledBotaniaHammers.length).getBooleanList();

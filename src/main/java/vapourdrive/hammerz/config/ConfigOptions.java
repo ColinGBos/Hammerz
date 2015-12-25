@@ -14,6 +14,7 @@ public class ConfigOptions
 	public static boolean[] VanillaHammerEnabling;
 	public static boolean[] EnderIOHammerEnabling;
 	public static boolean[] ThaumcraftHammerEnabling;
+	public static boolean[] ForbiddenMagicHammerEnabling;
 	public static boolean[] BotaniaHammersEnabling;
 	public static boolean[] RotaryCraftHammerEnabling;
 	public static boolean[] OreDictHammerEnabling;
