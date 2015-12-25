@@ -1,13 +1,13 @@
 package vapourdrive.hammerz.items;
 
-import thaumcraft.api.IRepairable;
-import thaumcraft.api.ThaumcraftApi;
-import vapourdrive.hammerz.utils.RandomUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
+import thaumcraft.api.IRepairable;
+import thaumcraft.api.ThaumcraftApi;
+import vapourdrive.hammerz.utils.RandomUtils;
 import cpw.mods.fml.common.Optional;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IRepairable", striprefs = true)
@@ -47,7 +47,8 @@ public class ElementalHammer extends Hammer implements IRepairable
 		{
 			if (this.requestDamage(null, stack, player, 10))
 			{
-				return ThaumPick.getItem().onItemUse(ThaumPick, player, world, x, y, z, side, floatx, floaty, floatz);
+				ThaumPick.getItem().onItemUse(ThaumPick, player, world, x, y, z, side, floatx, floaty, floatz);
+				return true;
 			}
 		}
 		return false;

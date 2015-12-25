@@ -9,6 +9,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import vapourdrive.hammerz.blocks.HZ_Blocks;
+import vapourdrive.hammerz.compat.BotaniaCompat;
+import vapourdrive.hammerz.compat.ThaumcraftCompat;
 import vapourdrive.hammerz.config.ConfigHandler;
 import vapourdrive.hammerz.creativetabs.HZCreativeTab;
 import vapourdrive.hammerz.handlers.EventsHandler;
@@ -29,7 +31,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 public class Hammerz
 {
 	public static boolean hasStorageBlock = false;
-	
+
 	@Instance(Reference.ModID)
 	public static Hammerz Instance;
 
@@ -53,7 +55,7 @@ public class Hammerz
 		Hammerz.log.log(Level.INFO, "Beginning Init");
 		OreDictHandler.earlyInit();
 		ConfigHandler.earlyInit(ConfigPath);
-		
+
 		HZ_Items.preInit();
 		HZ_Blocks.init();
 		OreDictHandler.lateInit();
@@ -66,15 +68,24 @@ public class Hammerz
 		new UpgradeManager();
 		proxy.load();
 	}
-	
+
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
-		if(Loader.isModLoaded("RotaryCraft"))
+		Hammerz.log.log(Level.INFO, "Beginning postInit");
+		if (Loader.isModLoaded("RotaryCraft"))
 		{
 			OreDictHandler.registerOre("RotaryCraft", "rotarycraft_block_deco", "blockHSLA", 0);
 			Recipes.registerRotaryCraftRecipe();
 			Recipes.registerHammerRecipe("stickWood", HZ_Items.HSLAHammer, "blockHSLA");
+		}
+		if (Loader.isModLoaded("Thaumcraft"))
+		{
+			ThaumcraftCompat.init();
+		}
+		if (Loader.isModLoaded("Botania"))
+		{
+			BotaniaCompat.init();
 		}
 	}
 }

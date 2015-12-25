@@ -2,8 +2,6 @@ package vapourdrive.hammerz.blocks;
 
 import java.util.List;
 
-import org.apache.logging.log4j.Level;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -70,7 +68,6 @@ public class StorageBlock extends Block
 		{
 			if (OreDictionary.doesOreNameExist("ingot" + names[i]))
 			{
-				Hammerz.log.log(Level.INFO, "Adding: " + names[i] + " to creative tab");
 				list.add(new ItemStack(block, 1, i));
 			}
 		}

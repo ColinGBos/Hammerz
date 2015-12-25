@@ -3,14 +3,14 @@
   "modid": "hammerz",
   "name": "Hammerz",
   "description": "My take on some simple hammers",
-  "version": "1.7.10-0.1.6.30",
+  "version": "1.7.10-0.1.6.32",
   "mcversion": "1.7.10",
   "url": "",
   "updateUrl": "",
   "authors": [
     "VapourDrive"
   ],
-  "credits": "VapourDrive, CrazyPants, Tterrag, MDiyo, BonusBoni",
+  "credits": "VapourDrive, CrazyPants, Tterrag, MDiyo, BonusBoni, Azanor, Vaskii",
   "logoFile": "",
   "screenshots": [
   ],

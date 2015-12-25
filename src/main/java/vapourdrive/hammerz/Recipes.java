@@ -1,6 +1,7 @@
 package vapourdrive.hammerz;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import net.minecraft.block.Block;
@@ -8,6 +9,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -21,6 +23,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 @Optional.Interface(modid = "RotaryCraft", iface = "Reika.RotaryCraft.API.RecipeInterface", striprefs = true)
 public class Recipes
 {
+	public static HashMap<Item, IRecipe> recipes = new HashMap<Item, IRecipe>();
+	
 	public static void init()
 	{
 		registerStorageBlockRecipe("ingotVoid", "blockVoid");
@@ -85,19 +89,23 @@ public class Recipes
 		int[] ids = OreDictionary.getOreIDs(stack);
 		for (int i = 0; i < ids.length; i++)
 		{
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(result), new Object[]
+			IRecipe recipe = new ShapedOreRecipe(new ItemStack(result), new Object[]
 			{
 					"bbb", " s ", " s ", 's', stick, 'b', OreDictionary.getOreName(ids[i])
-			}));
+			});
+			GameRegistry.addRecipe(recipe);
+			recipes.put(result, recipe);
 		}
 	}
 
 	public static void registerHammerRecipe(String stick, Item result, String OreDict)
 	{
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(result), new Object[]
+		IRecipe recipe = new ShapedOreRecipe(new ItemStack(result), new Object[]
 		{
 				"bbb", " s ", " s ", 's', stick, 'b', OreDict
-		}));
+		});
+		GameRegistry.addRecipe(recipe);
+		recipes.put(result, recipe);
 	}
 
 	public static void registerRotaryCraftRecipe()
@@ -114,5 +122,7 @@ public class Recipes
 				"DDD", " S ", " S ", 'D', bedrock, 'S', shaft
 		});
 		RecipeInterface.blastfurn.addAPIRecipe(hammer, 1000, recipe, 4, 0);
+		recipes.put(hammer.getItem(), recipe);
+
 	}
 }
