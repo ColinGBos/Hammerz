@@ -1,8 +1,8 @@
 package vapourdrive.hammerz.blocks;
 
+import net.minecraft.block.Block;
 import vapourdrive.hammerz.Hammerz;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.Block;
 
 public class HZ_Blocks
 {

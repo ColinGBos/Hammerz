@@ -6,12 +6,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.logging.log4j.Level;
-
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.oredict.OreDictionary;
+
+import org.apache.logging.log4j.Level;
+
 import vapourdrive.hammerz.Hammerz;
 import vapourdrive.hammerz.config.ConfigOptions;
 import vapourdrive.hammerz.config.HammerzConfig;

@@ -1,11 +1,12 @@
 package vapourdrive.hammerz.handlers;
 
-import org.apache.logging.log4j.Level;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import org.apache.logging.log4j.Level;
+
 import vapourdrive.hammerz.Hammerz;
 import vapourdrive.hammerz.blocks.HZ_Blocks;
 import vapourdrive.hammerz.utils.RandomUtils;

@@ -1,6 +1,5 @@
 package vapourdrive.hammerz.items;
 
-import cpw.mods.fml.common.Optional;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import thaumcraft.api.IWarpingGear;
 import thaumcraft.api.ThaumcraftApi;
+import cpw.mods.fml.common.Optional;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IWarpingGear", striprefs = true)
 public class VoidHammer extends Hammer implements IWarpingGear

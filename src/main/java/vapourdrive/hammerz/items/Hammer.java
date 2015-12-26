@@ -137,7 +137,7 @@ public class Hammer extends ItemPickaxe
 			{
 				for (int k = -zmove; k <= zmove; k++)
 				{
-					if (i != x && j != y && k != z)
+					if ((x + i) != x || (y + j) != y || (z + k) != z)
 					{
 						checkBlockBreak(world, player, x + i, y + j, z + k, stack, strength, block, side);
 					}

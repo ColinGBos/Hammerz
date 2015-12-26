@@ -2,9 +2,6 @@ package vapourdrive.hammerz.items;
 
 import java.util.List;
 
-import vapourdrive.hammerz.config.ConfigOptions;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
@@ -13,6 +10,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+import vapourdrive.hammerz.config.ConfigOptions;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BedrockHammer extends Hammer
 {

@@ -2,7 +2,6 @@ package vapourdrive.hammerz.items;
 
 import java.util.List;
 
-import cpw.mods.fml.common.Optional;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,6 +13,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import cpw.mods.fml.common.Optional;
 
 @Optional.InterfaceList(
 {
