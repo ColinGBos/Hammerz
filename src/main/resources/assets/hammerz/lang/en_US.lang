@@ -55,6 +55,10 @@ hammerz.research_page.VOID_HAMMER.1=By all things Eldritch! What is this?, a ham
 tc.research_name.VOID_HAMMER=Void Hammer
 tc.research_text.VOID_HAMMER=[HZ] It Does Feel A Tad Cold...
 
+hammerz.research_page.CHAMELEON_HAMMER.1=Who would have known that you could take the masking powers of a Chameleon Pickaxe and put them to use in a hammer!? <BR>You now have the power to put three different enchantment sets on a single hammer; the possibilities are endless, well not endless... limited to 3. <BR>Right-click while sneaking to cycle modes once you've enchanted the hammer's first phase.
+tc.research_name.CHAMELEON_HAMMER=Chameleon Hammer
+tc.research_text.CHAMELEON_HAMMER=[HZ] If you squint, it kinda looks like a hammer
+
 //Botania
 hammerz.lexicon.manasteelhammer=Manasteel Hammer
 hammerz.lexicon.manasteelhammer.text=The &1Manasteel Hammer&0 has the ability to mine blocks in a 3x3 patter. It can also place a torches from you're inventory upon right click. If possible it will attempt to consume mana instead of durability if there is a source in your inventory; it will repair itself if you do add a source of mana later but at a higher cost.
