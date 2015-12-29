@@ -17,9 +17,14 @@ import thaumcraft.api.IRepairable;
 import thaumcraft.api.ThaumcraftApi;
 import vapourdrive.hammerz.Reference;
 import vapourdrive.hammerz.utils.RandomUtils;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+@Optional.InterfaceList({
+		@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IRepairable", striprefs = true),
+		@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.ThaumcraftAPI", striprefs = true)
+})
 public class ChameleonHammer extends Hammer implements IRepairable
 {
 	public IIcon[] icon;
@@ -114,7 +119,7 @@ public class ChameleonHammer extends Hammer implements IRepairable
 				}
 			}
 		}
-		if(flag)
+		if (flag)
 		{
 			list.add("");
 		}

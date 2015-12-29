@@ -49,7 +49,7 @@ public class ThaumcraftCompat
 			ResearchCategories.addResearch(getResearchItem("ELEMENTAL_HAMMER", list, 2, 0, 3, new ItemStack(HZ_Items.ElementalHammer), null, infusionRecipe, new String[]{"ELEMENTALPICK"}));
 		}
 		
-		if(ConfigOptions.ForbiddenMagicHammerEnabling[0] == true && Loader.isModLoaded("ForbiddenMagic"))
+		if(Loader.isModLoaded("ForbiddenMagic") && ConfigOptions.ForbiddenMagicHammerEnabling[0] == true)
 		{
 			InfusionRecipe infusionRecipe = addChameleonHammerRecipe();
 			AspectList list = new AspectList().add(Aspect.TOOL, 4).add(Aspect.BEAST, 3).add(Aspect.ELDRITCH, 2);
