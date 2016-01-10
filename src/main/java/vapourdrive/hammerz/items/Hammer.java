@@ -185,7 +185,7 @@ public class Hammer extends ItemPickaxe
 
 	public boolean requestDamage(Block breakBlock, ItemStack stack, EntityPlayer player, int damage)
 	{
-		if((stack.getMaxDamage() - stack.getItemDamage()) < damage)
+		if ((stack.getMaxDamage() - stack.getItemDamage()) < damage)
 		{
 			return false;
 		}
@@ -196,7 +196,7 @@ public class Hammer extends ItemPickaxe
 		}
 		return true;
 	}
-	
+
 	public boolean handleDamage(Block breakBlock, ItemStack stack, EntityPlayer player)
 	{
 		return requestDamage(breakBlock, stack, player, 1);
@@ -221,9 +221,11 @@ public class Hammer extends ItemPickaxe
 					ItemStack torchStack = new ItemStack(Blocks.torch);
 					if (player.inventory.hasItemStack(torchStack))
 					{
-						torchStack.getItem().onItemUse(torchStack, player, world, x, y, z, side, floatx, floaty, floatz);
-						player.inventory.consumeInventoryItem(torchStack.getItem());
-						return true;
+						if (torchStack.getItem().onItemUse(torchStack, player, world, x, y, z, side, floatx, floaty, floatz))
+						{
+							player.inventory.consumeInventoryItem(torchStack.getItem());
+							return true;
+						}
 					}
 				}
 				else
