@@ -1,7 +1,7 @@
 package vapourdrive.hammerz.handlers;
 
 import net.minecraftforge.common.MinecraftForge;
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 
 public class EventsHandler
 {

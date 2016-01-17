@@ -6,18 +6,17 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.AnvilUpdateEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
-import vapourdrive.hammerz.items.DarkHammer;
 import vapourdrive.hammerz.items.HZ_Items;
+import vapourdrive.hammerz.items.hammer.HammerInfoHandler;
+import vapourdrive.hammerz.items.hammer.ItemHammer;
 import vapourdrive.hammerz.utils.RandomUtils;
 import cofh.api.energy.IEnergyContainerItem;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class AnvilEvent
 {
-	public static final String Key_Empower = "hammerz.upgrade.empowerment";
-
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void anvilEvent(AnvilUpdateEvent event)
 	{
@@ -49,7 +48,7 @@ public class AnvilEvent
 
 	public void handleUpgrade(ItemStack leftInput, ItemStack rightInput, AnvilUpdateEvent event)
 	{
-		if (leftInput.getItem() == HZ_Items.DarkSteelHammer && rightInput.stackSize == 1)
+		if (leftInput.getItem() == HZ_Items.ItemHammer && rightInput.stackSize == 1 && HammerInfoHandler.isStackDarkSteelHammer(leftInput))
 		{
 			ItemStack Output = leftInput.copy();
 
@@ -62,27 +61,27 @@ public class AnvilEvent
 				if (rightInput.getItem() == upgrade.getItem().getItem() && rightInput.getItemDamage() == upgrade.getItem().getItemDamage())
 				{
 					NBTTagCompound tagCompound = RandomUtils.getNBT(Output);
-					if (tagCompound.getInteger(Key_Empower) == upgrade.getLevel() - 1)
+					if (tagCompound.getInteger(ItemHammer.Key_Empower) == upgrade.getLevel() - 1)
 					{
-						tagCompound.setInteger(Key_Empower, upgrade.getLevel());
+						tagCompound.setInteger(ItemHammer.Key_Empower, upgrade.getLevel());
 
 						Output.setTagCompound(tagCompound);
 						if(rightInput.getItem() instanceof IEnergyContainerItem)
 						{
 							IEnergyContainerItem item = (IEnergyContainerItem) rightInput.getItem();
 							int energy = item.getEnergyStored(rightInput);
-							if(Output.getItem() instanceof DarkHammer)
+							if(Output.getItem() instanceof ItemHammer)
 							{
-								item = (DarkHammer) Output.getItem();
+								item = (ItemHammer) Output.getItem();
 								NBTTagCompound finalCompound = RandomUtils.getNBT(Output);
-								int hammerEnergy = finalCompound.getInteger(DarkHammer.Tag_Energy);
+								int hammerEnergy = finalCompound.getInteger(ItemHammer.Tag_DarkSteelEnergy);
 								if(hammerEnergy + energy > item.getMaxEnergyStored(Output))
 								{
-									finalCompound.setInteger(DarkHammer.Tag_Energy, item.getMaxEnergyStored(Output));
+									finalCompound.setInteger(ItemHammer.Tag_DarkSteelEnergy, item.getMaxEnergyStored(Output));
 								}
 								else
 								{
-									finalCompound.setInteger(DarkHammer.Tag_Energy, hammerEnergy + energy);
+									finalCompound.setInteger(ItemHammer.Tag_DarkSteelEnergy, hammerEnergy + energy);
 								}
 							}
 						}

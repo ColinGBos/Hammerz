@@ -14,23 +14,24 @@ import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public final class VanillaPacketDispatcher {
 
 	public static void dispatchTEToNearbyPlayers(TileEntity tile) {
-		World world = tile.getWorldObj();
+		World world = tile.getWorld();
 		List players = world.playerEntities;
 		for(Object player : players)
 			if(player instanceof EntityPlayerMP) {
 				EntityPlayerMP mp = (EntityPlayerMP) player;
-				if(pointDistancePlane(mp.posX, mp.posZ, tile.xCoord + 0.5, tile.zCoord + 0.5) < 64)
+				if(pointDistancePlane(mp.posX, mp.posZ, tile.getPos().getX() + 0.5, tile.getPos().getZ() + 0.5) < 64)
 					((EntityPlayerMP) player).playerNetServerHandler.sendPacket(tile.getDescriptionPacket());
 			}
 	}
 
-	public static void dispatchTEToNearbyPlayers(World world, int x, int y, int z) {
-		TileEntity tile = world.getTileEntity(x, y, z);
+	public static void dispatchTEToNearbyPlayers(World world, BlockPos pos) {
+		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null)
 			dispatchTEToNearbyPlayers(tile);
 	}

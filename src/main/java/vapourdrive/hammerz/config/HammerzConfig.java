@@ -14,10 +14,6 @@ public class HammerzConfig
 	public static String CatTextures = "Texture Set";
 	public static String CatRandom = "Random features";
 
-	public static boolean[] enabledVanillaHammers =
-	{
-			true, true, true, true, true
-	};
 	public static boolean[] enabledEnderIOHammers =
 	{
 		true
@@ -39,22 +35,18 @@ public class HammerzConfig
 		true
 	};
 
-	public static ArrayList enabledOreDictHammersArrayList = new ArrayList();
+	public static ArrayList<Boolean> enabledOreDictHammersArrayList = new ArrayList<Boolean>();
 
-	public static String enabledHammersComment = "Enabled Vanilla Hammers: Wood, Stone, Iron, Gold, Diamond";
-	public static String enabledEnderIOHammersComment = "Enabled EnderIO Hammers: DarkSteel";
-	public static String enabledThaumcraftHammersComment = "Enabled Thaumcraft Hammers: Thaumium, Void, HammerOfTheCore";
-	public static String enabledForbiddenMagicHammersComment = "Enabled Forbidden Magic Hammers: Chameleon";
-	public static String enabledBotaniaHammersComment = "Enabled Botania Hammers: Manasteel, Elementium";
-	public static String enabledRotaryCraftHammersComment = "Enabled RotaryCraft Hammers: HSLA, Bedrock";
 	public static String enabledOreDictHammersComment = "Enabled OreDictionary Hammers: ";
 	public static String unityTextureComment = "Use unified texture set vs mod-specific look";
 	public static String enableToolInfoComment = "Adds information about tool's materials to their tooltips";
+	public static String enableOreDictRegistryComment = "Adds information about itemstack's OreDictionary entries to their tooltips";
 	public static String enableDurabilityInfoComment = "Adds information about hammer's current damage their tooltips";
 	public static String enableShiftMineComment = "Allows the hammer to mine a single block while sneaking";
 	public static String enableRocSilkTouchComment = "RotaryCraft Hammer will have Silk Touch upon crafting";
 	public static String durabilityMultiplierComment = "Durability Multiplier for hammers from base toolset durability";
 	public static String efficiencyMultiplierComment = "Efficiency Multiplier for hammers from base toolset efficiency";
+	public static String energyUseComment = "Energy used that would be equivalent to one damage point";
 
 	public static void preInit(File hammerzCFG)
 	{
@@ -71,23 +63,6 @@ public class HammerzConfig
 		config = new Configuration(hammerzCFG);
 		config.load();
 		boolean[] enabledOreDictHammers = generateArray();
-		ConfigOptions.VanillaHammerEnabling = config.get(CatEnable, "VanillaHammerEnabling", enabledVanillaHammers, enabledHammersComment,
-				true, enabledVanillaHammers.length).getBooleanList();
-
-		ConfigOptions.EnderIOHammerEnabling = config.get(CatEnable, "EnderIOHammerEnabling", enabledEnderIOHammers,
-				enabledEnderIOHammersComment, true, enabledEnderIOHammers.length).getBooleanList();
-
-		ConfigOptions.ThaumcraftHammerEnabling = config.get(CatEnable, "ThaumcraftHammerEnabling", enabledThaumcrafHammers,
-				enabledThaumcraftHammersComment, true, enabledThaumcrafHammers.length).getBooleanList();
-
-		ConfigOptions.ForbiddenMagicHammerEnabling = config.get(CatEnable, "ForbiddenMagicHammerEnabling", enabledForbiddenMagicHammers,
-				enabledForbiddenMagicHammersComment, true, enabledForbiddenMagicHammers.length).getBooleanList();
-
-		ConfigOptions.BotaniaHammersEnabling = config.get(CatEnable, "BotaniaHammerEnabling", enabledBotaniaHammers,
-				enabledBotaniaHammersComment, true, enabledBotaniaHammers.length).getBooleanList();
-
-		ConfigOptions.RotaryCraftHammerEnabling = config.get(CatEnable, "RotaryCraftHammerEnabling", enabledRotaryCraftHammers,
-				enabledRotaryCraftHammersComment, true, enabledRotaryCraftHammers.length).getBooleanList();
 
 		ConfigOptions.OreDictHammerEnabling = config.get(CatEnable, "OreDictHammerEnabling", enabledOreDictHammers,
 				enabledOreDictHammersComment, true, enabledOreDictHammers.length).getBooleanList();
@@ -98,6 +73,8 @@ public class HammerzConfig
 			Reference.ResourcePath = Reference.ResourcePath + "unity/";
 		}
 		ConfigOptions.AddToolInfo = config.getBoolean("Enable Tool Info Addition", CatRandom, false, enableToolInfoComment);
+		ConfigOptions.AddOreDictEntries = config.getBoolean("Enable OreDictionary Entry Addition", CatRandom, false, enableOreDictRegistryComment);
+
 		ConfigOptions.AddDurabilityInfo = config.getBoolean("Enable Hammer Durability Info Addition", CatRandom, false,
 				enableDurabilityInfoComment);
 		ConfigOptions.CanShiftMine = config.getBoolean("Enable Hammer Shift Mine", CatEnable, true, enableShiftMineComment);
@@ -105,6 +82,7 @@ public class HammerzConfig
 				enableRocSilkTouchComment);
 		ConfigOptions.EfficiencyMultiplier = config.getFloat("Hammer Efficiency Multiplier", CatHammer, 0.25f, 0.05f, 1.0f,
 				efficiencyMultiplierComment);
+		ConfigOptions.HammerEnergyUse = config.getInt("Hammer Energy Consumption", CatHammer, 750, 100, 10000, energyUseComment);
 
 		config.save();
 	}

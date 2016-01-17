@@ -4,31 +4,31 @@
 tile.BlockStorageVoid.name=Void metal Block
 
 //Items
-item.WoodHammer.name=Wood Hammer
-item.StoneHammer.name=Stone Hammer
-item.IronHammer.name=Iron Hammer
-item.GoldHammer.name=Gold Hammer
-item.DiamondHammer.name=Diamond Hammer
+item.hammer.wood.name=Wood Hammer
+item.hammer.stone.name=Stone Hammer
+item.hammer.iron.name=Iron Hammer
+item.hammer.gold.name=Gold Hammer
+item.hammer.diamond.name=Diamond Hammer
+item.hammer.copper.name=Copper Hammer
+item.hammer.tin.name=Tin Hammer
+item.hammer.nickel.name=Nickel Hammer
+item.hammer.electrum.name=Electrum Hammer
+item.hammer.silver.name=Silver Hammer
+item.hammer.lead.name=Lead Hammer
+item.hammer.bronze.name=Bronze Hammer
+item.hammer.platinum.name=Platinum Hammer
+item.hammer.invar.name=Invar Hammer
+item.hammer.steel.name=Steel Hammer
+item.hammer.darksteel.name=Dark Hammer
+item.hammer.thaumium.name=Thaumium Hammer
+item.hammer.void.name=Void Hammer
+item.hammer.thaumium_elemental.name=Hammer of The Core
+item.hammer.manasteel.name=Manasteel Hammer
+item.hammer.b_elementium.name=Elementium Hammer
+item.hammer.bedrock.name=Bedrock Hammer
+item.hammer.hsla.name=HSLA Hammer
 
-item.DarkSteelHammer.name=Dark Hammer
-item.CopperHammer.name=Copper Hammer
-item.TinHammer.name=Tin Hammer
-item.NickelHammer.name=Nickel Hammer
-item.SilverHammer.name=Silver Hammer
-item.LeadHammer.name=Lead Hammer
-item.ElectrumHammer.name=Electrum Hammer
-item.InvarHammer.name=Invar Hammer
-item.BronzeHammer.name=Bronze Hammer
-item.PlatinumHammer.name=Platinum Hammer
-item.SteelHammer.name=Steel Hammer
-item.ThaumiumHammer.name=Thaumium Hammer
-item.VoidHammer.name=Void Hammer
-item.ElementalHammer.name=Hammer of the Core
 item.ChameleonHammer.name=Chameleon Hammer
-item.ManasteelHammer.name=Manasteel Hammer
-item.ElvenElementiumHammer.name=Elementium Hammer
-item.BedrockHammer.name=Bedrock Hammer
-item.HSLAHammer.name=HSLA Hammer
 
 //Phrases
 hammerz.keyword.durability=Durability
@@ -54,10 +54,6 @@ tc.research_text.THAUMIUM_HAMMER=[HZ] Hammers Can Feel Magic Too!?
 hammerz.research_page.VOID_HAMMER.1=By all things Eldritch! What is this?, a hammer which automatically repairs itself? It is not without side effect though, minor Warp will accompany you while mining.<BR>Don't get carried away, while indeed self-repairing, even the eldritch powers of the void can only keep up with so much.
 tc.research_name.VOID_HAMMER=Void Hammer
 tc.research_text.VOID_HAMMER=[HZ] It Does Feel A Tad Cold...
-
-hammerz.research_page.CHAMELEON_HAMMER.1=Who would have known that you could take the masking powers of a Chameleon Pickaxe and put them to use in a hammer!? <BR>You now have the power to put three different enchantment sets on a single hammer; the possibilities are endless, well not endless... limited to 3. <BR>Right-click while sneaking to cycle modes once you've enchanted the hammer's first phase.
-tc.research_name.CHAMELEON_HAMMER=Chameleon Hammer
-tc.research_text.CHAMELEON_HAMMER=[HZ] If you squint, it kinda looks like a hammer
 
 //Botania
 hammerz.lexicon.manasteelhammer=Manasteel Hammer

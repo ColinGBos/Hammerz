@@ -15,7 +15,9 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.subtile.SubTileEntity;
@@ -25,13 +27,11 @@ public class RecipePureDaisy {
 	private static final Map<String, List<ItemStack>> oreMap = new HashMap();
 
 	Object input;
-	Block output;
-	int outputMeta;
+	IBlockState outputState;
 
-	public RecipePureDaisy(Object input, Block output, int outputMeta) {
+	public RecipePureDaisy(Object input, IBlockState state) {
 		this.input = input;
-		this.output = output;
-		this.outputMeta = outputMeta;
+		this.outputState = state;
 
 		if(input != null && !(input instanceof String || input instanceof Block))
 			throw new IllegalArgumentException("input must be an oredict String or a Block.");
@@ -40,11 +40,11 @@ public class RecipePureDaisy {
 	/**
 	 * This gets called every tick, please be careful with your checks.
 	 */
-	public boolean matches(World world, int x, int y, int z, SubTileEntity pureDaisy, Block block, int meta) {
+	public boolean matches(World world, BlockPos pos, SubTileEntity pureDaisy, IBlockState state) {
 		if(input instanceof Block)
-			return block == input;
+			return state.getBlock() == input;
 
-		ItemStack stack = new ItemStack(block, 1, meta);
+		ItemStack stack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
 		String oredict = (String) input;
 		return isOreDict(stack, oredict);
 	}
@@ -78,9 +78,9 @@ public class RecipePureDaisy {
 	 * Should only place the block if !world.isRemote, but should return true if it would've placed
 	 * it otherwise. You may return false to cancel the normal particles and do your own.
 	 */
-	public boolean set(World world, int x, int y, int z, SubTileEntity pureDaisy) {
+	public boolean set(World world, BlockPos pos, SubTileEntity pureDaisy) {
 		if(!world.isRemote)
-			world.setBlock(x, y, z, output, outputMeta, 1 | 2);
+			world.setBlockState(pos, outputState, 1 | 2);
 		return true;
 	}
 
@@ -88,12 +88,8 @@ public class RecipePureDaisy {
 		return input;
 	}
 
-	public Block getOutput() {
-		return output;
-	}
-
-	public int getOutputMeta() {
-		return outputMeta;
+	public IBlockState getOutputState() {
+		return outputState;
 	}
 
 }

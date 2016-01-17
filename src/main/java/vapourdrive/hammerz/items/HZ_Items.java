@@ -1,188 +1,153 @@
 package vapourdrive.hammerz.items;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
 
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
-import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import org.apache.logging.log4j.Level;
 
+import thaumcraft.api.ThaumcraftMaterials;
 import vapourdrive.hammerz.Hammerz;
 import vapourdrive.hammerz.config.ConfigOptions;
 import vapourdrive.hammerz.config.HammerzConfig;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.registry.GameRegistry;
+import vapourdrive.hammerz.items.hammer.HammerModel;
+import vapourdrive.hammerz.items.hammer.HammerType;
+import vapourdrive.hammerz.items.hammer.ItemHammer;
+import vapourdrive.hammerz.utils.RandomUtils;
+import vazkii.botania.api.BotaniaAPI;
 
 public class HZ_Items
 {
-	public static LinkedHashMap<Item, String> oreDictItems = new LinkedHashMap<Item, String>();
-	public static Item WoodHammer;
-	public static Item StoneHammer;
-	public static Item IronHammer;
-	public static Item GoldHammer;
-	public static Item DiamondHammer;
-	public static Item CopperHammer;
-	public static Item TinHammer;
-	public static Item SilverHammer;
-	public static Item LeadHammer;
-	public static Item NickelHammer;
-	public static Item ElectrumHammer;
-	public static Item InvarHammer;
-	public static Item BronzeHammer;
-	public static Item PlatinumHammer;
-	public static Item DarkSteelHammer;
-	public static Item SteelHammer;
-	public static Item ThaumiumHammer;
-	public static Item ManasteelHammer;
-	public static Item ElvenElementiumHammer;
-	public static Item HSLAHammer;
-	public static Item BedrockHammer;
-	public static Item VoidHammer;
-	public static Item ElementalHammer;
-	public static Item ChameleonHammer;
+	public static ArrayList<HammerType> potentialHammerTypes = new ArrayList<HammerType>();
+	public static ArrayList<HammerType> hammerTypes = new ArrayList<HammerType>();
+
+	public static Item ItemHammer;
 
 	public static void preInit()
 	{
-		CopperHammer = new Hammer(EnumHelper.addToolMaterial("Copper", 1, 175, 4.0F, 0.5F, 6), "Copper");
-		TinHammer = new Hammer(EnumHelper.addToolMaterial("Tin", 1, 200, 4.5F, 1.0F, 7), "Tin");
-		SilverHammer = new Hammer(EnumHelper.addToolMaterial("Silver", 2, 200, 6.0F, 1.5F, 20), "Silver");
-		LeadHammer = new Hammer(EnumHelper.addToolMaterial("Lead", 1, 150, 5F, 1.0F, 9), "Lead");
-		NickelHammer = new Hammer(EnumHelper.addToolMaterial("Nickel", 2, 300, 6.5F, 2.5F, 18), "Nickel");
-		ElectrumHammer = new Hammer(EnumHelper.addToolMaterial("Electrum", 0, 100, 14.0F, 0.5F, 30), "Electrum");
-		InvarHammer = new Hammer(EnumHelper.addToolMaterial("Invar", 2, 450, 7.0F, 3.0F, 16), "Invar");
-		BronzeHammer = new Hammer(EnumHelper.addToolMaterial("Bronze", 2, 500, 6.0F, 2.0F, 15), "Bronze");
-		PlatinumHammer = new Hammer(EnumHelper.addToolMaterial("Platinum", 4, 1700, 9.0F, 4.0F, 9), "Platinum");
-		SteelHammer = new Hammer(EnumHelper.addToolMaterial("Steel", 2, 500, 7.0F, 2.0F, 9), "Steel");
-		
+		setupHammerTypes();
+		setupModHammerTypes();
+	}
+
+	public static void init()
+	{
+		ItemHammer = new ItemHammer();
+	}
+
+	public static void clientInit(FMLPreInitializationEvent event)
+	{
+		HammerModel.init();
+	}
+	
+	public static void postInit()
+	{
+		registerHammerTypes();
+	}
+
+	public static void setupHammerTypes()
+	{
+		addHammerType(0, 0, "logWood", ToolMaterial.WOOD, EnumRarity.COMMON);
+		addHammerType(0, 0, "stone", ToolMaterial.STONE, EnumRarity.COMMON);
+		addHammerType(0, 0, "blockIron", ToolMaterial.IRON, EnumRarity.COMMON);
+		addHammerType(0, 0, "blockGold", ToolMaterial.GOLD, EnumRarity.COMMON);
+		addHammerType(0, 0, "blockDiamond", ToolMaterial.EMERALD, EnumRarity.COMMON);
+		addHammerType(0, 0, "blockCopper", "Copper", 1, 175, 4.0F, 0.5F, 6, EnumRarity.COMMON);
+		addHammerType(0, 0, "blockTin", "Tin", 1, 200, 4.5F, 1.0F, 7, EnumRarity.COMMON);
+		addHammerType(0, 0, "blockSilver", "Silver", 2, 200, 6.0F, 1.5F, 20, EnumRarity.COMMON);
+		addHammerType(0, 0, "blockLead", "Lead", 1, 150, 5F, 1.0F, 9, EnumRarity.COMMON);
+		addHammerType(0, 0, "blockNickel", "Nickel", 2, 300, 6.5F, 2.5F, 18, EnumRarity.COMMON);
+		addHammerType(0, 0, "blockElectrum", "Electrum", 0, 100, 14.0F, 0.5F, 30, EnumRarity.COMMON);
+		addHammerType(0, 0, "blockInvar", "Invar", 2, 450, 7.0F, 3.0F, 16, EnumRarity.COMMON);
+		addHammerType(0, 0, "blockBronze", "Bronze", 2, 500, 6.0F, 2.0F, 15, EnumRarity.COMMON);
+		addHammerType(0, 0, "blockPlatinum", "Platinum", 4, 1700, 9.0F, 4.0F, 9, EnumRarity.COMMON);
+		addHammerType(0, 0, "blockSteel", "Steel", 2, 500, 7.0F, 2.0F, 9, EnumRarity.COMMON);
+	}
+
+	private static void setupModHammerTypes()
+	{
 		if (Loader.isModLoaded("Thaumcraft"))
 		{
 			Hammerz.log.log(Level.INFO, "ThaumcraftCompat loading");
+			addHammerType(3, 0, "blockThaumium", ThaumcraftMaterials.TOOLMAT_THAUMIUM, EnumRarity.UNCOMMON);
+			addHammerType(3, 0, "blockVoidMetal", ThaumcraftMaterials.TOOLMAT_VOID, EnumRarity.RARE);
+			addHammerType(3, 0, "blockThaumium", ThaumcraftMaterials.TOOLMAT_ELEMENTAL, EnumRarity.RARE);
 
-			ThaumiumHammer = new ThaumiumHammer("Thaumium");
-			VoidHammer = new VoidHammer("Void");
-			ElementalHammer = new ElementalHammer("Elemental");
 			Hammerz.hasStorageBlock = true;
-			if(Loader.isModLoaded("ForbiddenMagic"))
+			if (Loader.isModLoaded("ForbiddenMagic"))
 			{
 				Hammerz.log.log(Level.INFO, "Forbidden Magic Compat loading");
-				ChameleonHammer = new ChameleonHammer("Chameleon");
+				addHammerType(3, 0, "blockThaumium", ThaumcraftMaterials.TOOLMAT_ELEMENTAL, EnumRarity.EPIC);
 			}
 		}
 		if (Loader.isModLoaded("Botania"))
 		{
 			Hammerz.log.log(Level.INFO, "BotaniaCompat loading");
-			ManasteelHammer = new ManasteelHammer("Manasteel");
-			ElvenElementiumHammer = new ElvenElementiumHammer("ElvenElementium");
+			addHammerType(1, 0, "blockManasteel", BotaniaAPI.manasteelToolMaterial, EnumRarity.COMMON);
+			addHammerType(1, 0, "blockElvenElementium", BotaniaAPI.elementiumToolMaterial, EnumRarity.COMMON);
 		}
 		if (Loader.isModLoaded("EnderIO"))
 		{
 			Hammerz.log.log(Level.INFO, "EnderIOCompat loading");
+			addHammerType(2, 0, "blockDarkSteel", "DarkSteel", 5, 1561, 7.0F, 2.0F, 25, EnumRarity.COMMON);
 
-			DarkSteelHammer = new DarkHammer(EnumHelper.addToolMaterial("DarkSteel", 5, 1561, 7.0F, 2.0F, 25), "DarkSteel");
 		}
-		if(Loader.isModLoaded("RotaryCraft"))
+		if (Loader.isModLoaded("RotaryCraft"))
 		{
 			Hammerz.log.log(Level.INFO, "RotaryCraftCompat loading");
-			HSLAHammer = new Hammer(EnumHelper.addToolMaterial("HSLA", 2, 600, 6.0F, 3.0F, 14), "HSLA");
-			BedrockHammer = new BedrockHammer(EnumHelper.addToolMaterial("Bedrock", 3, 0, 8.0F, 3.0F, 10), "Bedrock");
-		}
-
-		WoodHammer = new Hammer(ToolMaterial.WOOD, "Wood");
-		StoneHammer = new Hammer(ToolMaterial.STONE, "Stone");
-		IronHammer = new Hammer(ToolMaterial.IRON, "Iron");
-		GoldHammer = new Hammer(ToolMaterial.GOLD, "Gold");
-		DiamondHammer = new Hammer(ToolMaterial.EMERALD, "Diamond");
-
-		setupOreDictionaryHammer(CopperHammer, "Copper", ConfigOptions.OreDictHammerEnabling, 0);
-		setupOreDictionaryHammer(TinHammer, "Tin", ConfigOptions.OreDictHammerEnabling, 1);
-		setupOreDictionaryHammer(SilverHammer, "Silver", ConfigOptions.OreDictHammerEnabling, 2);
-		setupOreDictionaryHammer(LeadHammer, "Lead", ConfigOptions.OreDictHammerEnabling, 3);
-		setupOreDictionaryHammer(NickelHammer, "Nickel", ConfigOptions.OreDictHammerEnabling, 4);
-		setupOreDictionaryHammer(ElectrumHammer, "Electrum", ConfigOptions.OreDictHammerEnabling, 5);
-		setupOreDictionaryHammer(InvarHammer, "Invar", ConfigOptions.OreDictHammerEnabling, 6);
-		setupOreDictionaryHammer(BronzeHammer, "Bronze", ConfigOptions.OreDictHammerEnabling, 7);
-		setupOreDictionaryHammer(PlatinumHammer, "Platinum", ConfigOptions.OreDictHammerEnabling, 8);
-		setupOreDictionaryHammer(SteelHammer, "Steel", ConfigOptions.OreDictHammerEnabling, 9);
-	}
-
-	public static void init()
-	{
-		registerItem(WoodHammer, "WoodHammer", ConfigOptions.VanillaHammerEnabling, 0);
-		registerItem(StoneHammer, "StoneHammer", ConfigOptions.VanillaHammerEnabling, 1);
-		registerItem(IronHammer, "IronHammer", ConfigOptions.VanillaHammerEnabling, 2);
-		registerItem(GoldHammer, "GoldHammer", ConfigOptions.VanillaHammerEnabling, 3);
-		registerItem(DiamondHammer, "DiamondHammer", ConfigOptions.VanillaHammerEnabling, 4);
-
-		if (Loader.isModLoaded("EnderIO"))
-		{
-			registerItem(DarkSteelHammer, "DarkSteelHammer", ConfigOptions.EnderIOHammerEnabling, 0);
-		}
-		if(Loader.isModLoaded("Botania"))
-		{
-			registerItem(ManasteelHammer, "Manasteel", ConfigOptions.BotaniaHammersEnabling, 0);
-			registerItem(ElvenElementiumHammer, "ElvenElementium", ConfigOptions.BotaniaHammersEnabling, 1);
-		}
-		if (Loader.isModLoaded("Thaumcraft"))
-		{
-			registerItem(ThaumiumHammer, "Thaumium", ConfigOptions.ThaumcraftHammerEnabling, 0);
-			registerItem(VoidHammer, "Void", ConfigOptions.ThaumcraftHammerEnabling, 1);
-			registerItem(ElementalHammer, "Elemental", ConfigOptions.ThaumcraftHammerEnabling, 2);
-			if(Loader.isModLoaded("ForbiddenMagic"))
-			{
-				registerItem(ChameleonHammer, "Chameleon", ConfigOptions.ForbiddenMagicHammerEnabling, 0);
-			}
-		}
-		if(Loader.isModLoaded("RotaryCraft"))
-		{
-			registerItem(HSLAHammer, "HSLA", ConfigOptions.RotaryCraftHammerEnabling, 0);
-			registerItem(BedrockHammer, "Bedrock", ConfigOptions.RotaryCraftHammerEnabling, 1);
-		}
-		
-		registerOreDictHammers(oreDictItems, ConfigOptions.OreDictHammerEnabling);
-	}
-
-	public static void registerItem(Item item, String name, boolean[] hammerEnabling, int booleanCheck)
-	{
-		if (hammerEnabling[booleanCheck] == true)
-		{
-			GameRegistry.registerItem(item, name);
+			addHammerType(-1, 0, "blockBedRock", "Bedrock", 3, 0, 8.0F, 3.0F, 10, EnumRarity.COMMON);
+			addHammerType(-1, 0, "blockHSLA", "HSLA", 2, 600, 6.0F, 3.0F, 14, EnumRarity.COMMON);
 		}
 	}
 
-	private static void setupOreDictionaryHammer(Item item, String name, boolean[] hammerEnabling, int i)
+	public static void registerHammerTypes()
 	{
-		setupOreDictionaryHammer(false,"", item, name, hammerEnabling, i);
-	}
-	
-	private static void setupOreDictionaryHammer(Boolean requiresMod, String ModId, Item item, String name, boolean[] hammerEnabling, int i)
-	{
-		if (OreDictionary.doesOreNameExist("block" + name))
-		{
-			oreDictItems.put(item, name);
-			HammerzConfig.enabledOreDictHammersComment = HammerzConfig.enabledOreDictHammersComment + name + ", ";
-			HammerzConfig.enabledOreDictHammersArrayList.add(true);
-		}
-	}
-
-	public static void registerOreDictHammers(HashMap<Item, String> map, boolean[] hammerEnabling)
-	{
-		Set set = map.entrySet();
-		Iterator iterator = set.iterator();
+		Iterator<HammerType> iterator = potentialHammerTypes.iterator();
 		int i = 0;
 		while (iterator.hasNext())
 		{
-			Map.Entry<Item, String> entry = (Map.Entry<Item, String>) iterator.next();
-			if (hammerEnabling[i] == true)
+			HammerType type = iterator.next();
+			if (ConfigOptions.OreDictHammerEnabling[i] && RandomUtils.doesOreNameExist(type.getBlockName()))
 			{
-				GameRegistry.registerItem((Item) entry.getKey(), (String) entry.getValue() + "Hammer");
+				hammerTypes.add(potentialHammerTypes.get(i));
 			}
 			i++;
 		}
+	}
+
+	public static void addHammerType(int damageType, int maxEnergy, String blockName,
+			ToolMaterial material, EnumRarity rarity)
+	{
+		String name = material.name();
+		if (material == ToolMaterial.EMERALD)
+		{
+			name = "DIAMOND";
+		}
+		int harvestLevel = material.getHarvestLevel();
+		int durability = material.getMaxUses();
+		float efficiency = material.getEfficiencyOnProperMaterial();
+		float damage = material.getDamageVsEntity();
+		int enchantability = material.getEnchantability();
+
+		HammerType hammertype = new HammerType(damageType, maxEnergy, blockName, name, harvestLevel, durability,
+				efficiency, damage, enchantability, rarity);
+
+		potentialHammerTypes.add(hammertype);
+		HammerzConfig.enabledOreDictHammersComment = HammerzConfig.enabledOreDictHammersComment + name + ", ";
+		HammerzConfig.enabledOreDictHammersArrayList.add(true);
+	}
+
+	public static void addHammerType(int damageType, int maxEnergy, String blockName, String name,
+			int harvestLevel, int durability, float efficiency, float damage, int enchantability, EnumRarity rarity)
+	{
+		HammerType hammertype = new HammerType(damageType, maxEnergy, blockName, name.toUpperCase(), harvestLevel,
+				durability, efficiency, damage, enchantability, rarity);
+		potentialHammerTypes.add(hammertype);
+		HammerzConfig.enabledOreDictHammersComment = HammerzConfig.enabledOreDictHammersComment + name + ", ";
+		HammerzConfig.enabledOreDictHammersArrayList.add(true);
 	}
 }

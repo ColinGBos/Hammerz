@@ -13,7 +13,8 @@ package vazkii.botania.api.internal;
 import java.util.List;
 
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -22,7 +23,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vazkii.botania.api.boss.IBotaniaBoss;
@@ -132,12 +134,12 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public IIcon getSubTileIconForName(String name) {
-		return Blocks.red_flower.getIcon(0, 0);
+	public TextureAtlasSprite getSubTileIconForName(String name) {
+		return null; //todo 1.8 return Blocks.red_flower.getIcon(0, 0);
 	}
 
 	@Override
-	public void registerBasicSignatureIcons(String name, IIconRegister register) {
+	public void registerBasicSignatureIcons(String name, TextureMap map) {
 		// NO-OP
 	}
 
@@ -202,7 +204,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side) {
+	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side) {
 		// NO-OP
 	}
 
@@ -217,7 +219,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public boolean isBotaniaFlower(World world, int x, int y, int z) {
+	public boolean isBotaniaFlower(World world, BlockPos pos) {
 		return false;
 	}
 

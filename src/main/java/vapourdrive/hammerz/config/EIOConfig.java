@@ -11,7 +11,6 @@ public class EIOConfig
 	{
 		config = new Configuration(enderIOCFG);
 		config.load();
-		ConfigOptions.EIOToolEnergyuse = config.getInt("darkSteelPickPowerUsePerDamagePoint", "Dark Steel", 750, 100, 10000, "");
 		ConfigOptions.EIOToolBaseEnergy = (config.getInt("darkSteelPowerStorageLevelThree", "Dark Steel", 500000, 1000, 1000000, "")/2);
 		ConfigOptions.EIOToolTierOneEnergy = config.getInt("capacitorBankTierOneMaxStorageRF", "Dark Steel", 1000000, 10000, 1000000, "");
 		ConfigOptions.EIOToolTierTwoEnergy = config.getInt("capacitorBankTierTwoMaxStorageRF", "Dark Steel", 5000000, 10000, 100000000, "");

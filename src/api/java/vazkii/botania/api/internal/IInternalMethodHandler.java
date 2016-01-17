@@ -13,7 +13,8 @@ package vazkii.botania.api.internal;
 import java.util.List;
 
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -21,9 +22,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
@@ -33,8 +37,6 @@ import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.subtile.SubTileEntity;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * Any methods that refer to internal methods in Botania are here.
@@ -83,9 +85,10 @@ public interface IInternalMethodHandler {
 
 	public String getStackSubTileKey(ItemStack stack);
 
-	public IIcon getSubTileIconForName(String name);
+	// todo 1.8 evaluate need for these two
+	public TextureAtlasSprite getSubTileIconForName(String name);
 
-	public void registerBasicSignatureIcons(String name, IIconRegister register);
+	public void registerBasicSignatureIcons(String name, TextureMap map);
 
 	public boolean shouldForceCheck();
 
@@ -93,7 +96,7 @@ public interface IInternalMethodHandler {
 
 	public IInventory getBaublesInventory(EntityPlayer player);
 
-	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side);
+	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side);
 
 	public boolean hasSolegnoliaAround(Entity e);
 
@@ -121,7 +124,7 @@ public interface IInternalMethodHandler {
 
 	public long getWorldElapsedTicks();
 
-	public boolean isBotaniaFlower(World world, int x, int y, int z);
+	public boolean isBotaniaFlower(World world, BlockPos pos);
 
 	public void sendBaubleUpdatePacket(EntityPlayer player, int slot);
 

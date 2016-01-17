@@ -5,6 +5,7 @@ import net.minecraftforge.common.config.Property;
 public class ConfigOptions
 {
 	public static boolean AddToolInfo;
+	public static boolean AddOreDictEntries;
 	public static boolean AddDurabilityInfo;
 	public static float DurabilityMultiplier;
 	public static float EfficiencyMultiplier;
@@ -12,15 +13,10 @@ public class ConfigOptions
 	
 	//Enabling
 	public static boolean[] VanillaHammerEnabling;
-	public static boolean[] EnderIOHammerEnabling;
-	public static boolean[] ThaumcraftHammerEnabling;
-	public static boolean[] ForbiddenMagicHammerEnabling;
-	public static boolean[] BotaniaHammersEnabling;
-	public static boolean[] RotaryCraftHammerEnabling;
 	public static boolean[] OreDictHammerEnabling;
 	
 	//EnderIO options
-	public static int EIOToolEnergyuse;
+	public static int HammerEnergyUse;
 	public static int EIOToolObsidianEnergyUse;
 	public static int EIOToolBaseEnergy;
 	public static int EIOToolTierOneEnergy;

@@ -2,7 +2,7 @@ package vapourdrive.hammerz.config;
 
 import java.io.File;
 
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 
 public class ConfigHandler
 {

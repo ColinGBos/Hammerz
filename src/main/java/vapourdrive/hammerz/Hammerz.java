@@ -1,33 +1,19 @@
 package vapourdrive.hammerz;
 
-import java.io.File;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-import net.minecraft.creativetab.CreativeTabs;
-
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import vapourdrive.hammerz.blocks.HZ_Blocks;
-import vapourdrive.hammerz.compat.BotaniaCompat;
-import vapourdrive.hammerz.compat.ThaumcraftCompat;
-import vapourdrive.hammerz.config.ConfigHandler;
-import vapourdrive.hammerz.creativetabs.HZCreativeTab;
-import vapourdrive.hammerz.handlers.EventsHandler;
-import vapourdrive.hammerz.handlers.OreDictHandler;
-import vapourdrive.hammerz.handlers.UpgradeManager;
-import vapourdrive.hammerz.items.HZ_Items;
 import vapourdrive.hammerz.proxies.CommonProxy;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = Reference.ModID, version = Reference.Version, name = Reference.Name)
+@Mod(modid = Reference.ModID, version = Reference.Version, name = Reference.Name, dependencies = "after:techreborn;after:Thaumcraft;after:Botania", acceptedMinecraftVersions = "1.8.8;1.8.9")
 public class Hammerz
 {
 	public static boolean hasStorageBlock = false;
@@ -37,55 +23,24 @@ public class Hammerz
 
 	@SidedProxy(clientSide = "vapourdrive.hammerz.proxies.ClientProxy", serverSide = "vapourdrive.hammerz.proxies.CommonProxy")
 	public static CommonProxy proxy;
-	public static CreativeTabs HZTab;
 	public static final Logger log = LogManager.getLogger(Reference.ModID);
-	public static File ConfigPath;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		Hammerz.log.log(Level.INFO, "Beginning preInit");
-		ConfigPath = event.getModConfigurationDirectory();
-		HZTab = new HZCreativeTab(CreativeTabs.getNextID(), "SS_CreativeTab");
+		proxy.preInit(event);
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
-		Hammerz.log.log(Level.INFO, "Beginning Init");
-		OreDictHandler.earlyInit();
-		ConfigHandler.earlyInit(ConfigPath);
-
-		HZ_Items.preInit();
-		HZ_Blocks.init();
-		OreDictHandler.lateInit();
-
-		ConfigHandler.lateInit(ConfigPath);
-		HZ_Items.init();
-		Recipes.init();
-
-		EventsHandler.init();
-		new UpgradeManager();
-		proxy.load();
+		
+		proxy.Init(event);
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
-		Hammerz.log.log(Level.INFO, "Beginning postInit");
-		if (Loader.isModLoaded("RotaryCraft"))
-		{
-			OreDictHandler.registerOre("RotaryCraft", "rotarycraft_block_deco", "blockHSLA", 0);
-			Recipes.registerRotaryCraftRecipe();
-			Recipes.registerHammerRecipe("stickWood", HZ_Items.HSLAHammer, "blockHSLA");
-		}
-		if (Loader.isModLoaded("Thaumcraft"))
-		{
-			ThaumcraftCompat.init();
-		}
-		if (Loader.isModLoaded("Botania"))
-		{
-			BotaniaCompat.init();
-		}
+		proxy.posInit(event);
 	}
 }

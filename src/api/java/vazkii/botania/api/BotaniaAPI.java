@@ -19,8 +19,15 @@ import java.util.Map;
 import java.util.Set;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockCarpet;
+import net.minecraft.block.BlockColored;
+import net.minecraft.block.BlockStainedGlass;
+import net.minecraft.block.BlockStainedGlassPane;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -30,6 +37,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
@@ -54,8 +62,6 @@ import vazkii.botania.api.wiki.WikiHooks;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-
-import cpw.mods.fml.common.Loader;
 
 public final class BotaniaAPI {
 
@@ -83,20 +89,22 @@ public final class BotaniaAPI {
 	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
 	public static Map<String, Integer> oreWeightsNether = new HashMap<String, Integer>();
 	public static Map<Item, Block> seeds = new HashMap();
+
 	public static Set<Item> looniumBlacklist = new LinkedHashSet<Item>();
-	public static Set<Block> paintableBlocks = new LinkedHashSet<Block>();
+	public static Map<Block, PropertyEnum<EnumDyeColor>> paintableBlocks = new LinkedHashMap<Block, PropertyEnum<EnumDyeColor>>();
 	public static Set<String> magnetBlacklist = new LinkedHashSet<String>();
 
-	public static ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", 16, new int[] { 2, 6, 5, 2 }, 18);
+
+	public static ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", "manasteel", 16, new int[] { 2, 6, 5, 2 }, 18);
 	public static ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
 
-	public static ArmorMaterial elementiumArmorMaterial = EnumHelper.addArmorMaterial("B_ELEMENTIUM", 18, new int[] { 2, 6, 5, 2 }, 18);
+	public static ArmorMaterial elementiumArmorMaterial = EnumHelper.addArmorMaterial("B_ELEMENTIUM", "b_elementium", 18, new int[] { 2, 6, 5, 2 }, 18);
 	public static ToolMaterial elementiumToolMaterial = EnumHelper.addToolMaterial("B_ELEMENTIUM", 3, 720, 6.2F, 2F, 20);
 
-	public static ArmorMaterial terrasteelArmorMaterial = EnumHelper.addArmorMaterial("TERRASTEEL", 34, new int[] {3, 8, 6, 3}, 26);
+	public static ArmorMaterial terrasteelArmorMaterial = EnumHelper.addArmorMaterial("TERRASTEEL", "terrasteel", 34, new int[] {3, 8, 6, 3}, 26);
 	public static ToolMaterial terrasteelToolMaterial = EnumHelper.addToolMaterial("TERRASTEEL", 4, 2300, 9F, 3F, 26);
 
-	public static ArmorMaterial manaweaveArmorMaterial = EnumHelper.addArmorMaterial("MANAWEAVE", 5, new int[] { 1, 2, 2, 1 }, 18);
+	public static ArmorMaterial manaweaveArmorMaterial = EnumHelper.addArmorMaterial("MANAWEAVE", "manaweave", 5, new int[] { 1, 2, 2, 1 }, 18);
 
 	public static EnumRarity rarityRelic = EnumHelper.addRarity("RELIC", EnumChatFormatting.GOLD, "Relic");
 
@@ -231,11 +239,11 @@ public final class BotaniaAPI {
 		registerModWiki("GanysNether", new SimpleWikiProvider("Gany's Nether Wiki", "http://ganys-nether.wikia.com/wiki/%s"));
 		registerModWiki("GanysEnd", new SimpleWikiProvider("Gany's End Wiki", "http://ganys-end.wikia.com/wiki/%s"));
 
-		registerPaintableBlock(Blocks.stained_glass);
-		registerPaintableBlock(Blocks.stained_glass_pane);
-		registerPaintableBlock(Blocks.stained_hardened_clay);
-		registerPaintableBlock(Blocks.wool);
-		registerPaintableBlock(Blocks.carpet);
+		registerPaintableBlock(Blocks.stained_glass, BlockStainedGlass.COLOR);
+		registerPaintableBlock(Blocks.stained_glass_pane, BlockStainedGlassPane.COLOR);
+		registerPaintableBlock(Blocks.stained_hardened_clay, BlockColored.COLOR);
+		registerPaintableBlock(Blocks.wool, BlockColored.COLOR);
+		registerPaintableBlock(Blocks.carpet, BlockCarpet.COLOR);
 	}
 
 	/**
@@ -277,9 +285,11 @@ public final class BotaniaAPI {
 
 	/**
 	 * Registers a paintableBlock and returns it.
+	 * You must also provide the PropertyEnum that this block uses to express its color
+	 * The component type of the property must be EnumDyeColor
 	 */
-	public static Block registerPaintableBlock(Block paintable){
-		paintableBlocks.add(paintable);
+	public static Block registerPaintableBlock(Block paintable, PropertyEnum<EnumDyeColor> colorProp){
+		paintableBlocks.put(paintable, colorProp);
 		return paintable;
 	}
 
@@ -319,7 +329,11 @@ public final class BotaniaAPI {
 		String key = getMagnetKey(stack);
 		return magnetBlacklist.contains(key);
 	}
-	
+
+	public static boolean isBlockBlacklistedFromMagnet(IBlockState state) {
+		return isBlockBlacklistedFromMagnet(state.getBlock(), state.getBlock().getMetaFromState(state));
+	}
+
 	public static boolean isBlockBlacklistedFromMagnet(Block block, int meta) {
 		return isBlockBlacklistedFromMagnet(block, meta, 0);
 	}
@@ -354,12 +368,11 @@ public final class BotaniaAPI {
 	/**
 	 * Registers a Pure Daisy Recipe.
 	 * @param input The block that works as an input for the recipe. Can be a Block or an oredict String.
-	 * @param output The block to be placed upon recipe completion.
-	 * @param outputMeta The metadata to be placed upon recipe completion.
+	 * @param outputState The blockstate to be placed upon recipe completion.
 	 * @return The recipe created.
 	 */
-	public static RecipePureDaisy registerPureDaisyRecipe(Object input, Block output, int outputMeta) {
-		RecipePureDaisy recipe = new RecipePureDaisy(input, output, outputMeta);
+	public static RecipePureDaisy registerPureDaisyRecipe(Object input, IBlockState outputState) {
+		RecipePureDaisy recipe = new RecipePureDaisy(input, outputState);
 		pureDaisyRecipes.add(recipe);
 		return recipe;
 	}

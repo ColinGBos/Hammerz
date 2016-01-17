@@ -10,9 +10,9 @@
  */
 package vazkii.botania.api.wand;
 
-import net.minecraft.util.ChunkCoordinates;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.util.BlockPos;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Any TileEntity that implements this is technically bound
@@ -25,6 +25,6 @@ public interface ITileBound {
 	 * Gets where this block is bound to, can return null.
 	 */
 	@SideOnly(Side.CLIENT)
-	public ChunkCoordinates getBinding();
+	public BlockPos getBinding();
 
 }

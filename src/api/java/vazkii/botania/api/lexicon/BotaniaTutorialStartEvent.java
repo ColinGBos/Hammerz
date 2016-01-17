@@ -12,7 +12,7 @@ package vazkii.botania.api.lexicon;
 
 import java.util.Queue;
 
-import cpw.mods.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.Event;
 
 /**
  * Fired when the Lexica Botania's tutorial is started. You can add your

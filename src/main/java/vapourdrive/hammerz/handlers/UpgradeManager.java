@@ -11,7 +11,7 @@ import vapourdrive.hammerz.utils.RandomUtils;
 public class UpgradeManager
 {
 	private static final UpgradeManager instance = new UpgradeManager();
-	public List upgrades = new ArrayList();
+	public List<IUpgrade> upgrades = new ArrayList<IUpgrade>();
 	
 	public UpgradeManager()
 	{
@@ -36,7 +36,7 @@ public class UpgradeManager
 		return instance;
 	}
 
-	public List getUpgradeList()
+	public List<IUpgrade> getUpgradeList()
 	{
 		return this.upgrades;
 	}

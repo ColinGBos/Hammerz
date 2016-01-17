@@ -1,6 +1,5 @@
 package vapourdrive.hammerz.handlers;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -10,9 +9,10 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import vapourdrive.hammerz.items.HZ_Items;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import vapourdrive.hammerz.items.hammer.HammerInfoHandler;
 
 public class DropHandler
 {
@@ -27,9 +27,9 @@ public class DropHandler
 		if (event.harvester != null)
 		{
 			ItemStack stack = event.harvester.getCurrentEquippedItem();
-			if (stack != null)
+			if (stack != null && stack.getItem() != null && stack.getItem() == HZ_Items.ItemHammer)
 			{
-				if (stack.getItem() == HZ_Items.ElvenElementiumHammer)
+				if (HammerInfoHandler.isStackElvenElementalHammer(stack))
 				{
 					for (int i = 0; i < event.drops.size(); i++)
 					{
@@ -44,7 +44,7 @@ public class DropHandler
 						}
 					}
 				}
-				if(stack.getItem() == HZ_Items.ElementalHammer)
+				if(HammerInfoHandler.isStackElementalHammer(stack))
 				{
 					for (int i = 0; i < event.drops.size(); i++)
 					{
@@ -77,7 +77,7 @@ public class DropHandler
 			for(int i = 0; i < ids.length; i++)
 			{
 				String name = OreDictionary.getOreName(ids[i]);
-				ArrayList<ItemStack> clusterList = OreDictionary.getOres(name.replace("ore", "cluster"));
+				List<ItemStack> clusterList = OreDictionary.getOres(name.replace("ore", "cluster"));
 				if(!clusterList.isEmpty())
 				{
 					ItemStack cluster = clusterList.get(0);

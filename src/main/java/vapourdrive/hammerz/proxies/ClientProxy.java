@@ -1,20 +1,28 @@
 package vapourdrive.hammerz.proxies;
 
-import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import vapourdrive.hammerz.items.HZ_Items;
-import vapourdrive.hammerz.items.PoweredItemRenderer;
-import cpw.mods.fml.common.Loader;
 
 public class ClientProxy extends CommonProxy
 {
 	@Override
-	public void load()
+	public void preInit(FMLPreInitializationEvent event)
 	{
-		super.load();
+		super.preInit(event);
+		HZ_Items.clientInit(event);
+	}
+	
+	@Override
+	public void Init(FMLInitializationEvent event)
+	{
+		super.Init(event);
 		if (Loader.isModLoaded("EnderIO"))
 		{
-			PoweredItemRenderer renderer = new PoweredItemRenderer();
-			MinecraftForgeClient.registerItemRenderer(HZ_Items.DarkSteelHammer, renderer);
+			//PoweredItemRenderer renderer = new PoweredItemRenderer();
+			//MinecraftForgeClient.registerItemRenderer(HZ_Items.DarkSteelHammer, renderer);
 		}
+
 	}
 }

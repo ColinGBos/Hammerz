@@ -8,24 +8,21 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.Level;
 
 import vapourdrive.hammerz.Hammerz;
-import vapourdrive.hammerz.blocks.HZ_Blocks;
 import vapourdrive.hammerz.utils.RandomUtils;
 
 public class OreDictHandler
 {
 	public static void earlyInit()
 	{
-		registerOre("Thaumcraft", "blockCosmeticSolid", "blockThaumium", 4);
+		registerOre("Thaumcraft", "metal", "blockThaumium", 0);
+		registerOre("Thaumcraft", "metal", "blockVoidMetal", 1);
 		registerOre("Botania", "storage", "blockManasteel", 0);
 		registerOre("Botania", "storage", "blockElvenElementium", 2);
 	}
-	public static void lateInit()
-	{
-		registerOreBlock("ingotVoid", "blockVoid", HZ_Blocks.StorageBlock, 0);
-	}
+
 	public static void registerOreBlock(String ingot, String block, Block storageBlock, int meta)
 	{
-		if(OreDictionary.doesOreNameExist(ingot))
+		if(RandomUtils.doesOreNameExist(ingot))
 		{
 			OreDictionary.registerOre(block, new ItemStack(storageBlock, 1, meta));
 		}

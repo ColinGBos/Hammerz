@@ -17,14 +17,18 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ForgeDirection;
+
+import com.google.common.base.Predicates;
 
 public final class CorporeaHelper {
 
@@ -67,7 +71,7 @@ public final class CorporeaHelper {
 		if(network != null)
 			for(ICorporeaSpark otherSpark : network)
 				if(otherSpark != null) {
-					IInventory inv = otherSpark.getInventory();
+					IInventory inv = otherSpark.getSparkInventory();
 					if(inv != null)
 						inventories.add(inv);
 				}
@@ -237,31 +241,31 @@ public final class CorporeaHelper {
 			return null;
 
 		TileEntity tile = (TileEntity) inv;
-		return getSparkForBlock(tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
+		return getSparkForBlock(tile.getWorld(), tile.getPos());
 	}
 
 	/**
 	 * Gets the spark attached to the block in the coords passed in. Note that the coords passed
 	 * in are for the block that the spark will be on, not the coords of the spark itself.
 	 */
-	public static ICorporeaSpark getSparkForBlock(World world, int x, int y, int z) {
-		List<ICorporeaSpark> sparks = world.getEntitiesWithinAABB(ICorporeaSpark.class, AxisAlignedBB.getBoundingBox(x, y + 1, z, x + 1, y + 2, z + 1));
-		return sparks.isEmpty() ? null : sparks.get(0);
+	public static ICorporeaSpark getSparkForBlock(World world, BlockPos pos) {
+		List<Entity> sparks = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up(), pos.add(1, 2, 1)), Predicates.instanceOf(ICorporeaSpark.class));
+		return sparks.isEmpty() ? null : ((ICorporeaSpark) sparks.get(0));
 	}
 
 	/**
 	 * Gets if the block in the coords passed in has a spark attached. Note that the coords passed
 	 * in are for the block that the spark will be on, not the coords of the spark itself.
 	 */
-	public static boolean doesBlockHaveSpark(World world, int x, int y, int z) {
-		return getSparkForBlock(world, x, y, z) != null;
+	public static boolean doesBlockHaveSpark(World world, BlockPos pos) {
+		return getSparkForBlock(world, pos) != null;
 	}
 
 	/**
 	 * Gets if the slot passed in can be extracted from by a spark.
 	 */
 	public static boolean isValidSlot(IInventory inv, int slot) {
-		return !(inv instanceof ISidedInventory) || arrayHas(((ISidedInventory) inv).getAccessibleSlotsFromSide(ForgeDirection.UP.ordinal()), slot) && ((ISidedInventory) inv).canExtractItem(slot, inv.getStackInSlot(slot), ForgeDirection.UP.ordinal());
+		return !(inv instanceof ISidedInventory) || arrayHas(((ISidedInventory) inv).getSlotsForFace(EnumFacing.UP), slot) && ((ISidedInventory) inv).canExtractItem(slot, inv.getStackInSlot(slot), EnumFacing.UP);
 	}
 
 	/**
