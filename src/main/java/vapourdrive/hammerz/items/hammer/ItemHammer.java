@@ -178,13 +178,13 @@ public class ItemHammer extends ItemTool implements IEnergyContainerItem, IManaU
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker)
 	{
-		return DamageHandler.handleDamage(stack, target, attacker, 4);
+		return DamageHandler.handleDamage(true, stack, target, attacker, 4);
 	}
 
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, BlockPos pos, EntityLivingBase player)
 	{
-		DamageHandler.handleDamage(block, stack, (EntityPlayer) player);
+		DamageHandler.handleDamage(true, block, stack, (EntityPlayer) player);
 		return true;
 	}
 
@@ -265,7 +265,7 @@ public class ItemHammer extends ItemTool implements IEnergyContainerItem, IManaU
 			{
 				if ((double) breakBlock.getBlockHardness(world, pos) != 0.0D)
 				{
-					if (DamageHandler.handleDamage(breakBlock, stack, player))
+					if (DamageHandler.handleDamage(false, breakBlock, stack, player))
 					{
 						RandomUtils.breakBlock(world, state, pos, side, player);
 					}

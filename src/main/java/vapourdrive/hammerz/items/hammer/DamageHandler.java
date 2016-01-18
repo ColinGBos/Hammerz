@@ -11,12 +11,12 @@ public class DamageHandler
 {
 	public static final int MANA_PER_DAMAGE = 60;
 	
-	public static boolean handleDamage(Block breakBlock, ItemStack stack, EntityPlayer player)
+	public static boolean handleDamage(boolean force, Block breakBlock, ItemStack stack, EntityPlayer player)
 	{
-		return requestDamage(breakBlock, stack, player, 1);
+		return requestDamage(force, breakBlock, stack, player, 1);
 	}
 	
-	public static boolean requestDamage(Block breakBlock, ItemStack stack, EntityPlayer player, int damage)
+	public static boolean requestDamage(boolean force, Block breakBlock, ItemStack stack, EntityPlayer player, int damage)
 	{
 		if(player.capabilities.isCreativeMode)
 		{
@@ -28,30 +28,30 @@ public class DamageHandler
 		}
 		if(HammerInfoHandler.getUsesMana(stack))
 		{
-			return handleManaDamage(stack, damage, player);
+			return handleManaDamage(force, stack, damage, player);
 		}
 		else if(HammerInfoHandler.getUsesEnergy(stack))
 		{
-			return handleEnergyDamage(stack, damage, player);
+			return handleEnergyDamage(force, stack, damage, player);
 		}
-		return handleRegularDamage(stack, damage, player);
+		return handleRegularDamage(force, stack, damage, player);
 	}
 
-	private static boolean handleRegularDamage(ItemStack stack, int damage, EntityPlayer player)
+	private static boolean handleRegularDamage(boolean force, ItemStack stack, int damage, EntityPlayer player)
 	{
-		if ((stack.getMaxDamage() - stack.getItemDamage()) < damage)
+		if (!force && (stack.getMaxDamage() - stack.getItemDamage()) < damage)
 		{
 			return false;
 		}
 		stack.damageItem(damage, player);
-		if (stack.stackSize == 0)
+		/*if (stack.stackSize == 0)
 		{
 			return false;
-		}
+		}*/
 		return true;
 	}
 
-	private static boolean handleEnergyDamage(ItemStack stack, int damage, EntityPlayer player)
+	private static boolean handleEnergyDamage(boolean force, ItemStack stack, int damage, EntityPlayer player)
 	{
 		if (EnergyHandler.extractEnergy(stack, ConfigOptions.HammerEnergyUse * damage, true) >= ConfigOptions.HammerEnergyUse * damage)
 		{
@@ -59,23 +59,23 @@ public class DamageHandler
 		}
 		else
 		{
-			return handleRegularDamage(stack, damage, player);
+			return handleRegularDamage(force, stack, damage, player);
 		}
 		return true;
 	}
 
-	private static boolean handleManaDamage(ItemStack stack, int damage, EntityPlayer player)
+	private static boolean handleManaDamage(boolean force, ItemStack stack, int damage, EntityPlayer player)
 	{
 		if (!ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) player, MANA_PER_DAMAGE, true))
 		{
-			return handleRegularDamage(stack, damage, player);
+			return handleRegularDamage(force, stack, damage, player);
 		}
 		return true;
 	}
 
-	public static boolean handleDamage(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker, int amount)
+	public static boolean handleDamage(boolean force, ItemStack stack, EntityLivingBase target, EntityLivingBase attacker, int amount)
 	{
-		return requestDamage(null, stack, (EntityPlayer)attacker, amount);
+		return requestDamage(force, null, stack, (EntityPlayer)attacker, amount);
 	}
 
 }

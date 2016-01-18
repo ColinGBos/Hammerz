@@ -33,7 +33,7 @@ public class ItemUseHandler
 		ItemStack ThaumPick = RandomUtils.getItemStackFromString("Thaumcraft", "elemental_pick", 1);
 		if (ThaumPick != null && ThaumPick.getItem() != null)
 		{
-			if (DamageHandler.requestDamage(null, stack, player, 10))
+			if (DamageHandler.requestDamage(false, null, stack, player, 10))
 			{
 				ThaumPick.getItem().onItemUse(ThaumPick, player, world, pos, side, floatx, floaty, floatz);
 				return true;
