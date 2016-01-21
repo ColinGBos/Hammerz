@@ -22,10 +22,10 @@ plugins {
 */
 version = "0.1.4.14"
 group= "vapourdrive.Hammerz" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "Hammerz-1.8.9"
+archivesBaseName = "Hammerz"
 
 minecraft {
-    version = "1.8.9-11.15.0.1691"
+    version = "1.8.9-11.15.0.1705"
     runDir = "../run"
     
     // the mappings can be changed at any time, and must be in the following format.

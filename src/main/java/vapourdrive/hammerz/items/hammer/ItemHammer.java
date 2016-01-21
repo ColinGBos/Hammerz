@@ -4,8 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.logging.log4j.Level;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -31,12 +29,15 @@ import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import thaumcraft.api.items.IRepairableExtended;
+
+import org.apache.logging.log4j.Level;
+
 import thaumcraft.api.items.IWarpingGear;
 import vapourdrive.hammerz.Hammerz;
 import vapourdrive.hammerz.config.ConfigOptions;
 import vapourdrive.hammerz.items.HZ_Items;
 import vapourdrive.hammerz.proxies.CommonProxy;
+import vapourdrive.hammerz.utils.BlockUtils;
 import vapourdrive.hammerz.utils.RandomUtils;
 import vazkii.botania.api.mana.IManaUsingItem;
 import cofh.api.energy.IEnergyContainerItem;
@@ -267,12 +268,12 @@ public class ItemHammer extends ItemTool implements IEnergyContainerItem, IManaU
 				{
 					if (DamageHandler.handleDamage(false, breakBlock, stack, player))
 					{
-						RandomUtils.breakBlock(world, state, pos, side, player);
+						BlockUtils.tryHarvestBlock(world, state, pos, side, player);
 					}
 				}
 				else
 				{
-					RandomUtils.breakBlock(world, state, pos, side, player);
+					BlockUtils.tryHarvestBlock(world, state, pos, side, player);
 				}
 			}
 		}
