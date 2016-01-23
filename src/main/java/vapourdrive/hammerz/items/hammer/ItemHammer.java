@@ -118,6 +118,12 @@ public class ItemHammer extends ItemTool implements IEnergyContainerItem, IManaU
 	}
 	
 	@Override
+    public boolean isRepairable()
+    {
+        return false;
+    }
+	
+	@Override
 	public boolean getIsRepairable(ItemStack stack, ItemStack stack2)
 	{
 		return RepairHandler.getIsRepairable(stack, stack2);
