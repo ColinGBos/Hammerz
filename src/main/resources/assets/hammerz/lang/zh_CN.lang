@@ -1,0 +1,69 @@
+//Chinese (Simplified) language file for Hammerz
+
+//Blocks
+tile.BlockStorageVoid.name=虚空金属块
+
+//Items
+item.WoodHammer.name=木锤
+item.StoneHammer.name=石锤
+item.IronHammer.name=铁锤
+item.GoldHammer.name=金锤
+item.DiamondHammer.name=钻石锤
+
+item.DarkSteelHammer.name=玄钢锤
+item.CopperHammer.name=铜锤
+item.TinHammer.name=锡锤
+item.NickelHammer.name=镍锤
+item.SilverHammer.name=银锤
+item.LeadHammer.name=铅锤
+item.ElectrumHammer.name=琥珀金锤
+item.InvarHammer.name=因瓦合金锤
+item.BronzeHammer.name=青铜锤
+item.PlatinumHammer.name=铂锤
+item.SteelHammer.name=钢锤
+item.ThaumiumHammer.name=神秘锤
+item.VoidHammer.name=虚空金属锤
+item.ElementalHammer.name=炽心锤
+item.ChameleonHammer.name=避疫锤
+item.ManasteelHammer.name=魔钢锤
+item.ElvenElementiumHammer.name=源质钢锤
+item.BedrockHammer.name=基岩锤
+item.HSLAHammer.name=HSLA钢锤
+
+//Phrases
+hammerz.keyword.durability=耐久
+hammerz.keyword.phase=Phase
+
+phrase.hammerz.hammerinfo1=3x3范围采掘(潜行时禁用)
+phrase.hammerz.hammerinfo2=右击时可放置火把
+phrase.hammerz.holdshift=<按住Shift>
+phrase.hammerz.holdctrl=<按住CTRL>
+phrase.hammerz.botania1=可以消耗Mana来抵消耐久消耗
+phrase.hammerz.botania2=采掘时不会掉落任何"垃圾"
+
+//Thaumcraft
+tc.research_category.HAMMERZ=铁锤与魔法
+tc.research_name.ELEMENTAL_HAMMER=炽心锤
+tc.research_text.ELEMENTAL_HAMMER=[HZ] 愈加纯净的炽热
+hammerz.research_page.ELEMENTAL_HAMMER.1=将炽心镐的力量注入神秘锤中,你的锤子也有了炽心镐的力量,是的,更多的原矿簇在等待着你!<BR>在你潜行时它也可以进行探矿工作,但是在一旁对着锤子叫嚷只会不断降低它的耐久.<BR>就让骄傲的神秘使们来挥舞这把锤子吧!
+
+hammerz.research_page.THAUMIUM_HAMMER.1=就连普普通通的锤子也可以由神秘学家之手进行改造；你可以用整块神秘金属打造出一把超级挖掘工具。就让这强力的锤子陪伴着你作为神秘使学徒的旅程吧。<BR>若是那锤子上闪烁的光芒是对你的祝福，你应该可以为这把锤子附上“修复”的魔法。
+tc.research_name.THAUMIUM_HAMMER=神秘锤
+tc.research_text.THAUMIUM_HAMMER=[HZ] 锤子也可感知魔法!?
+
+hammerz.research_page.VOID_HAMMER.1=万物出自邪术之力!这究竟是什么鬼?一把可以自我修复的锤子?!使用时并非毫无副作用,但那不过是采掘方块时的一点点扭曲.<BR>时刻保持克制,虽然它的确有自我修复的属性,但也奈何不了转瞬之间的大量耐久损失.
+tc.research_name.VOID_HAMMER=虚空金属锤
+tc.research_text.VOID_HAMMER=[HZ] 摸着有点冷...
+
+hammerz.research_page.CHAMELEON_HAMMER.1=又有谁会去试图将避疫镐的力量融入锤子里!?<BR>现在你可以在一把锤子里附加三种不同附魔;无穷无尽的可能性...好吧并不是无限的可能...最多三种组合.<BR>潜行时右击即可在不同附魔间切换.
+tc.research_name.CHAMELEON_HAMMER=避疫锤
+tc.research_text.CHAMELEON_HAMMER=[HZ] 眯着眼看好像还真是锤子
+
+//Botania
+hammerz.lexicon.manasteelhammer=魔钢锤
+hammerz.lexicon.manasteelhammer.text=&1魔钢锤&0具有3x3范围采掘的 特殊效果,还可以在右击方块 时放置火把.如果物品栏里有 mana来源的话,它还会消耗 mana来抵消耐久消耗;同时 它也会消耗mana来自我修复 ,但这样做的消耗会更高.
+hammerz.lexicon.manasteelhammer.recipe=魔钢锤合成
+
+hammerz.lexicon.elementiumhammer=源质钢锤
+hammerz.lexicon.elementiumhammer.text=&d源质钢锤&0和&1魔钢锤&0效果一致, 但源质钢锤在采掘时不会掉落 任何"垃圾",比如说地狱岩 和圆石.想时刻保持物品栏整 洁?今天就开始换上源质钢锤吧!
+hammerz.lexicon.elementiumhammer.recipe=源质钢锤合成
