@@ -12,9 +12,6 @@ public class EventsHandler
 			MinecraftForge.EVENT_BUS.register(new AnvilEvent());
 		}
 		MinecraftForge.EVENT_BUS.register(new ToolTipHandler());
-		if (Loader.isModLoaded("Botania"))
-		{
-			MinecraftForge.EVENT_BUS.register(new DropHandler());
-		}
+		MinecraftForge.EVENT_BUS.register(new DropHandler());
 	}
 }

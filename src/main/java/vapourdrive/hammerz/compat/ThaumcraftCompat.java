@@ -17,6 +17,7 @@ import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
 import vapourdrive.hammerz.Hammerz;
 import vapourdrive.hammerz.Recipes;
+import vapourdrive.hammerz.items.HZ_Items;
 import vapourdrive.hammerz.utils.RandomUtils;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.research.ResearchCatagories", striprefs = true)
@@ -25,6 +26,7 @@ public class ThaumcraftCompat
 	public static void init()
 	{
 		Hammerz.log.log(Level.INFO, "Initializing Thaumcraft Research Module");
+		ThaumcraftApi.registerObjectTag(new ItemStack(HZ_Items.ItemHammer), new AspectList().add(Aspect.TOOL, 8));
 
 		ResearchCategories.registerCategory("HAMMERZ", null, new ResourceLocation("hammerz", "textures/misc/hammerzTab.png"),
 				new ResourceLocation("hammerz:textures/misc/research.png"), new ResourceLocation("thaumcraft:textures/gui/gui_research_back_over.png"));

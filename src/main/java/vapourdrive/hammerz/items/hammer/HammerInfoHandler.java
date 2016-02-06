@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,16 +15,28 @@ public class HammerInfoHandler
 {
 	public static int getHarvestLevel(ItemStack stack, String toolClass)
 	{
+		if (getHammerType(stack) == null)
+		{
+			return 0;
+		}
 		return getHammerType(stack).getHarvestLevel();
 	}
 
 	public static float getEfficiency(ItemStack stack)
 	{
+		if (getHammerType(stack) == null)
+		{
+			return 0;
+		}
 		return getHammerType(stack).getEfficiency();
 	}
 
 	public static int getItemEnchantability(ItemStack stack)
 	{
+		if (getHammerType(stack) == null)
+		{
+			return 0;
+		}
 		return getHammerType(stack).getEnchantability();
 	}
 
@@ -46,32 +57,20 @@ public class HammerInfoHandler
 
 	public static boolean getUsesMana(ItemStack stack)
 	{
+		if (getHammerType(stack) == null)
+		{
+			return false;
+		}
 		return getHammerType(stack).getUsesMana();
 	}
 
 	public static boolean getUsesEnergy(ItemStack stack)
 	{
+		if (getHammerType(stack) == null)
+		{
+			return false;
+		}
 		return getHammerType(stack).getUsesEnergy();
-	}
-
-	public static boolean canHarvestBlock(Block block, ItemStack stack)
-	{
-		return block == Blocks.obsidian ? getHarvestLevel(stack, "pickaxe") == 3
-				: (block != Blocks.diamond_block && block != Blocks.diamond_ore
-						? (block != Blocks.emerald_ore && block != Blocks.emerald_block
-								? (block != Blocks.gold_block && block != Blocks.gold_ore
-										? (block != Blocks.iron_block && block != Blocks.iron_ore
-												? (block != Blocks.lapis_block && block != Blocks.lapis_ore
-														? (block != Blocks.redstone_ore && block != Blocks.lit_redstone_ore
-																? (block.getMaterial() == Material.rock ? true
-																		: (block.getMaterial() == Material.iron ? true
-																				: block.getMaterial() == Material.anvil))
-																: getHarvestLevel(stack, "pickaxe") >= 2)
-														: getHarvestLevel(stack, "pickaxe") >= 1)
-												: getHarvestLevel(stack, "pickaxe") >= 1)
-										: getHarvestLevel(stack, "pickaxe") >= 2)
-								: getHarvestLevel(stack, "pickaxe") >= 2)
-						: getHarvestLevel(stack, "pickaxe") >= 2);
 	}
 
 	public static HammerType getHammerType(ItemStack stack)
@@ -154,16 +153,28 @@ public class HammerInfoHandler
 
 	public static boolean getCanRepair(ItemStack stack)
 	{
+		if (getHammerType(stack) == null)
+		{
+			return false;
+		}
 		return getHammerType(stack).getCanRepair();
 	}
 
 	public static double getAttackValue(ItemStack stack)
 	{
+		if (getHammerType(stack) == null)
+		{
+			return 0.0;
+		}
 		return getHammerType(stack).getDamage();
 	}
 
 	public static EnumRarity getEnchantedRarity(ItemStack stack)
 	{
+		if (getHammerType(stack) == null)
+		{
+			return EnumRarity.COMMON;
+		}
 		EnumRarity rarity = getHammerType(stack).getEnumRarity();
 		switch (rarity)
 		{
@@ -182,6 +193,10 @@ public class HammerInfoHandler
 
 	public static EnumRarity getRarity(ItemStack stack)
 	{
+		if (getHammerType(stack) == null)
+		{
+			return EnumRarity.COMMON;
+		}
 		return getHammerType(stack).getEnumRarity();
 	}
 

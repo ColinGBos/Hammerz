@@ -44,7 +44,7 @@ public class DropHandler
 						}
 					}
 				}
-				if(HammerInfoHandler.isStackElementalHammer(stack))
+				else if(HammerInfoHandler.isStackElementalHammer(stack))
 				{
 					for (int i = 0; i < event.drops.size(); i++)
 					{

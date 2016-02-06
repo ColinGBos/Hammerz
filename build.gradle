@@ -20,12 +20,12 @@ plugins {
     id "net.minecraftforge.gradle.forge" version "2.0.2"
 }
 */
-version = "0.1.4.15"
+version = "0.1.4.17"
 group= "vapourdrive.Hammerz" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Hammerz"
 
 minecraft {
-    version = "1.8.9-11.15.0.1705"
+    version = "1.8.9-11.15.1.1722"
     runDir = "../run"
     
     // the mappings can be changed at any time, and must be in the following format.

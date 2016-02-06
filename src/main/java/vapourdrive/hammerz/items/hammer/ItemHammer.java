@@ -13,11 +13,10 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -54,9 +53,8 @@ import com.google.common.collect.Sets;
 		@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IWarpingGear", striprefs = true),
 		@Optional.Interface(modid = "Botania", iface = "vazkii.botania.api.mana.ManaItemHandler", striprefs = true)
 })
-public class ItemHammer extends ItemTool implements IEnergyContainerItem, IManaUsingItem, /*IRepairableExtended,*/ IWarpingGear
+public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IManaUsingItem, /*IRepairableExtended,*/ IWarpingGear
 {
-    private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(new Block[] {Blocks.activator_rail, Blocks.coal_ore, Blocks.cobblestone, Blocks.detector_rail, Blocks.diamond_block, Blocks.diamond_ore, Blocks.double_stone_slab, Blocks.golden_rail, Blocks.gold_block, Blocks.gold_ore, Blocks.ice, Blocks.iron_block, Blocks.iron_ore, Blocks.lapis_block, Blocks.lapis_ore, Blocks.lit_redstone_ore, Blocks.mossy_cobblestone, Blocks.netherrack, Blocks.packed_ice, Blocks.rail, Blocks.redstone_ore, Blocks.sandstone, Blocks.red_sandstone, Blocks.stone, Blocks.stone_slab});
 	public static final String HammerKey = "Hammerz.HammerType";
 	public static final String Tag_DarkSteelEnergy = "Hammerz.hammer.darkhammer.energy";
 	public static final String Tag_EnergyStored = "Hammerz.hammer.energy";
@@ -64,9 +62,10 @@ public class ItemHammer extends ItemTool implements IEnergyContainerItem, IManaU
 
 	public ItemHammer()
 	{
-		super(0.0f, ToolMaterial.IRON, EFFECTIVE_ON);
+		super(ToolMaterial.IRON);
 		this.setCreativeTab(CommonProxy.HZTab);
 		this.setUnlocalizedName("Hammer");
+		this.hasSubtypes = true;
 		GameRegistry.registerItem(this, this.getUnlocalizedName());
 	}
 
@@ -88,12 +87,11 @@ public class ItemHammer extends ItemTool implements IEnergyContainerItem, IManaU
 	@Override
 	public float getDigSpeed(ItemStack stack, IBlockState state)
 	{
-		for (String type : getToolClasses(stack))
+		if (state.getBlock().isToolEffective("pickaxe", state))
 		{
-			if (state.getBlock().isToolEffective(type, state))
 				return HammerInfoHandler.getEfficiency((stack)) * ConfigOptions.EfficiencyMultiplier;
 		}
-		return 1.0F;
+        return (super.getDigSpeed(stack, state) * ConfigOptions.EfficiencyMultiplier);
 	}
 
 	@Override
@@ -168,12 +166,6 @@ public class ItemHammer extends ItemTool implements IEnergyContainerItem, IManaU
 			"pickaxe"
 		});
 		return ToolClass;
-	}
-
-	@Override
-	public boolean canHarvestBlock(Block block, ItemStack stack)
-	{
-		return HammerInfoHandler.canHarvestBlock(block, stack);
 	}
 
 	@Override
@@ -315,7 +307,7 @@ public class ItemHammer extends ItemTool implements IEnergyContainerItem, IManaU
 		{
 			return (StatCollector.translateToLocal("item.hammer." + type.getName().toLowerCase() + ".name"));
 		}
-		return (StatCollector.translateToLocal("item.hammer.stone.name"));
+		return (StatCollector.translateToLocal("item.hammer.brokenHammer.name"));
 	}
 
 	@Override
