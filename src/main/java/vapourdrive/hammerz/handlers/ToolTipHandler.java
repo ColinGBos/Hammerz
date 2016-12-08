@@ -33,6 +33,7 @@ public class ToolTipHandler
 				{
 					event.getToolTip().add(OreDictionary.getOreName(names[i]));
 				}
+				event.getToolTip().add(itemstack.getUnlocalizedName());
 			}
 		}
 		if (ConfigOptions.AddToolInfo)

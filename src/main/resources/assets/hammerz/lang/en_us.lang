@@ -5,34 +5,34 @@
 tile.BlockStorageVoid.name=Void metal Block
 
 //Items
-item.hammer.wood.name=Wood Hammer
-item.hammer.stone.name=Stone Hammer
-item.hammer.iron.name=Iron Hammer
-item.hammer.gold.name=Gold Hammer
-item.hammer.diamond.name=Diamond Hammer
-item.hammer.copper.name=Copper Hammer
-item.hammer.tin.name=Tin Hammer
-item.hammer.nickel.name=Nickel Hammer
-item.hammer.electrum.name=Electrum Hammer
-item.hammer.silver.name=Silver Hammer
-item.hammer.lead.name=Lead Hammer
-item.hammer.bronze.name=Bronze Hammer
-item.hammer.platinum.name=Platinum Hammer
-item.hammer.invar.name=Invar Hammer
-item.hammer.steel.name=Steel Hammer
-item.hammer.darksteel.name=Dark Hammer
-item.hammer.thaumium.name=Thaumium Hammer
-item.hammer.void.name=Void Hammer
-item.hammer.thaumium_elemental.name=Hammer of The Core
-item.hammer.manasteel.name=Manasteel Hammer
-item.hammer.b_elementium.name=Elementium Hammer
-item.hammer.bedrock.name=Bedrock Hammer
-item.hammer.hsla.name=HSLA Hammer
-item.hammer.brokenHammer.name=Borked Hammer
+item.hammerz.hammer.wood.name=Wood Hammer
+item.hammerz.hammer.stone.name=Stone Hammer
+item.hammerz.hammer.iron.name=Iron Hammer
+item.hammerz.hammer.gold.name=Gold Hammer
+item.hammerz.hammer.diamond.name=Diamond Hammer
+item.hammerz.hammer.copper.name=Copper Hammer
+item.hammerz.hammer.tin.name=Tin Hammer
+item.hammerz.hammer.nickel.name=Nickel Hammer
+item.hammerz.hammer.electrum.name=Electrum Hammer
+item.hammerz.hammer.silver.name=Silver Hammer
+item.hammerz.hammer.lead.name=Lead Hammer
+item.hammerz.hammer.bronze.name=Bronze Hammer
+item.hammerz.hammer.platinum.name=Platinum Hammer
+item.hammerz.hammer.invar.name=Invar Hammer
+item.hammerz.hammer.steel.name=Steel Hammer
+item.hammerz.hammer.darksteel.name=Dark Hammer
+item.hammerz.hammer.thaumium.name=Thaumium Hammer
+item.hammerz.hammer.void.name=Void Hammer
+item.hammerz.hammer.thaumium_elemental.name=Hammer of The Core
+item.hammerz.hammer.manasteel.name=Manasteel Hammer
+item.hammerz.hammer.b_elementium.name=Elementium Hammer
+item.hammerz.hammer.bedrock.name=Bedrock Hammer
+item.hammerz.hammer.hsla.name=HSLA Hammer
+item.hammerz.hammer.brokenHammer.name=Borked Hammer
 
-item.hammer.soulforgedsteel.name=Soulforged Steel Hammer
+item.hammerz.hammer.soulforgedsteel.name=Soulforged Steel Hammer
 
-item.hammer.living.name=Living Hammer
+item.hammerz.hammer.living.name=Living Hammer
 
 item.ChameleonHammer.name=Chameleon Hammer
 

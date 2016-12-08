@@ -71,7 +71,7 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 	{
 		super(ToolMaterial.IRON);
 		this.setCreativeTab(CommonProxy.HZTab);
-		this.setUnlocalizedName("Hammer");
+		this.setUnlocalizedName(Reference.ModID + ".hammer");
 		this.hasSubtypes = true;
 		GameRegistry.register(this, new ResourceLocation(Reference.ModID, "item.hammer"));
 	}
@@ -310,9 +310,9 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 		HammerType type = HammerInfoHandler.getHammerType(stack);
 		if (type != null)
 		{
-			return (I18n.format("item.hammer." + type.getName().toLowerCase() + ".name"));
+			return (I18n.format("item.hammerz.hammer." + type.getName().toLowerCase() + ".name"));
 		}
-		return (I18n.format("item.hammer.brokenHammer.name"));
+		return (I18n.format("item.hammerz.hammer.brokenHammer.name"));
 	}
 
 	@Override
