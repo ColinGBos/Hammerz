@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 27, 2015, 7:20:09 PM (GMT)]
  */
 package vazkii.botania.api.lexicon.multiblock.component;
@@ -14,7 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 
@@ -24,13 +24,10 @@ import vazkii.botania.api.BotaniaAPI;
  */
 public class ColorSwitchingComponent extends MultiblockComponent {
 
-	private final PropertyEnum colorProp;
+	private final PropertyEnum<EnumDyeColor> colorProp;
 
-	public ColorSwitchingComponent(BlockPos relPos, Block block, PropertyEnum colorProp) {
+	public ColorSwitchingComponent(BlockPos relPos, Block block, PropertyEnum<EnumDyeColor> colorProp) {
 		super(relPos, block.getDefaultState());
-		if (colorProp.getValueClass() != EnumDyeColor.class) {
-			throw new IllegalArgumentException("Must be EnumDyeColor");
-		}
 		this.colorProp = colorProp;
 	}
 

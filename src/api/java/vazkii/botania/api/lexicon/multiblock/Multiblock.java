@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 27, 2015, 2:37:22 PM (GMT)]
  */
 package vazkii.botania.api.lexicon.multiblock;
@@ -18,8 +18,8 @@ import java.util.Map;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 
 /**
@@ -29,14 +29,14 @@ import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
  */
 public class Multiblock {
 
-	public List<MultiblockComponent> components = new ArrayList();
-	public List<ItemStack> materials = new ArrayList();
+	public final List<MultiblockComponent> components = new ArrayList<>();
+	public final List<ItemStack> materials = new ArrayList<>();
 
 	public BlockPos minPos = BlockPos.ORIGIN;
 	public BlockPos maxPos = BlockPos.ORIGIN;
 	public BlockPos offPos = BlockPos.ORIGIN;
 
-	public HashMap<BlockPos, MultiblockComponent> locationCache = new HashMap<BlockPos, MultiblockComponent>();
+	public final HashMap<BlockPos, MultiblockComponent> locationCache = new HashMap<>();
 
 	/**
 	 * Adds a multiblock component to this multiblock. The component's x y z
@@ -89,7 +89,9 @@ public class Multiblock {
 
 		for(ItemStack oStack : materials)
 			if(oStack.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(oStack, stack)) {
-				oStack.stackSize += stack.stackSize;
+				int i = oStack.func_190916_E();
+				i += stack.func_190916_E();
+				stack. func_190920_e(i);
 				return;
 			}
 
@@ -128,7 +130,7 @@ public class Multiblock {
 	 * orientations.
 	 */
 	public Map<EnumFacing, Multiblock> createRotations() {
-		Map<EnumFacing, Multiblock> ret = new EnumMap<EnumFacing, Multiblock>(EnumFacing.class);
+		Map<EnumFacing, Multiblock> ret = new EnumMap<>(EnumFacing.class);
 
 		ret.put(EnumFacing.SOUTH, this);
 
@@ -188,4 +190,5 @@ public class Multiblock {
 	public MultiblockComponent getComponentForLocation(BlockPos pos) {
 		return locationCache.get(pos);
 	}
+
 }

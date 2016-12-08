@@ -2,18 +2,16 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Oct 17, 2014, 5:29:26 PM (GMT)]
  */
 package vazkii.botania.api.subtile.signature;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -23,16 +21,6 @@ import net.minecraft.item.ItemStack;
 public abstract class SubTileSignature {
 
 	public static final String SPECIAL_FLOWER_PREFIX = "flower.";
-
-	/**
-	 * Equivalent to Block.registerBlockIcons.
-	 */
-	public abstract void registerIcons(TextureMap map);
-	// todo 1.8 evaluate need for these two
-	/**
-	 * Gets the icon to display for the flower item.
-	 */
-	public abstract TextureAtlasSprite getIconForStack(ItemStack stack);
 
 	/**
 	 * Gets the display name for the flower item.
@@ -49,8 +37,6 @@ public abstract class SubTileSignature {
 	/**
 	 * Adds additional text to the tooltip. This text is added after getUnlocalizedLoreTextForStack.
 	 */
-	public void addTooltip(ItemStack stack, EntityPlayer player, List<String> tooltip) {
-		// NO-OP
-	}
+	public void addTooltip(ItemStack stack, EntityPlayer player, List<String> tooltip) {}
 
 }

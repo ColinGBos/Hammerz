@@ -2,16 +2,16 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 31, 2015, 2:59:19 PM (GMT)]
  */
 package vazkii.botania.api.subtile;
 
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 
 /**
  * This object describes the Radius of a SubTileEntity. It can either be
@@ -19,7 +19,7 @@ import net.minecraft.util.BlockPos;
  */
 public class RadiusDescriptor {
 
-	final BlockPos subtileCoords;
+	private final BlockPos subtileCoords;
 
 	public RadiusDescriptor(BlockPos subtileCoords) {
 		this.subtileCoords = subtileCoords;

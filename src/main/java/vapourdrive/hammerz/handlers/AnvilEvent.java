@@ -9,7 +9,10 @@ import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.logging.log4j.Level;
+import vapourdrive.hammerz.Hammerz;
 import vapourdrive.hammerz.items.HZ_Items;
+import vapourdrive.hammerz.items.hammer.EnergyHandler;
 import vapourdrive.hammerz.items.hammer.HammerInfoHandler;
 import vapourdrive.hammerz.items.hammer.ItemHammer;
 import vapourdrive.hammerz.utils.RandomUtils;
@@ -20,8 +23,8 @@ public class AnvilEvent
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void anvilEvent(AnvilUpdateEvent event)
 	{
-		ItemStack leftInput = event.left;
-		ItemStack rightInput = event.right;
+		ItemStack leftInput = event.getLeft();
+		ItemStack rightInput = event.getRight();
 
 		if (leftInput == null || rightInput == null)
 		{
@@ -48,7 +51,7 @@ public class AnvilEvent
 
 	public void handleUpgrade(ItemStack leftInput, ItemStack rightInput, AnvilUpdateEvent event)
 	{
-		if (leftInput.getItem() == HZ_Items.ItemHammer && rightInput.stackSize == 1 && HammerInfoHandler.isStackDarkSteelHammer(leftInput))
+		if (leftInput.getItem() == HZ_Items.ItemHammer && rightInput.func_190916_E() == 1 && HammerInfoHandler.isStackDarkSteelHammer(leftInput))
 		{
 			ItemStack Output = leftInput.copy();
 
@@ -72,25 +75,24 @@ public class AnvilEvent
 							int energy = item.getEnergyStored(rightInput);
 							if(Output.getItem() instanceof ItemHammer)
 							{
-								item = (ItemHammer) Output.getItem();
 								NBTTagCompound finalCompound = RandomUtils.getNBT(Output);
 								int hammerEnergy = finalCompound.getInteger(ItemHammer.Tag_DarkSteelEnergy);
-								if(hammerEnergy + energy > item.getMaxEnergyStored(Output))
+								if(hammerEnergy + energy > EnergyHandler.getMaxEnergyStored(Output))
 								{
-									finalCompound.setInteger(ItemHammer.Tag_DarkSteelEnergy, item.getMaxEnergyStored(Output));
+									finalCompound.setInteger(ItemHammer.Tag_DarkSteelEnergy, EnergyHandler.getMaxEnergyStored(Output));
 								}
 								else
 								{
 									finalCompound.setInteger(ItemHammer.Tag_DarkSteelEnergy, hammerEnergy + energy);
 								}
+
 							}
 						}
+						event.setCost(upgrade.getCost());
+						event.setMaterialCost(1);
+						event.setOutput(Output);
+						return;
 					}
-					event.cost = upgrade.getCost();
-					event.materialCost = 1;
-					event.output = Output;
-
-					return;
 				}
 			}
 		}

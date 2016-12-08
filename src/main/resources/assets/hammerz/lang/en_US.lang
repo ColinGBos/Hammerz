@@ -29,6 +29,10 @@ item.hammer.bedrock.name=Bedrock Hammer
 item.hammer.hsla.name=HSLA Hammer
 item.hammer.brokenHammer.name=Borked Hammer
 
+item.hammer.soulforgedsteel.name=Soulforged Steel Hammer
+
+item.hammer.living.name=Living Hammer
+
 item.ChameleonHammer.name=Chameleon Hammer
 
 //Phrases

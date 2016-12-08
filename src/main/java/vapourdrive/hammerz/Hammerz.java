@@ -8,12 +8,14 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import vapourdrive.hammerz.proxies.CommonProxy;
+import vapourdrive.hammerz.utils.RandomUtils;
 
-@Mod(modid = Reference.ModID, version = Reference.Version, name = Reference.Name, dependencies = "after:techreborn;after:Thaumcraft;after:Botania", acceptedMinecraftVersions = "1.8.8;1.8.9")
+@Mod(modid = Reference.ModID, version = Reference.Version, name = Reference.Name, dependencies = "after:techreborn;after:Thaumcraft;after:Botania;after:FunOres", acceptedMinecraftVersions = "1.10.2")
 public class Hammerz
 {
 	public static boolean hasStorageBlock = false;

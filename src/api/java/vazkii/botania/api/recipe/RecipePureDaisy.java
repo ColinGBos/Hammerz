@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 17, 2015, 5:07:25 PM (GMT)]
  */
 package vazkii.botania.api.recipe;
@@ -14,25 +14,34 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.base.Preconditions;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.subtile.SubTileEntity;
 
 public class RecipePureDaisy {
 
-	private static final Map<String, List<ItemStack>> oreMap = new HashMap();
+	public static final int DEFAULT_TIME = 150;
+	private static final Map<String, List<ItemStack>> oreMap = new HashMap<>();
 
-	Object input;
-	IBlockState outputState;
+	private final Object input;
+	private final IBlockState outputState;
+	private final int time;
 
 	public RecipePureDaisy(Object input, IBlockState state) {
-		this.input = input;
-		this.outputState = state;
+		this(input, state, DEFAULT_TIME);
+	}
 
+	public RecipePureDaisy(Object input, IBlockState state, int time) {
+		Preconditions.checkArgument(time >= 0, "Time must be nonnegative");
+		this.input = input;
+		outputState = state;
+		this.time = time;
 		if(input != null && !(input instanceof String || input instanceof Block))
 			throw new IllegalArgumentException("input must be an oredict String or a Block.");
 	}
@@ -44,12 +53,12 @@ public class RecipePureDaisy {
 		if(input instanceof Block)
 			return state.getBlock() == input;
 
-		ItemStack stack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
+		ItemStack stack = new ItemStack(state.getBlock(), 1, state.getBlock().damageDropped(state));
 		String oredict = (String) input;
 		return isOreDict(stack, oredict);
 	}
 
-	public boolean isOreDict(ItemStack stack, String entry) {
+	private boolean isOreDict(ItemStack stack, String entry) {
 		if(stack == null || stack.getItem() == null)
 			return false;
 
@@ -90,6 +99,10 @@ public class RecipePureDaisy {
 
 	public IBlockState getOutputState() {
 		return outputState;
+	}
+
+	public int getTime() {
+		return time;
 	}
 
 }

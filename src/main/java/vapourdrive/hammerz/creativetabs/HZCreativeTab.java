@@ -3,7 +3,6 @@ package vapourdrive.hammerz.creativetabs;
 import java.util.Random;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
@@ -56,9 +55,9 @@ public class HZCreativeTab extends CreativeTabs
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Item getTabIconItem()
+	public ItemStack getTabIconItem()
 	{
-		return HZ_Items.ItemHammer;
+		return new ItemStack(HZ_Items.ItemHammer);
 	}
 
 }

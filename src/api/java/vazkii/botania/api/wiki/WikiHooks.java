@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Sep 2, 2014, 6:05:03 PM (GMT)]
  */
 package vazkii.botania.api.wiki;
@@ -15,16 +15,15 @@ import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameData;
 
 public class WikiHooks {
 
 	private static final IWikiProvider FALLBACK_PROVIDER = new SimpleWikiProvider("FTB Wiki", "http://ftb.gamepedia.com/%s");
 
-	private static final Map<String, IWikiProvider> modWikis = new HashMap();
+	private static final Map<String, IWikiProvider> modWikis = new HashMap<>();
 
 	public static IWikiProvider getWikiFor(Block block) {
-		ResourceLocation mod = GameData.getBlockRegistry().getNameForObject(block);
+		ResourceLocation mod = Block.REGISTRY.getNameForObject(block);
 		return getWikiFor(mod == null ? "" : mod.getResourceDomain().toLowerCase());
 	}
 

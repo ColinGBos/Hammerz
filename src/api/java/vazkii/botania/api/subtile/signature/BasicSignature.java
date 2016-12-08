@@ -2,23 +2,20 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Oct 17, 2014, 5:34:35 PM (GMT)]
  */
 package vazkii.botania.api.subtile.signature;
 
-
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileFunctional;
@@ -29,20 +26,10 @@ import vazkii.botania.api.subtile.SubTileGenerating;
  */
 public class BasicSignature extends SubTileSignature {
 
-	final String name;
+	private final String name;
 
 	public BasicSignature(String name) {
 		this.name = name;
-	}
-
-	@Override
-	public void registerIcons(TextureMap register) {
-		BotaniaAPI.internalHandler.registerBasicSignatureIcons(name, register);
-	}
-
-	@Override
-	public TextureAtlasSprite getIconForStack(ItemStack stack) {
-		return BotaniaAPI.internalHandler.getSubTileIconForName(name);
 	}
 
 	@Override
@@ -65,9 +52,6 @@ public class BasicSignature extends SubTileSignature {
 		if(clazz == null)
 			return "uwotm8";
 
-		if(clazz.getAnnotation(PassiveFlower.class) != null)
-			return "botania.flowerType.passiveGenerating";
-
 		if(SubTileGenerating.class.isAssignableFrom(clazz))
 			return "botania.flowerType.generating";
 
@@ -79,7 +63,7 @@ public class BasicSignature extends SubTileSignature {
 
 	@Override
 	public void addTooltip(ItemStack stack, EntityPlayer player, List<String> tooltip) {
-		tooltip.add(EnumChatFormatting.BLUE + StatCollector.translateToLocal(getType()));
+		tooltip.add(TextFormatting.BLUE + I18n.translateToLocal(getType()));
 	}
 
 	private String unlocalizedName(String end) {

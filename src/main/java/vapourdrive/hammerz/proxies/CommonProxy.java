@@ -63,7 +63,7 @@ public class CommonProxy
 		}
 		if (Loader.isModLoaded("Thaumcraft"))
 		{
-			ThaumcraftCompat.init();
+			//ThaumcraftCompat.init();
 		}
 		if (Loader.isModLoaded("Botania"))
 		{

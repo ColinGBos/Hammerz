@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 27, 2015, 2:42:32 PM (GMT)]
  */
 package vazkii.botania.api.lexicon.multiblock.component;
@@ -13,7 +13,7 @@ package vazkii.botania.api.lexicon.multiblock.component;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -27,7 +27,7 @@ public class MultiblockComponent {
 	protected BlockPos relPos;
 	protected final IBlockState state;
 	protected final TileEntity tileEntity;
-	private boolean doFancyRender;
+	private final boolean doFancyRender;
 
 	public MultiblockComponent(BlockPos relPos, IBlockState state) {
 		this(relPos, state, null);
@@ -57,7 +57,7 @@ public class MultiblockComponent {
 	}
 
 	public boolean matches(World world, BlockPos pos) {
-		return world.getBlockState(pos) == state; // todo 1.8?
+		return world.getBlockState(pos) == state;
 	}
 
 	public ItemStack[] getMaterials() {
@@ -87,4 +87,5 @@ public class MultiblockComponent {
 	public boolean shouldDoFancyRender() {
 		return doFancyRender;
 	}
+
 }

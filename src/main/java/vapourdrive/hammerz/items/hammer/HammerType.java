@@ -11,6 +11,7 @@ public class HammerType
     private final int durability;
     private final float efficiency;
     private final float damage;
+    private final float attackSpeed;
     private final int enchantability;
     /*
      * -1 doesn't take any damage
@@ -23,7 +24,7 @@ public class HammerType
     private final int maxEnergyStored;
     private final EnumRarity rarity;
 	
-	public HammerType(int damageType, int maxEnergyStored, String blockName, String name, int harvestLevel, int durability, float efficiency, float damage, int enchantability, EnumRarity rarity) 
+	public HammerType(int damageType, int maxEnergyStored, String blockName, String name, int harvestLevel, int durability, float efficiency, float damage, float attackSpeed, int enchantability, EnumRarity rarity) 
 	{
 		this.blockName = blockName;
 		this.name = name;
@@ -31,6 +32,7 @@ public class HammerType
 		this.durability = durability;
 		this.efficiency = efficiency;
 		this.damage = damage;
+		this.attackSpeed = attackSpeed;
 		this.enchantability = enchantability;
 		this.maxEnergyStored = maxEnergyStored;
 		this.damageType = damageType;
@@ -67,6 +69,11 @@ public class HammerType
 		return damage;
 	}
 	
+	public double getAttackSpeed() 
+	{
+		return attackSpeed;
+	}
+	
 	public int getEnchantability()
 	{
 		return enchantability;
@@ -96,4 +103,5 @@ public class HammerType
 	{
 		return rarity;
 	}
+
 }

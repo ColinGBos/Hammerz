@@ -2,8 +2,9 @@ package vapourdrive.hammerz.items.hammer;
 
 import java.util.Iterator;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,7 +14,7 @@ import vapourdrive.hammerz.utils.RandomUtils;
 
 public class HammerInfoHandler
 {
-	public static int getHarvestLevel(ItemStack stack, String toolClass)
+	public static int getHarvestLevel(ItemStack stack, String toolClass, EntityPlayer player, IBlockState blockState)
 	{
 		if (getHammerType(stack) == null)
 		{
@@ -49,10 +50,10 @@ public class HammerInfoHandler
 		return (int) (getHammerType(stack).getDurability() * ConfigOptions.DurabilityMultiplier);
 	}
 
-	public static float getStrengthVsBlock(ItemStack stack, Block block)
+	public static float getStrengthVsBlock(ItemStack stack, IBlockState state)
 	{
-		return block.getMaterial() != Material.iron && block.getMaterial() != Material.anvil && block.getMaterial() != Material.rock ? 1.0F
-				: getEfficiency(stack);
+		return state.getMaterial() != Material.IRON && state.getMaterial() != Material.ANVIL && state.getMaterial() != Material.ROCK ? 1.0F
+				: (getEfficiency(stack) * ConfigOptions.EfficiencyMultiplier);
 	}
 
 	public static boolean getUsesMana(ItemStack stack)
@@ -128,6 +129,10 @@ public class HammerInfoHandler
 	{
 		return isStackHammerType(stack, "void");
 	}
+
+	public static boolean isStackLivingHammer(ItemStack stack) {
+		return isStackHammerType(stack, "living");
+	}
 	
 	public static boolean isStackHammerType(ItemStack stack, String name)
 	{
@@ -168,6 +173,15 @@ public class HammerInfoHandler
 		}
 		return getHammerType(stack).getDamage();
 	}
+	
+	public static double getAttackSpeed(ItemStack stack)
+	{
+		if (getHammerType(stack) == null)
+		{
+			return 0.0;
+		}
+		return getHammerType(stack).getAttackSpeed();
+	}
 
 	public static EnumRarity getEnchantedRarity(ItemStack stack)
 	{
@@ -205,6 +219,25 @@ public class HammerInfoHandler
 		if (isStackVoidHammer(stack))
 		{
 			return 1;
+		}
+		return 0;
+	}
+
+	public static boolean isEmpowered(ItemStack stack)
+	{
+		if (getEmpoweredment(stack) > 0)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	public static int getEmpoweredment(ItemStack stack)
+	{
+		int level = RandomUtils.getNBT(stack).getInteger(ItemHammer.Key_Empower);
+		if (level > 0)
+		{
+			return level;
 		}
 		return 0;
 	}

@@ -8,13 +8,13 @@ import net.minecraftforge.fml.common.Optional;
 
 import org.apache.logging.log4j.Level;
 
-import thaumcraft.api.ThaumcraftApi;
+/*import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.InfusionRecipe;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
-import thaumcraft.api.research.ResearchPage;
+import thaumcraft.api.research.ResearchPage;*/
 import vapourdrive.hammerz.Hammerz;
 import vapourdrive.hammerz.Recipes;
 import vapourdrive.hammerz.items.HZ_Items;
@@ -23,7 +23,7 @@ import vapourdrive.hammerz.utils.RandomUtils;
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.research.ResearchCatagories", striprefs = true)
 public class ThaumcraftCompat
 {
-	public static void init()
+	/*public static void init()
 	{
 		Hammerz.log.log(Level.INFO, "Initializing Thaumcraft Research Module");
 		ThaumcraftApi.registerObjectTag(new ItemStack(HZ_Items.ItemHammer), new AspectList().add(Aspect.TOOL, 8));
@@ -54,7 +54,7 @@ public class ThaumcraftCompat
 					"ELEMENTALTOOLS"
 				}));
 
-		/*if (Loader.isModLoaded("ForbiddenMagic"))
+		if (Loader.isModLoaded("ForbiddenMagic"))
 		{
 			InfusionRecipe infusionRecipe2 = addChameleonHammerRecipe();
 			AspectList list4 = new AspectList().add(Aspect.TOOL, 4).add(Aspect.BEAST, 3).add(Aspect.ELDRITCH, 2);
@@ -63,7 +63,7 @@ public class ThaumcraftCompat
 					{
 						"MORPHTOOLS"
 					}));
-		}*/
+		}
 	}
 
 	public static ResearchItem getResearchItem(String key, AspectList aspects, int column, int row, int complexity, ItemStack displayStack,
@@ -118,5 +118,5 @@ public class ThaumcraftCompat
 				{
 						ChameleonHammer, new ItemStack(Blocks.diamond_block), shard, shard, shard, log, log, quicksilver, quicksilver
 				});
-	}
+	}*/
 }

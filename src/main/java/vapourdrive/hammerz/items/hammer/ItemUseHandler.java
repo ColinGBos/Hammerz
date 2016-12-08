@@ -3,71 +3,73 @@ package vapourdrive.hammerz.items.hammer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vapourdrive.hammerz.utils.RandomUtils;
 
 public class ItemUseHandler
 {
 
-	public static boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float floatx,
+	public static EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float floatx,
 			float floaty, float floatz)
 	{
-		return handleRegularUse(stack, player, world, pos, side, floatx, floaty, floatz);
+		return handleRegularUse(player, world, pos, hand, side, floatx, floaty, floatz);
 	}
 
-	public static boolean onItemShiftUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float floatx,
+	public static EnumActionResult onItemShiftUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float floatx,
 			float floaty, float floatz)
 	{
-		if (HammerInfoHandler.isStackElementalHammer(stack))
+		if (HammerInfoHandler.isStackElementalHammer(player.getHeldItemMainhand()))
 		{
-			return handleElementalUse(stack, player, world, pos, side, floatx, floaty, floatz);
+			return handleElementalUse(player, world, pos, hand, side, floatx, floaty, floatz);
 		}
-		return false;
+		return EnumActionResult.PASS;
 	}
 
-	private static boolean handleElementalUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side,
+	private static EnumActionResult handleElementalUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side,
 			float floatx, float floaty, float floatz)
 	{
 		ItemStack ThaumPick = RandomUtils.getItemStackFromString("Thaumcraft", "elemental_pick", 1);
 		if (ThaumPick != null && ThaumPick.getItem() != null)
 		{
-			if (DamageHandler.requestDamage(false, null, stack, player, 10))
+			if (DamageHandler.requestDamage(false, null, player.getHeldItemMainhand(), player, 10))
 			{
-				ThaumPick.getItem().onItemUse(ThaumPick, player, world, pos, side, floatx, floaty, floatz);
-				return true;
+				ThaumPick.getItem().onItemUse(player, world, pos, hand, side, floatx, floaty, floatz);
+				return EnumActionResult.SUCCESS;
 			}
 		}
-		return false;
+		return EnumActionResult.PASS;
 	}
 
-	private static boolean handleRegularUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float floatx,
+	private static EnumActionResult handleRegularUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float floatx,
 			float floaty, float floatz)
 	{
-		if (player.getCurrentEquippedItem() != null)
+		if (player.getHeldItemMainhand() != null)
 		{
-			if (player.getCurrentEquippedItem().getItem() instanceof ItemHammer)
+			if (player.getHeldItemMainhand().getItem() instanceof ItemHammer)
 			{
 				if (!player.isSneaking())
 				{
-					ItemStack torchStack = new ItemStack(Blocks.torch);
+					ItemStack torchStack = new ItemStack(Blocks.TORCH);
 					if (player.inventory.hasItemStack(torchStack))
 					{
-						if (torchStack.getItem().onItemUse(torchStack, player, world, pos, side, floatx, floaty, floatz))
+						if (torchStack.getItem().onItemUse(player, world, pos, hand, side, floatx, floaty, floatz) == EnumActionResult.SUCCESS)
 						{
-							player.inventory.consumeInventoryItem(torchStack.getItem());
-							return true;
+							RandomUtils.consumeInventoryItem(player.inventory, torchStack.getItem());
+							return EnumActionResult.SUCCESS;
 						}
 					}
 				}
 				else
 				{
-					return onItemShiftUse(stack, player, world, pos, side, floatx, floaty, floatz);
+					return onItemShiftUse(player, world, pos, hand, side, floatx, floaty, floatz);
 				}
 			}
 		}
-		return false;
+		return EnumActionResult.PASS;
 	}
 
 }

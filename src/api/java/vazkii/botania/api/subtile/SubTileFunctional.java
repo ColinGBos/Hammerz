@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 24, 2014, 8:03:44 PM (GMT)]
  */
 package vazkii.botania.api.subtile;
@@ -14,23 +14,27 @@ import java.awt.Color;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 
 /**
  * The basic class for a Functional Flower.
  */
 public class SubTileFunctional extends SubTileEntity {
 
-	public static final int RANGE = 10;
+	public static final int LINK_RANGE = 10;
 
 	private static final String TAG_MANA = "mana";
 
@@ -113,7 +117,7 @@ public class SubTileFunctional extends SubTileEntity {
 			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
 			int size = network.getAllPoolsInWorld(supertile.getWorld()).size();
 			if(BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
-				linkedPool = network.getClosestPool(supertile.getPos(), supertile.getWorld(), RANGE);
+				linkedPool = network.getClosestPool(supertile.getPos(), supertile.getWorld(), LINK_RANGE);
 				sizeLastCheck = size;
 			}
 		}
@@ -133,7 +137,7 @@ public class SubTileFunctional extends SubTileEntity {
 			return false;
 
 		knownMana = mana;
-		player.worldObj.playSoundAtEntity(player, "botania:ding", 0.1F, 1F);
+		player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 0.1F, 1F);
 
 		return super.onWanded(player, wand);
 	}
@@ -206,12 +210,13 @@ public class SubTileFunctional extends SubTileEntity {
 	}
 
 	public boolean isValidBinding() {
-		return linkedPool != null && !linkedPool.isInvalid() && supertile.getWorld().getTileEntity(linkedPool.getPos()) == linkedPool;
+		return linkedPool != null && linkedPool.hasWorldObj() && !linkedPool.isInvalid() && supertile.getWorld().isBlockLoaded(linkedPool.getPos(), false) && supertile.getWorld().getTileEntity(linkedPool.getPos()) == linkedPool;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		String name = StatCollector.translateToLocal("tile.botania:flower." + getUnlocalizedName() + ".name");
+		String name = I18n.format("tile.botania:flower." + getUnlocalizedName() + ".name");
 		int color = getColor();
 		BotaniaAPI.internalHandler.drawComplexManaHUD(color, knownMana, getMaxMana(), name, res, BotaniaAPI.internalHandler.getBindDisplayForFlowerType(this), isValidBinding());
 	}

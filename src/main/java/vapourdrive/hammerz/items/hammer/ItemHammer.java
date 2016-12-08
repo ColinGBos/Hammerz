@@ -7,32 +7,36 @@ import java.util.Set;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.Level;
 
-import thaumcraft.api.items.IWarpingGear;
 import vapourdrive.hammerz.Hammerz;
+import vapourdrive.hammerz.Reference;
 import vapourdrive.hammerz.config.ConfigOptions;
 import vapourdrive.hammerz.items.HZ_Items;
 import vapourdrive.hammerz.proxies.CommonProxy;
@@ -45,15 +49,18 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 @Optional.InterfaceList(
 {
 		@Optional.Interface(modid = "Botania", iface = "vazkii.botania.api.mana.IManaUsingItem", striprefs = true),
-		@Optional.Interface(modid = "CoFHCore", iface = "cofh.api.energy.IEnergyContainerItem", striprefs = true),
+		@Optional.Interface(modid = "EnderIO", iface = "cofh.api.energy.IEnergyContainerItem", striprefs = true),
 		@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IRepairableExtended", striprefs = true),
 		@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IWarpingGear", striprefs = true),
 		@Optional.Interface(modid = "Botania", iface = "vazkii.botania.api.mana.ManaItemHandler", striprefs = true)
 })
-public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IManaUsingItem, /*IRepairableExtended,*/ IWarpingGear
+public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IManaUsingItem
 {
 	public static final String HammerKey = "Hammerz.HammerType";
 	public static final String Tag_DarkSteelEnergy = "Hammerz.hammer.darkhammer.energy";
@@ -66,7 +73,7 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 		this.setCreativeTab(CommonProxy.HZTab);
 		this.setUnlocalizedName("Hammer");
 		this.hasSubtypes = true;
-		GameRegistry.registerItem(this, this.getUnlocalizedName());
+		GameRegistry.register(this, new ResourceLocation(Reference.ModID, "item.hammer"));
 	}
 
 	@Override
@@ -84,7 +91,7 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 		return true;
 	}
 
-	@Override
+	/*@Override
 	public float getDigSpeed(ItemStack stack, IBlockState state)
 	{
 		if (state.getBlock().isToolEffective("pickaxe", state))
@@ -92,19 +99,18 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 				return HammerInfoHandler.getEfficiency((stack)) * ConfigOptions.EfficiencyMultiplier;
 		}
         return (super.getDigSpeed(stack, state) * ConfigOptions.EfficiencyMultiplier);
-	}
+	}*/
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float floatx, float floaty,
-			float floatz)
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float floatx, float floaty, float floatz)
 	{
 		if (!player.isSneaking())
 		{
-			return ItemUseHandler.onItemUse(stack, player, world, pos, side, floatx, floaty, floatz);
+			return ItemUseHandler.onItemUse(player, world, pos, hand, facing, floatx, floaty, floatz);
 		}
 		else
 		{
-			return ItemUseHandler.onItemShiftUse(stack, player, world, pos, side, floatx, floaty, floatz);
+			return ItemUseHandler.onItemShiftUse(player, world, pos, hand, facing, floatx, floaty, floatz);
 		}
 	}
 
@@ -128,9 +134,9 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 	}
 
 	@Override
-	public int getHarvestLevel(ItemStack stack, String toolClass)
+	public int getHarvestLevel(ItemStack stack, String toolClass, @javax.annotation.Nullable net.minecraft.entity.player.EntityPlayer player, @javax.annotation.Nullable IBlockState blockState)
 	{
-		return HammerInfoHandler.getHarvestLevel(stack, toolClass);
+		return HammerInfoHandler.getHarvestLevel(stack, toolClass, player, blockState);
 	}
 	
 	@Override
@@ -148,7 +154,6 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 	@Override
 	public int getItemEnchantability(ItemStack stack)
 	{
-		Hammerz.log.log(Level.INFO, "Enchantability: " + HammerInfoHandler.getItemEnchantability(stack));
 		return HammerInfoHandler.getItemEnchantability(stack);
 	}
 
@@ -169,9 +174,9 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 	}
 
 	@Override
-	public float getStrVsBlock(ItemStack stack, Block block)
+	public float getStrVsBlock(ItemStack stack, IBlockState state)
 	{
-		return HammerInfoHandler.getStrengthVsBlock(stack, block);
+		return HammerInfoHandler.getStrengthVsBlock(stack, state);
 	}
 	
 	@Override
@@ -181,9 +186,9 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 	}
 
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, BlockPos pos, EntityLivingBase player)
+	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving)
 	{
-		DamageHandler.handleDamage(true, block, stack, (EntityPlayer) player);
+		DamageHandler.handleDamage(true, state, stack, entityLiving);
 		return true;
 	}
 
@@ -193,16 +198,16 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 		World world = player.worldObj;
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
-		if ((player.isSneaking() && ConfigOptions.CanShiftMine) || block.getBlockHardness(world, pos) == 0)
+		if ((player.isSneaking() && ConfigOptions.CanShiftMine) || block.getBlockHardness(state, world, pos) == 0)
 		{
 			return false;
 		}
 
-		MovingObjectPosition object = RandomUtils.raytraceFromEntity(world, player, false, 4.5D);
+		RayTraceResult object = RandomUtils.raytraceFromEntity(world, player, false, 4.5D);
 
 		if (object == null)
 		{
-			return super.onBlockDestroyed(stack, world, block, pos, player);
+			return super.onBlockDestroyed(stack, world, state, pos, player);
 		}
 
 		EnumFacing side = object.sideHit;
@@ -255,16 +260,16 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 	{
 		IBlockState state = world.getBlockState(pos);
 		Block breakBlock = state.getBlock();
-		Material material = originalBlock.getMaterial();
-		if (breakBlock.getMaterial() == material && ForgeHooks.canHarvestBlock(breakBlock, player, world, pos)
-				&& stack.canHarvestBlock(breakBlock))
+		Material material = originalBlock.getMaterial(state);
+		if (breakBlock.getMaterial(state) == material && ForgeHooks.canHarvestBlock(breakBlock, player, world, pos)
+				&& stack.canHarvestBlock(state))
 		{
 			float newStrength = ForgeHooks.blockStrength(state, player, world, pos);
 			if (newStrength > 0f && strength / newStrength <= 10f)
 			{
-				if ((double) breakBlock.getBlockHardness(world, pos) != 0.0D)
+				if ((double) breakBlock.getBlockHardness(state, world, pos) != 0.0D)
 				{
-					if (DamageHandler.handleDamage(false, breakBlock, stack, player))
+					if (DamageHandler.handleDamage(false, state, stack, player))
 					{
 						BlockUtils.tryHarvestBlock(world, state, pos, side, player);
 					}
@@ -279,7 +284,7 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list)
+	public void getSubItems(Item item, CreativeTabs tab, NonNullList<ItemStack> list)
 	{
 		Iterator<HammerType> iterator = HZ_Items.hammerTypes.iterator();
 		while (iterator.hasNext())
@@ -305,9 +310,9 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 		HammerType type = HammerInfoHandler.getHammerType(stack);
 		if (type != null)
 		{
-			return (StatCollector.translateToLocal("item.hammer." + type.getName().toLowerCase() + ".name"));
+			return (I18n.format("item.hammer." + type.getName().toLowerCase() + ".name"));
 		}
-		return (StatCollector.translateToLocal("item.hammer.brokenHammer.name"));
+		return (I18n.format("item.hammer.brokenHammer.name"));
 	}
 
 	@Override
@@ -347,10 +352,14 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 	}*/
 	
 	@Override
-    public Multimap<String, AttributeModifier> getAttributeModifiers(ItemStack stack)
+    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack)
     {
     	Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(itemModifierUUID, "Tool modifier", (double)(1.5F + HammerInfoHandler.getAttackValue(stack)), 0));
+    	if(slot == EntityEquipmentSlot.MAINHAND)
+		{
+    		multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Tool modifier", (double)(2F + HammerInfoHandler.getAttackValue(stack)), 0));
+    		multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double)(-3.5F + HammerInfoHandler.getAttackSpeed(stack)), 0));
+		}
         return multimap;
     }
 	
@@ -360,9 +369,9 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
         return stack.isItemEnchanted() ? HammerInfoHandler.getEnchantedRarity(stack) : HammerInfoHandler.getRarity(stack);
     }
 
-	@Override
+	/*@Override
 	public int getWarp(ItemStack stack, EntityPlayer player)
 	{
 		return HammerInfoHandler.getWarp(stack);
-	}
+	}*/
 }

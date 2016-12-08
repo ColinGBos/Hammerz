@@ -1,17 +1,11 @@
 package vapourdrive.hammerz.items;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-
 import org.apache.logging.log4j.Level;
-
-import thaumcraft.api.ThaumcraftMaterials;
 import vapourdrive.hammerz.Hammerz;
 import vapourdrive.hammerz.config.ConfigOptions;
 import vapourdrive.hammerz.config.HammerzConfig;
@@ -20,6 +14,9 @@ import vapourdrive.hammerz.items.hammer.HammerType;
 import vapourdrive.hammerz.items.hammer.ItemHammer;
 import vapourdrive.hammerz.utils.RandomUtils;
 import vazkii.botania.api.BotaniaAPI;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class HZ_Items
 {
@@ -55,7 +52,7 @@ public class HZ_Items
 		addHammerType(0, 0, "stone", ToolMaterial.STONE, EnumRarity.COMMON);
 		addHammerType(0, 0, "blockIron", ToolMaterial.IRON, EnumRarity.COMMON);
 		addHammerType(0, 0, "blockGold", ToolMaterial.GOLD, EnumRarity.COMMON);
-		addHammerType(0, 0, "blockDiamond", ToolMaterial.EMERALD, EnumRarity.COMMON);
+		addHammerType(0, 0, "blockDiamond", ToolMaterial.DIAMOND, EnumRarity.COMMON);
 		addHammerType(0, 0, "blockCopper", "Copper", 1, 175, 4.0F, 0.5F, 6, EnumRarity.COMMON);
 		addHammerType(0, 0, "blockTin", "Tin", 1, 200, 4.5F, 1.0F, 7, EnumRarity.COMMON);
 		addHammerType(0, 0, "blockSilver", "Silver", 2, 200, 6.0F, 1.5F, 20, EnumRarity.COMMON);
@@ -70,7 +67,7 @@ public class HZ_Items
 
 	private static void setupModHammerTypes()
 	{
-		if (Loader.isModLoaded("Thaumcraft"))
+		/*if (Loader.isModLoaded("Thaumcraft"))
 		{
 			Hammerz.log.log(Level.INFO, "ThaumcraftCompat loading");
 			addHammerType(3, 0, "blockThaumium", ThaumcraftMaterials.TOOLMAT_THAUMIUM, EnumRarity.UNCOMMON);
@@ -83,7 +80,7 @@ public class HZ_Items
 				Hammerz.log.log(Level.INFO, "Forbidden Magic Compat loading");
 				addHammerType(3, 0, "blockThaumium", ThaumcraftMaterials.TOOLMAT_ELEMENTAL, EnumRarity.EPIC);
 			}
-		}
+		}*/
 		if (Loader.isModLoaded("Botania"))
 		{
 			Hammerz.log.log(Level.INFO, "BotaniaCompat loading");
@@ -101,6 +98,16 @@ public class HZ_Items
 			Hammerz.log.log(Level.INFO, "RotaryCraftCompat loading");
 			addHammerType(-1, 0, "blockBedRock", "Bedrock", 3, 0, 8.0F, 3.0F, 10, EnumRarity.COMMON);
 			addHammerType(-1, 0, "blockHSLA", "HSLA", 2, 600, 6.0F, 3.0F, 14, EnumRarity.COMMON);
+		}
+		if (Loader.isModLoaded("betterwithmods"))
+		{
+			Hammerz.log.log(Level.INFO, "Better With Mods Compat loading");
+			addHammerType(0, 0, "blockSoulforgedSteel", "SoulforgedSteel", 3, 1561, 8.0F, 3.0F, 22, EnumRarity.COMMON);
+		}
+		if (Loader.isModLoaded("roots"))
+		{
+			Hammerz.log.log(Level.INFO, "Roots Compat loading");
+			addHammerType(0, 0, "logWood", "Living", 2, 192, 6.0F, 2.0F, 18, EnumRarity.COMMON);
 		}
 	}
 
@@ -123,7 +130,7 @@ public class HZ_Items
 			ToolMaterial material, EnumRarity rarity)
 	{
 		String name = material.name();
-		if (material == ToolMaterial.EMERALD)
+		if (material == ToolMaterial.DIAMOND)
 		{
 			name = "DIAMOND";
 		}
@@ -134,7 +141,7 @@ public class HZ_Items
 		int enchantability = material.getEnchantability();
 
 		HammerType hammertype = new HammerType(damageType, maxEnergy, blockName, name, harvestLevel, durability,
-				efficiency, damage, enchantability, rarity);
+				efficiency, damage, 0, enchantability, rarity);
 
 		potentialHammerTypes.add(hammertype);
 		HammerzConfig.enabledOreDictHammersComment = HammerzConfig.enabledOreDictHammersComment + name + ", ";
@@ -145,7 +152,7 @@ public class HZ_Items
 			int harvestLevel, int durability, float efficiency, float damage, int enchantability, EnumRarity rarity)
 	{
 		HammerType hammertype = new HammerType(damageType, maxEnergy, blockName, name.toUpperCase(), harvestLevel,
-				durability, efficiency, damage, enchantability, rarity);
+				durability, efficiency, damage, 0, enchantability, rarity);
 		potentialHammerTypes.add(hammertype);
 		HammerzConfig.enabledOreDictHammersComment = HammerzConfig.enabledOreDictHammersComment + name + ", ";
 		HammerzConfig.enabledOreDictHammersArrayList.add(true);

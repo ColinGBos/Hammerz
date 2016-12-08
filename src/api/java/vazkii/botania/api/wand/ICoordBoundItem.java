@@ -1,9 +1,7 @@
 package vazkii.botania.api.wand;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.util.math.BlockPos;
 
 /**
  * The item equivalent of ITileBound, renders when the
@@ -12,7 +10,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public interface ICoordBoundItem {
 
-	@SideOnly(Side.CLIENT)
 	public BlockPos getBinding(ItemStack stack);
 
 }
