@@ -1,6 +1,12 @@
 package vapourdrive.hammerz.utils;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.block.BlockSnow;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import org.apache.logging.log4j.Level;
 
 import net.minecraft.block.Block;
@@ -100,9 +106,9 @@ public class RandomUtils
 		return OreDictionary.doesOreNameExist(ore);
 	}
 	
-	public static boolean consumeInventoryItem(InventoryPlayer inv, Item itemIn)
+	public static boolean consumeInventoryItem(InventoryPlayer inv, ItemStack stack, int toConsume)
     {
-        int i = getInventorySlotContainItem(inv, itemIn);
+        int i = getInventorySlotContainItem(inv, stack.getItem());
 
         if (i < 0)
         {
@@ -110,12 +116,12 @@ public class RandomUtils
         }
         else
         {
-			int j = inv.mainInventory.get(i).func_190916_E() - 1;
-            if (j <= 0)
-            {
-            	inv.mainInventory.set(i, null);
-            }
+			stack.func_190918_g(toConsume);
 
+			if (stack.func_190926_b())
+			{
+				inv.deleteStack(stack);
+			}
             return true;
         }
     }
@@ -124,7 +130,7 @@ public class RandomUtils
     {
         for (int i = 0; i < inv.mainInventory.size(); ++i)
         {
-            if (inv.mainInventory.get(i) != null && inv.mainInventory.get(i).getItem() == itemIn)
+            if (inv.mainInventory.get(i).getItem() == itemIn)
             {
                 return i;
             }
@@ -133,5 +139,84 @@ public class RandomUtils
         return -1;
     }
 
+	public static EnumActionResult onItemBlockUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing enumFacing, float facing, float hitX, float hitY)
+	{
+		IBlockState iblockstate = world.getBlockState(pos);
+		Block block = iblockstate.getBlock();
+
+		if (block == Blocks.SNOW_LAYER && (Integer) iblockstate.getValue(BlockSnow.LAYERS) < 1)
+		{
+			enumFacing = EnumFacing.UP;
+		}
+		else if (!block.isReplaceable(world, pos))
+		{
+			pos = pos.offset(enumFacing);
+		}
+
+		ItemBlock itemblock;
+		if (stack.getItem() instanceof ItemBlock)
+		{
+			itemblock = (ItemBlock) stack.getItem();
+		}
+		else
+		{
+			return EnumActionResult.PASS;
+		}
+
+		if (!stack.func_190926_b() && player.canPlayerEdit(pos, enumFacing, stack) && world.func_190527_a(itemblock.getBlock(), pos, false, enumFacing, (Entity)null))
+		{
+			IBlockState iblockstate1 = itemblock.getBlock().getStateForPlacement(world, pos, enumFacing, facing, hitX, hitY, 0, player, hand);
+
+			if (!world.setBlockState(pos, iblockstate1, 11))
+			{
+				return EnumActionResult.FAIL;
+			}
+			else
+			{
+				iblockstate1 = world.getBlockState(pos);
+
+				if (iblockstate1.getBlock() == itemblock.getBlock())
+				{
+					ItemBlock.setTileEntityNBT(world, player, pos, stack);
+					iblockstate1.getBlock().onBlockPlacedBy(world, pos, iblockstate1, player, stack);
+				}
+
+				SoundType soundtype = iblockstate1.getBlock().getSoundType(iblockstate1, world, pos, player);
+				world.playSound(player, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
+				//stack.func_190918_g(1);
+				return EnumActionResult.SUCCESS;
+			}
+		}
+		else
+		{
+			return EnumActionResult.FAIL;
+		}
+	}
+
+	public static ItemStack findStackForItem(Item item, EntityPlayer player)
+	{
+		if (item == player.getHeldItem(EnumHand.OFF_HAND).getItem())
+		{
+			return player.getHeldItem(EnumHand.OFF_HAND);
+		}
+		else if (item == player.getHeldItem(EnumHand.MAIN_HAND).getItem())
+		{
+			return player.getHeldItem(EnumHand.MAIN_HAND);
+		}
+		else
+		{
+			for (int i = 0; i < player.inventory.getSizeInventory(); ++i)
+			{
+				ItemStack itemstack = player.inventory.getStackInSlot(i);
+
+				if (item == itemstack.getItem())
+				{
+					return itemstack;
+				}
+			}
+
+			return ItemStack.field_190927_a;
+		}
+	}
 
 }

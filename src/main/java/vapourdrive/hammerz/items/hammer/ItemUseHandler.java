@@ -8,6 +8,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.Level;
+import vapourdrive.hammerz.Hammerz;
 import vapourdrive.hammerz.utils.RandomUtils;
 
 public class ItemUseHandler
@@ -47,26 +49,24 @@ public class ItemUseHandler
 	private static EnumActionResult handleRegularUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float floatx,
 			float floaty, float floatz)
 	{
-		if (player.getHeldItemMainhand() != null)
+		if (player.getHeldItemMainhand().getItem() instanceof ItemHammer)
 		{
-			if (player.getHeldItemMainhand().getItem() instanceof ItemHammer)
+			if (!player.isSneaking())
 			{
-				if (!player.isSneaking())
+				ItemStack torch = new ItemStack(Blocks.TORCH);
+				if (player.inventory.hasItemStack(torch))
 				{
-					ItemStack torchStack = new ItemStack(Blocks.TORCH);
-					if (player.inventory.hasItemStack(torchStack))
+					ItemStack torchStack = RandomUtils.findStackForItem(torch.getItem(), player);
+					if (RandomUtils.onItemBlockUse(torchStack, player, world, pos, hand, side, floatx, floaty, floatz) == EnumActionResult.SUCCESS)
 					{
-						if (torchStack.getItem().onItemUse(player, world, pos, hand, side, floatx, floaty, floatz) == EnumActionResult.SUCCESS)
-						{
-							RandomUtils.consumeInventoryItem(player.inventory, torchStack.getItem());
-							return EnumActionResult.SUCCESS;
-						}
+						RandomUtils.consumeInventoryItem(player.inventory, torchStack, 1);
+						return EnumActionResult.SUCCESS;
 					}
 				}
-				else
-				{
-					return onItemShiftUse(player, world, pos, hand, side, floatx, floaty, floatz);
-				}
+			}
+			else
+			{
+				return onItemShiftUse(player, world, pos, hand, side, floatx, floaty, floatz);
 			}
 		}
 		return EnumActionResult.PASS;
