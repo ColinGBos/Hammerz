@@ -24,72 +24,54 @@ public class ToolTipHandler
 	{
 		ItemStack itemstack = event.getItemStack();
 
-		if (ConfigOptions.AddOreDictEntries && itemstack != null)
+		if (ConfigOptions.AddOreDictEntries)
 		{
-			if (itemstack.getItem() != null)
-			{
-				int[] names = OreDictionary.getOreIDs(itemstack);
-				for(int i = 0; i < names.length; i++)
-				{
-					event.getToolTip().add(OreDictionary.getOreName(names[i]));
-				}
-				event.getToolTip().add(itemstack.getUnlocalizedName());
+			int[] names = OreDictionary.getOreIDs(itemstack);
+			for (int name : names) {
+				event.getToolTip().add(OreDictionary.getOreName(name));
 			}
 		}
 		if (ConfigOptions.AddToolInfo)
 		{
-			if (itemstack != null)
+			Item item = itemstack.getItem();
+			if(item instanceof ItemHammer)
 			{
-				if (itemstack.getItem() != null)
+				if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_LCONTROL))
 				{
-					Item item = itemstack.getItem();
-					int[] names = OreDictionary.getOreIDs(itemstack);
-					for(int i = 0; i < names.length; i++)
+					HammerType type = HammerInfoHandler.getHammerType(itemstack);
+					if(type != null)
 					{
-						event.getToolTip().add(OreDictionary.getOreName(names[i]));
+						event.getToolTip().add("###### Hammer ######");
+						event.getToolTip().add("Material: " + type.getName());
+						event.getToolTip().add("HarvestLevel: " + type.getHarvestLevel());
+						event.getToolTip().add("Durability: " + (int)(type.getDurability() * ConfigOptions.DurabilityMultiplier));
+						event.getToolTip().add("Efficiency: " + type.getEfficiency());
+						event.getToolTip().add("Damage: " + type.getDamage());
+						event.getToolTip().add("Enchantbility: " + type.getEnchantability());
 					}
-					if(item instanceof ItemHammer)
-					{
-						if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_LCONTROL))
-						{
-							HammerType type = HammerInfoHandler.getHammerType(itemstack);
-							if(type != null)
-							{
-								event.getToolTip().add("###### Hammer ######");
-								event.getToolTip().add("Material: " + type.getName());
-								event.getToolTip().add("HarvestLevel: " + type.getHarvestLevel());
-								event.getToolTip().add("Durability: " + (int)(type.getDurability() * ConfigOptions.DurabilityMultiplier));
-								event.getToolTip().add("Efficiency: " + type.getEfficiency());
-								event.getToolTip().add("Damage: " + type.getDamage());
-								event.getToolTip().add("Enchantbility: " + type.getEnchantability());
-							}
-						}
-						else
-						{
-							event.getToolTip().add(TextFormatting.WHITE + "" + TextFormatting.ITALIC + I18n.format("phrase.hammerz.holdctrl"));
-						}
-					}
-					else if (item instanceof ItemTool)
-					{
-						if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_LCONTROL))
-						{
-							ToolMaterial material = ((ItemTool) item).getToolMaterial();
-							event.getToolTip().add("Material: " + material);
-							event.getToolTip().add("HarvestLevel: " + material.getHarvestLevel());
-							event.getToolTip().add("Durability: " + material.getMaxUses());
-							event.getToolTip().add("Efficiency: " + material.getEfficiencyOnProperMaterial());
-							event.getToolTip().add("Damage: " + material.getDamageVsEntity());
-							event.getToolTip().add("Enchantbility: " + material.getEnchantability());
-						}
-						else
-						{
-							event.getToolTip().add(TextFormatting.WHITE + "" + TextFormatting.ITALIC + I18n.format("phrase.hammerz.holdctrl"));
-						}
-					}
+				}
+				else
+				{
+					event.getToolTip().add(TextFormatting.WHITE + "" + TextFormatting.ITALIC + I18n.format("phrase.hammerz.holdctrl"));
+				}
+			}
+			else if (item instanceof ItemTool)
+			{
+				if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_LCONTROL))
+				{
+					ToolMaterial material = ((ItemTool) item).getToolMaterial();
+					event.getToolTip().add("Material: " + material);
+					event.getToolTip().add("HarvestLevel: " + material.getHarvestLevel());
+					event.getToolTip().add("Durability: " + material.getMaxUses());
+					event.getToolTip().add("Efficiency: " + material.getEfficiencyOnProperMaterial());
+					event.getToolTip().add("Damage: " + material.getDamageVsEntity());
+					event.getToolTip().add("Enchantbility: " + material.getEnchantability());
+				}
+				else
+				{
+					event.getToolTip().add(TextFormatting.WHITE + "" + TextFormatting.ITALIC + I18n.format("phrase.hammerz.holdctrl"));
 				}
 			}
 		}
-
-		return;
 	}
 }
