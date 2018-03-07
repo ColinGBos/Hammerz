@@ -1,6 +1,5 @@
 {
 	"recipes": {
-		"hammer_shaped": "vapourdrive.hammerz.HammerRecipeFactory",
-		"bwm_anvil_shaped": "betterwithmods.common.registry.anvil.ShapedAnvilRecipe$Factory"
+		"hammer_shaped": "vapourdrive.hammerz.HammerRecipeFactory"
 	}
 }
