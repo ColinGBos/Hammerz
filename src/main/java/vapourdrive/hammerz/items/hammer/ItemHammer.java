@@ -4,10 +4,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import cofh.redstoneflux.api.IEnergyContainerItem;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -29,6 +32,7 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -43,7 +47,6 @@ import vapourdrive.hammerz.proxies.CommonProxy;
 import vapourdrive.hammerz.utils.BlockUtils;
 import vapourdrive.hammerz.utils.RandomUtils;
 import vazkii.botania.api.mana.IManaUsingItem;
-import cofh.api.energy.IEnergyContainerItem;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -73,15 +76,16 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 		this.setCreativeTab(CommonProxy.HZTab);
 		this.setUnlocalizedName(Reference.ModID + ".hammer");
 		this.hasSubtypes = true;
-		GameRegistry.register(this, new ResourceLocation(Reference.ModID, "item.hammer"));
+		this.setRegistryName("item.hammer");
+		ForgeRegistries.ITEMS.register(this);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean useExtraInformation)
+	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flagIn)
 	{
-		super.addInformation(stack, player, list, useExtraInformation);
-		AddInformationHelper.addInformation(stack, player, list, useExtraInformation);
+		super.addInformation(stack, world, list, flagIn);
+		AddInformationHelper.addInformation(stack, world, list, flagIn);
 	}
 
 	@Override
@@ -140,12 +144,6 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 	}
 	
 	@Override
-	public boolean isItemTool(ItemStack stack)
-    {
-        return true;
-    }
-	
-	@Override
 	public boolean isDamageable()
     {
         return true;
@@ -164,6 +162,7 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 	}
 
 	@Override
+	@MethodsReturnNonnullByDefault
 	public Set<String> getToolClasses(ItemStack stack)
 	{
 		Set<String> ToolClass = Sets.newHashSet(new String[]
@@ -174,19 +173,19 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 	}
 
 	@Override
-	public float getStrVsBlock(ItemStack stack, IBlockState state)
+	public float getDestroySpeed(@Nullable ItemStack stack, IBlockState state)
 	{
 		return HammerInfoHandler.getStrengthVsBlock(stack, state);
 	}
 	
 	@Override
-	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker)
+	public boolean hitEntity(ItemStack stack, EntityLivingBase target, @Nullable EntityLivingBase attacker)
 	{
 		return DamageHandler.handleDamage(true, stack, target, attacker, 4);
 	}
 
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving)
+	public boolean onBlockDestroyed(@Nullable ItemStack stack, World worldIn, @Nullable IBlockState state, @Nullable BlockPos pos, @Nullable EntityLivingBase entityLiving)
 	{
 		DamageHandler.handleDamage(true, state, stack, entityLiving);
 		return true;
@@ -195,7 +194,7 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player)
 	{
-		World world = player.worldObj;
+		World world = player.getEntityWorld();
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 		if ((player.isSneaking() && ConfigOptions.CanShiftMine) || block.getBlockHardness(state, world, pos) == 0)
@@ -284,16 +283,18 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs tab, NonNullList<ItemStack> list)
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> list)
 	{
 		Iterator<HammerType> iterator = HZ_Items.hammerTypes.iterator();
 		while (iterator.hasNext())
 		{
 			HammerType hammerType = (HammerType) iterator.next();
-			ItemStack stack = new ItemStack(item);
+			ItemStack stack = new ItemStack(this);
 			NBTTagCompound tagCompound = RandomUtils.getNBT(stack);
 			tagCompound.setString(HammerKey, hammerType.getName());
-			list.add(stack);
+
+			if(this.isInCreativeTab(tab))
+				list.add(stack);
 		}
 	}
 
@@ -357,8 +358,8 @@ public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IMa
     	Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
     	if(slot == EntityEquipmentSlot.MAINHAND)
 		{
-    		multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Tool modifier", (double)(2F + HammerInfoHandler.getAttackValue(stack)), 0));
-    		multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double)(-3.5F + HammerInfoHandler.getAttackSpeed(stack)), 0));
+    		multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Tool modifier", (double)(2F + HammerInfoHandler.getAttackValue(stack)), 0));
+    		multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double)(-3.5F + HammerInfoHandler.getAttackSpeed(stack)), 0));
 		}
         return multimap;
     }

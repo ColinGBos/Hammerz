@@ -7,6 +7,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryModifiable;
 import org.apache.logging.log4j.Level;
 
 import net.minecraft.block.Block;
@@ -105,6 +108,19 @@ public class RandomUtils
 	{
 		return OreDictionary.doesOreNameExist(ore);
 	}
+
+	public static boolean doesBlockExist(String name) {
+
+		switch(name) {
+			case "blockElvenElementium":
+			case "blockManasteel":
+				return ForgeRegistries.BLOCKS.getValue(new ResourceLocation("botania:storage")) != null;
+			case "steel_block":
+				return ForgeRegistries.BLOCKS.getValue(new ResourceLocation("betterwithmods:" + name)) != null;
+			default:
+				return false;
+		}
+	}
 	
 	public static boolean consumeInventoryItem(InventoryPlayer inv, ItemStack stack, int toConsume)
     {
@@ -116,9 +132,9 @@ public class RandomUtils
         }
         else
         {
-			stack.func_190918_g(toConsume);
+			stack.shrink(toConsume);
 
-			if (stack.func_190926_b())
+			if (stack.isEmpty())
 			{
 				inv.deleteStack(stack);
 			}
@@ -163,7 +179,7 @@ public class RandomUtils
 			return EnumActionResult.PASS;
 		}
 
-		if (!stack.func_190926_b() && player.canPlayerEdit(pos, enumFacing, stack) && world.func_190527_a(itemblock.getBlock(), pos, false, enumFacing, (Entity)null))
+		if (!stack.isEmpty() && player.canPlayerEdit(pos, enumFacing, stack) && world.mayPlace(itemblock.getBlock(), pos, false, enumFacing, (Entity)null))
 		{
 			IBlockState iblockstate1 = itemblock.getBlock().getStateForPlacement(world, pos, enumFacing, facing, hitX, hitY, 0, player, hand);
 
@@ -215,7 +231,7 @@ public class RandomUtils
 				}
 			}
 
-			return ItemStack.field_190927_a;
+			return ItemStack.EMPTY;
 		}
 	}
 

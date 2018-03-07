@@ -3,6 +3,7 @@ package vapourdrive.hammerz.handlers;
 import java.util.Iterator;
 import java.util.List;
 
+import cofh.redstoneflux.api.IEnergyContainerItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.AnvilUpdateEvent;
@@ -16,7 +17,6 @@ import vapourdrive.hammerz.items.hammer.EnergyHandler;
 import vapourdrive.hammerz.items.hammer.HammerInfoHandler;
 import vapourdrive.hammerz.items.hammer.ItemHammer;
 import vapourdrive.hammerz.utils.RandomUtils;
-import cofh.api.energy.IEnergyContainerItem;
 
 public class AnvilEvent
 {
@@ -51,7 +51,7 @@ public class AnvilEvent
 
 	public void handleUpgrade(ItemStack leftInput, ItemStack rightInput, AnvilUpdateEvent event)
 	{
-		if (leftInput.getItem() == HZ_Items.ItemHammer && rightInput.func_190916_E() == 1 && HammerInfoHandler.isStackDarkSteelHammer(leftInput))
+		if (leftInput.getItem() == HZ_Items.ItemHammer && rightInput.getCount() == 1 && HammerInfoHandler.isStackDarkSteelHammer(leftInput))
 		{
 			ItemStack Output = leftInput.copy();
 

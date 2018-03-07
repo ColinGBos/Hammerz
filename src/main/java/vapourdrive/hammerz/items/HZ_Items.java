@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Level;
 import vapourdrive.hammerz.Hammerz;
 import vapourdrive.hammerz.config.ConfigOptions;
@@ -81,19 +82,19 @@ public class HZ_Items
 				addHammerType(3, 0, "blockThaumium", ThaumcraftMaterials.TOOLMAT_ELEMENTAL, EnumRarity.EPIC);
 			}
 		}*/
-		if (Loader.isModLoaded("Botania"))
+		if (Loader.isModLoaded("botania"))
 		{
 			Hammerz.log.log(Level.INFO, "BotaniaCompat loading");
 			addHammerType(1, 0, "blockManasteel", BotaniaAPI.manasteelToolMaterial, EnumRarity.COMMON);
 			addHammerType(1, 0, "blockElvenElementium", BotaniaAPI.elementiumToolMaterial, EnumRarity.COMMON);
 		}
-		if (Loader.isModLoaded("EnderIO"))
+		if (Loader.isModLoaded("enderio"))
 		{
 			Hammerz.log.log(Level.INFO, "EnderIOCompat loading");
 			addHammerType(2, 0, "blockDarkSteel", "DarkSteel", 5, 1561, 7.0F, 2.0F, 25, EnumRarity.COMMON);
 
 		}
-		if (Loader.isModLoaded("RotaryCraft"))
+		if (Loader.isModLoaded("rotarycraft"))
 		{
 			Hammerz.log.log(Level.INFO, "RotaryCraftCompat loading");
 			addHammerType(-1, 0, "blockBedRock", "Bedrock", 3, 0, 8.0F, 3.0F, 10, EnumRarity.COMMON);
@@ -102,7 +103,7 @@ public class HZ_Items
 		if (Loader.isModLoaded("betterwithmods"))
 		{
 			Hammerz.log.log(Level.INFO, "Better With Mods Compat loading");
-			addHammerType(0, 0, "blockSoulforgedSteel", "SoulforgedSteel", 3, 1561, 8.0F, 3.0F, 22, EnumRarity.COMMON);
+			addHammerType(0, 0, "steel_block", "SoulforgedSteel", 3, 1561, 8.0F, 3.0F, 22, EnumRarity.COMMON);
 		}
 		if (Loader.isModLoaded("roots"))
 		{
@@ -118,8 +119,9 @@ public class HZ_Items
 		while (iterator.hasNext())
 		{
 			HammerType type = iterator.next();
-			if (ConfigOptions.OreDictHammerEnabling[i] && RandomUtils.doesOreNameExist(type.getBlockName()))
+			if (ConfigOptions.OreDictHammerEnabling[i] && (RandomUtils.doesOreNameExist(type.getBlockName()) || RandomUtils.doesBlockExist(type.getBlockName())))
 			{
+				Hammerz.log.log(Level.INFO, "Hammer material " + type.getName() + " confirmed, adding to list");
 				hammerTypes.add(potentialHammerTypes.get(i));
 			}
 			i++;
@@ -130,14 +132,16 @@ public class HZ_Items
 			ToolMaterial material, EnumRarity rarity)
 	{
 		String name = material.name();
+		Hammerz.log.log(Level.INFO, "Attempting to create hammer of type " + name);
+
 		if (material == ToolMaterial.DIAMOND)
 		{
 			name = "DIAMOND";
 		}
 		int harvestLevel = material.getHarvestLevel();
 		int durability = material.getMaxUses();
-		float efficiency = material.getEfficiencyOnProperMaterial();
-		float damage = material.getDamageVsEntity();
+		float efficiency = material.getEfficiency();
+		float damage = material.getAttackDamage();
 		int enchantability = material.getEnchantability();
 
 		HammerType hammertype = new HammerType(damageType, maxEnergy, blockName, name, harvestLevel, durability,

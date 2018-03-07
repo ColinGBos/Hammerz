@@ -3,11 +3,13 @@ package vapourdrive.hammerz.items.hammer;
 import java.text.NumberFormat;
 import java.util.List;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 
+import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 
 import vapourdrive.hammerz.config.ConfigOptions;
@@ -18,21 +20,21 @@ public class AddInformationHelper
 	public static final NumberFormat INT_NF = NumberFormat.getIntegerInstance();
 	public static final NumberFormat FLOAT_NF = NumberFormat.getInstance();
 
-	public static void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean useExtraInformation)
+	public static void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flagIn)
 	{
-		addPermanentInfo(stack, player, list, useExtraInformation);
+		addPermanentInfo(stack, world, list, flagIn);
 		if (Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
 		{
-			addExpandedInfo(stack, player, list, useExtraInformation);
+			addExpandedInfo(stack, world, list, flagIn);
 		}
 		else
 		{
-			addStandardInfo(stack, player, list, useExtraInformation);
+			addStandardInfo(stack, world, list, flagIn);
 		}
 		
 	}
 	
-	public static void addStandardInfo(ItemStack stack, EntityPlayer player, List<String> list, boolean useExtraInformation)
+	public static void addStandardInfo(ItemStack stack, World world, List<String> list, ITooltipFlag flagIn)
 	{
 		list.add(TextFormatting.WHITE + "" + TextFormatting.ITALIC + I18n.translateToLocal("phrase.hammerz.holdshift"));
 		if (ConfigOptions.AddDurabilityInfo)
@@ -42,7 +44,7 @@ public class AddInformationHelper
 		}
 	}
 
-	public static void addExpandedInfo(ItemStack stack, EntityPlayer player, List<String> list, boolean useExtraInformation)
+	public static void addExpandedInfo(ItemStack stack, World world, List<String> list, ITooltipFlag flagIn)
 	{
 		list.add(TextFormatting.GRAY + I18n.translateToLocal("phrase.hammerz.hammerinfo1"));
 		list.add(TextFormatting.GRAY + I18n.translateToLocal("phrase.hammerz.hammerinfo2"));
@@ -70,7 +72,7 @@ public class AddInformationHelper
 		}
 	}
 
-	public static void addPermanentInfo(ItemStack stack, EntityPlayer player, List<String> list, boolean useExtraInformation)
+	public static void addPermanentInfo(ItemStack stack, World world, List<String> list, ITooltipFlag flagIn)
 	{
 		if(HammerInfoHandler.isStackDarkSteelHammer(stack))
 		{

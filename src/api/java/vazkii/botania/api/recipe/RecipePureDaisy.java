@@ -10,12 +10,7 @@
  */
 package vazkii.botania.api.recipe;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.google.common.base.Preconditions;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -23,6 +18,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.subtile.SubTileEntity;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RecipePureDaisy {
 
@@ -42,8 +41,8 @@ public class RecipePureDaisy {
 		this.input = input;
 		outputState = state;
 		this.time = time;
-		if(input != null && !(input instanceof String || input instanceof Block))
-			throw new IllegalArgumentException("input must be an oredict String or a Block.");
+		if(input != null && !(input instanceof String || input instanceof Block || input instanceof IBlockState))
+			throw new IllegalArgumentException("input must be an oredict String, Block, or IBlockState");
 	}
 
 	/**
@@ -53,13 +52,16 @@ public class RecipePureDaisy {
 		if(input instanceof Block)
 			return state.getBlock() == input;
 
+		if(input instanceof IBlockState)
+			return state == input;
+
 		ItemStack stack = new ItemStack(state.getBlock(), 1, state.getBlock().damageDropped(state));
 		String oredict = (String) input;
 		return isOreDict(stack, oredict);
 	}
 
 	private boolean isOreDict(ItemStack stack, String entry) {
-		if(stack == null || stack.getItem() == null)
+		if(stack.isEmpty())
 			return false;
 
 		List<ItemStack> ores;
@@ -89,7 +91,7 @@ public class RecipePureDaisy {
 	 */
 	public boolean set(World world, BlockPos pos, SubTileEntity pureDaisy) {
 		if(!world.isRemote)
-			world.setBlockState(pos, outputState, 1 | 2);
+			world.setBlockState(pos, outputState);
 		return true;
 	}
 

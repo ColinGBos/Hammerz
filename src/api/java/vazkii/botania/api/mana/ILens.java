@@ -10,9 +10,7 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
-import vazkii.botania.api.internal.IManaBurst;
 
 /**
  * Have an Item implement this to be counted as a lens for the mana spreader.
@@ -28,7 +26,7 @@ public interface ILens extends ILensEffect {
 	public boolean canCombineLenses(ItemStack sourceLens, ItemStack compositeLens);
 
 	/**
-	 * Gets the composite lens in the stack passed in, return null for none.
+	 * Gets the composite lens in the stack passed in, return empty for none.
 	 */
 	public ItemStack getCompositeLens(ItemStack stack);
 

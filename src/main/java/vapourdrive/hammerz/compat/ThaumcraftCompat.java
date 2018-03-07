@@ -16,7 +16,6 @@ import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;*/
 import vapourdrive.hammerz.Hammerz;
-import vapourdrive.hammerz.Recipes;
 import vapourdrive.hammerz.items.HZ_Items;
 import vapourdrive.hammerz.utils.RandomUtils;
 
