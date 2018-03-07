@@ -132,7 +132,6 @@ public class HZ_Items
 			ToolMaterial material, EnumRarity rarity)
 	{
 		String name = material.name();
-		Hammerz.log.log(Level.INFO, "Attempting to create hammer of type " + name);
 
 		if (material == ToolMaterial.DIAMOND)
 		{
