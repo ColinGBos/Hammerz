@@ -5,6 +5,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.RegistryNamespaced;
@@ -13,6 +14,7 @@ import net.minecraftforge.common.crafting.IRecipeFactory;
 import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.oredict.OreIngredient;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import org.apache.logging.log4j.Level;
 import vapourdrive.hammerz.compat.HammerEntry;
@@ -57,43 +59,35 @@ public class HammerRecipeFactory implements IRecipeFactory {
             /*
                This should probably be simplified by keeping the registry key for the
                crafting material in HammerType, since a lot of these blocks follow
-               no sort of naming convention. For now, this is good.
+               no sort of naming convention. For now, this works.
              */
-            
-            ItemStack craftingMaterial = this.input.get(0).getMatchingStacks()[0];
-            String typeName = craftingMaterial.getUnlocalizedName();
-            int lastColon = typeName.lastIndexOf(":");
-            int lastPeriod = typeName.lastIndexOf(".");
-            int nameStart = lastColon > lastPeriod ? lastColon : lastPeriod;
+            if(this.input.get(0).getMatchingStacks().length > 0) {
+                ItemStack craftingMaterial = this.input.get(0).getMatchingStacks()[0];
+                String typeName = craftingMaterial.getUnlocalizedName();
+                typeName = typeName.replaceAll(".name", "");
+                int lastColon = typeName.lastIndexOf(":");
+                int lastPeriod = typeName.lastIndexOf(".");
+                int nameStart = lastColon > lastPeriod ? lastColon : lastPeriod;
+                typeName = typeName.substring(nameStart + 1).replaceFirst("block", "").replaceFirst("log", "");
 
-            typeName = typeName.substring(nameStart + 1).replaceFirst("block", "").replaceFirst("log", "");
+                if(typeName.equals("steel_"))
+                    typeName = "SoulforgedSteel";
+                if(typeName.equals("oak"))
+                    typeName = "wood";
+                if(typeName.equals("storage0"))
+                    typeName = "Manasteel";
+                if(typeName.equals("storage1"))
+                    typeName = "Terrasteel";
+                if(typeName.equals("storage2"))
+                    typeName = "b_elementium";
 
-            if(typeName.equals("steel_"))
-                typeName = "SoulforgedSteel";
-            if(typeName.equals("oak"))
-                typeName = "wood";
-            if(typeName.equals("storage0"))
-                typeName = "Manasteel";
-            if(typeName.equals("storage1"))
-                typeName = "Terrasteel";
-            if(typeName.equals("storage2"))
-                typeName = "b_elementium";
-
-
-
-            //Hammerz.log.log(Level.INFO, "Found Recipe for " + typeName + " hammer.");
-
-            if(HammerInfoHandler.getHammerType(typeName) != null) {
-                ItemStack newOutput;
-                //Hammerz.log.log(Level.INFO, "Getting hammer type " + typeName);
-                newOutput = RandomUtils.getHammer(typeName);
-
-                //Hammerz.log.log(Level.INFO, "Recipe created successfully!");
-                return newOutput;
+                if(HammerInfoHandler.getHammerType(typeName) != null) {
+                    ItemStack newOutput;
+                    newOutput = RandomUtils.getHammer(typeName);
+                    return newOutput;
+                }
             }
-            else {
-                return this.output;
-            }
+            return this.output;
         }
     }
 }

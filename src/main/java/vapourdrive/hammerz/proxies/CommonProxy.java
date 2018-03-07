@@ -53,15 +53,15 @@ public class CommonProxy
 	public void posInit(FMLPostInitializationEvent event)
 	{
 		Hammerz.log.log(Level.INFO, "Beginning postInit");
-		if (Loader.isModLoaded("RotaryCraft"))
+		if (Loader.isModLoaded("rotarycraft"))
 		{
-			OreDictHandler.registerOre("RotaryCraft", "rotarycraft_block_deco", "blockHSLA", 0);
+			OreDictHandler.registerOre("rotarycraft", "rotarycraft_block_deco", "blockHSLA", 0);
 		}
-		if (Loader.isModLoaded("Thaumcraft"))
+		if (Loader.isModLoaded("thaumcraft"))
 		{
 			//ThaumcraftCompat.init();
 		}
-		if (Loader.isModLoaded("Botania"))
+		if (Loader.isModLoaded("botania"))
 		{
 			BotaniaCompat.init();
 		}
