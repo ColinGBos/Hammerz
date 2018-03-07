@@ -54,6 +54,12 @@ public class HammerRecipeFactory implements IRecipeFactory {
         @Nonnull
         @Override
         public ItemStack getRecipeOutput() {
+            /*
+               This should probably be simplified by keeping the registry key for the
+               crafting material in HammerType, since a lot of these blocks follow
+               no sort of naming convention. For now, this is good.
+             */
+            
             ItemStack craftingMaterial = this.input.get(0).getMatchingStacks()[0];
             String typeName = craftingMaterial.getUnlocalizedName();
             int lastColon = typeName.lastIndexOf(":");
