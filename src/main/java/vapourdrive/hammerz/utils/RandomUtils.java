@@ -106,7 +106,7 @@ public class RandomUtils
 
 	public static boolean doesOreNameExist(String ore)
 	{
-		return OreDictionary.doesOreNameExist(ore);
+		return OreDictionary.doesOreNameExist(ore) && OreDictionary.getOres(ore).size() > 0;
 	}
 
 	public static boolean doesBlockExist(String name) {

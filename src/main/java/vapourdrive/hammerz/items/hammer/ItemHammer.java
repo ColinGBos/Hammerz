@@ -57,11 +57,11 @@ import javax.annotation.Nullable;
 
 @Optional.InterfaceList(
 {
-		@Optional.Interface(modid = "Botania", iface = "vazkii.botania.api.mana.IManaUsingItem", striprefs = true),
-		@Optional.Interface(modid = "EnderIO", iface = "cofh.api.energy.IEnergyContainerItem", striprefs = true),
-		@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IRepairableExtended", striprefs = true),
-		@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IWarpingGear", striprefs = true),
-		@Optional.Interface(modid = "Botania", iface = "vazkii.botania.api.mana.ManaItemHandler", striprefs = true)
+		@Optional.Interface(modid = "botania", iface = "vazkii.botania.api.mana.IManaUsingItem", striprefs = true),
+		@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.items.IRepairableExtended", striprefs = true),
+		@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.items.IWarpingGear", striprefs = true),
+		@Optional.Interface(modid = "botania", iface = "vazkii.botania.api.mana.ManaItemHandler", striprefs = true),
+		@Optional.Interface(modid = "redstoneflux", iface = "cofh.redstoneflux.api.IEnergyContainerItem", striprefs = true)
 })
 public class ItemHammer extends ItemPickaxe implements IEnergyContainerItem, IManaUsingItem
 {

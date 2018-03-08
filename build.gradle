@@ -1,10 +1,13 @@
 buildscript {
-    repositories {
-        jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
-    }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+
+    repositories {
+        jcenter()
+        maven {
+            url = "http://files.minecraftforge.net/maven"
+        }
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -26,8 +29,19 @@ minecraft {
     mappings = "snapshot_20171003"
 }
 
+repositories {
+    maven {
+        name = "CoFH Maven"
+        url = "http://maven.covers1624.net"
+    }
+    maven { url 'https://jitpack.io' }
+}
+
 dependencies {
-    compile files('libs/')
+    deobfCompile "cofh:RedstoneFlux:1.12-2.0.0.1:universal"
+    compile 'com.github.Azanor:Baubles:-SNAPSHOT'
+    //botania should be in /libs
+    compile files("libs/Botania r1.10-354-deobf.jar")
 }
 
 processResources
