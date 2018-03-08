@@ -41,7 +41,7 @@ public class BlockUtils
 			return false;
 		}
 		
-		if (!(item.getItem().getToolClasses(item).contains(block.getHarvestTool(state)) || item.getItem().getStrVsBlock(item, state) > 1.0f))
+		if (!(item.getItem().getToolClasses(item).contains(block.getHarvestTool(state)) || item.getItem().getDestroySpeed(item, state) > 1.0f))
 		{
 			//Hammerz.log.log(Level.INFO, "Apparently wrong tool class");
 			return false;

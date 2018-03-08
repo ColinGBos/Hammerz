@@ -13,9 +13,13 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import vapourdrive.hammerz.config.ConfigOptions;
+import vapourdrive.hammerz.items.HZ_Items;
 import vapourdrive.hammerz.items.hammer.HammerInfoHandler;
 import vapourdrive.hammerz.items.hammer.HammerType;
 import vapourdrive.hammerz.items.hammer.ItemHammer;
+import vapourdrive.hammerz.utils.RandomUtils;
+
+import java.util.Iterator;
 
 public class ToolTipHandler
 {
@@ -59,13 +63,17 @@ public class ToolTipHandler
 			{
 				if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_LCONTROL))
 				{
-					ToolMaterial material = ((ItemTool) item).getToolMaterial();
-					event.getToolTip().add("Material: " + material);
-					event.getToolTip().add("HarvestLevel: " + material.getHarvestLevel());
-					event.getToolTip().add("Durability: " + material.getMaxUses());
-					event.getToolTip().add("Efficiency: " + material.getEfficiencyOnProperMaterial());
-					event.getToolTip().add("Damage: " + material.getDamageVsEntity());
-					event.getToolTip().add("Enchantbility: " + material.getEnchantability());
+					//I'm not quite sure what this is for; this fix is bad but it should at least cause something relatively accurate to display
+					//Also why the hell was getToolMaterial removed anyways?
+					String name = ((ItemTool) item).getToolMaterialName();
+					HammerType type = HammerInfoHandler.getHammerType(name);
+
+					event.getToolTip().add("Material: " + name);
+					event.getToolTip().add("HarvestLevel: " + type.getHarvestLevel());
+					event.getToolTip().add("Durability: " + type.getDurability());
+					event.getToolTip().add("Efficiency: " + type.getEfficiency());
+					event.getToolTip().add("Damage: " + type.getDamage());
+					event.getToolTip().add("Enchantbility: " + type.getEnchantability());
 				}
 				else
 				{

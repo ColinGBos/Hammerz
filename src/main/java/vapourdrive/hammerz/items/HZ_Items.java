@@ -3,8 +3,17 @@ package vapourdrive.hammerz.items;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.registries.IForgeRegistryModifiable;
 import org.apache.logging.log4j.Level;
 import vapourdrive.hammerz.Hammerz;
 import vapourdrive.hammerz.config.ConfigOptions;
@@ -18,12 +27,14 @@ import vazkii.botania.api.BotaniaAPI;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+@Mod.EventBusSubscriber
 public class HZ_Items
 {
 	public static ArrayList<HammerType> potentialHammerTypes = new ArrayList<HammerType>();
 	public static ArrayList<HammerType> hammerTypes = new ArrayList<HammerType>();
 
 	public static Item ItemHammer;
+	public static IForgeRegistryModifiable<IRecipe> recipes;
 
 	public static void preInit()
 	{
@@ -44,6 +55,18 @@ public class HZ_Items
 	public static void postInit()
 	{
 		registerHammerTypes();
+		String ores[] = OreDictionary.getOreNames();
+		Hammerz.log.log(Level.INFO, "Currently registered ores: ");
+
+		for(String ore : ores) {
+			Hammerz.log.log(Level.INFO, ore);
+		}
+	}
+
+	@SubscribeEvent
+	public static void storeRecipes(RegistryEvent.Register<IRecipe> event) {
+		//I'm not sure if storing the registry like this is safe. Should be moved to an IConditional within the recipe json itself at a later date.
+		recipes = (IForgeRegistryModifiable) event.getRegistry();
 	}
 
 	public static void setupHammerTypes()
@@ -81,19 +104,19 @@ public class HZ_Items
 				addHammerType(3, 0, "blockThaumium", ThaumcraftMaterials.TOOLMAT_ELEMENTAL, EnumRarity.EPIC);
 			}
 		}*/
-		if (Loader.isModLoaded("Botania"))
+		if (Loader.isModLoaded("botania"))
 		{
 			Hammerz.log.log(Level.INFO, "BotaniaCompat loading");
 			addHammerType(1, 0, "blockManasteel", BotaniaAPI.manasteelToolMaterial, EnumRarity.COMMON);
 			addHammerType(1, 0, "blockElvenElementium", BotaniaAPI.elementiumToolMaterial, EnumRarity.COMMON);
 		}
-		if (Loader.isModLoaded("EnderIO"))
+		if (Loader.isModLoaded("enderio"))
 		{
 			Hammerz.log.log(Level.INFO, "EnderIOCompat loading");
 			addHammerType(2, 0, "blockDarkSteel", "DarkSteel", 5, 1561, 7.0F, 2.0F, 25, EnumRarity.COMMON);
 
 		}
-		if (Loader.isModLoaded("RotaryCraft"))
+		if (Loader.isModLoaded("rotarycraft"))
 		{
 			Hammerz.log.log(Level.INFO, "RotaryCraftCompat loading");
 			addHammerType(-1, 0, "blockBedRock", "Bedrock", 3, 0, 8.0F, 3.0F, 10, EnumRarity.COMMON);
@@ -102,7 +125,7 @@ public class HZ_Items
 		if (Loader.isModLoaded("betterwithmods"))
 		{
 			Hammerz.log.log(Level.INFO, "Better With Mods Compat loading");
-			addHammerType(0, 0, "blockSoulforgedSteel", "SoulforgedSteel", 3, 1561, 8.0F, 3.0F, 22, EnumRarity.COMMON);
+			addHammerType(0, 0, "steel_block", "SoulforgedSteel", 3, 1561, 8.0F, 3.0F, 22, EnumRarity.COMMON);
 		}
 		if (Loader.isModLoaded("roots"))
 		{
@@ -118,26 +141,34 @@ public class HZ_Items
 		while (iterator.hasNext())
 		{
 			HammerType type = iterator.next();
-			if (ConfigOptions.OreDictHammerEnabling[i] && RandomUtils.doesOreNameExist(type.getBlockName()))
+			if (ConfigOptions.OreDictHammerEnabling[i] && (RandomUtils.doesOreNameExist(type.getBlockName()) || RandomUtils.doesBlockExist(type.getBlockName())))
 			{
+				Hammerz.log.log(Level.INFO, "Hammer material " + type.getName() + " confirmed, adding to list");
 				hammerTypes.add(potentialHammerTypes.get(i));
+			}
+			else {
+				//Removes extra recipes. Again, I should probably move this to an IConditional
+				recipes.remove(new ResourceLocation("hammerz:" + type.getName().toLowerCase() + "hammer"));
 			}
 			i++;
 		}
+		//not sure if this is necessary, but the registry is no longer needed, so no reason to keep it around
+		recipes = null;
 	}
 
 	public static void addHammerType(int damageType, int maxEnergy, String blockName,
 			ToolMaterial material, EnumRarity rarity)
 	{
 		String name = material.name();
+
 		if (material == ToolMaterial.DIAMOND)
 		{
 			name = "DIAMOND";
 		}
 		int harvestLevel = material.getHarvestLevel();
 		int durability = material.getMaxUses();
-		float efficiency = material.getEfficiencyOnProperMaterial();
-		float damage = material.getDamageVsEntity();
+		float efficiency = material.getEfficiency();
+		float damage = material.getAttackDamage();
 		int enchantability = material.getEnchantability();
 
 		HammerType hammertype = new HammerType(damageType, maxEnergy, blockName, name, harvestLevel, durability,

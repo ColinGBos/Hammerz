@@ -11,7 +11,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Level;
 
 import vapourdrive.hammerz.Hammerz;
-import vapourdrive.hammerz.Recipes;
 import vapourdrive.hammerz.compat.BotaniaCompat;
 import vapourdrive.hammerz.compat.ThaumcraftCompat;
 import vapourdrive.hammerz.config.ConfigHandler;
@@ -46,7 +45,6 @@ public class CommonProxy
 	{
 		Hammerz.log.log(Level.INFO, "Beginning Init");
 		HZ_Items.postInit();
-		Recipes.init();
 
 		EventsHandler.init();
 		new UpgradeManager();
@@ -55,17 +53,15 @@ public class CommonProxy
 	public void posInit(FMLPostInitializationEvent event)
 	{
 		Hammerz.log.log(Level.INFO, "Beginning postInit");
-		if (Loader.isModLoaded("RotaryCraft"))
+		if (Loader.isModLoaded("rotarycraft"))
 		{
-			OreDictHandler.registerOre("RotaryCraft", "rotarycraft_block_deco", "blockHSLA", 0);
-			Recipes.registerRotaryCraftRecipe();
-			//Recipes.registerHammerRecipe("stickWood", HZ_Items.HSLAHammer, "blockHSLA");
+			OreDictHandler.registerOre("rotarycraft", "rotarycraft_block_deco", "blockHSLA", 0);
 		}
-		if (Loader.isModLoaded("Thaumcraft"))
+		if (Loader.isModLoaded("thaumcraft"))
 		{
 			//ThaumcraftCompat.init();
 		}
-		if (Loader.isModLoaded("Botania"))
+		if (Loader.isModLoaded("botania"))
 		{
 			BotaniaCompat.init();
 		}

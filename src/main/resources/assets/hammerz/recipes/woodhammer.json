@@ -1,0 +1,22 @@
+{
+"type": "hammerz:hammer_shaped",
+  "pattern": [
+    "HHH",
+    " / ",
+    " / "
+  ],
+  "key": {
+    "H": {
+      "type": "forge:ore_dict",
+      "ore": "logWood",
+	  "data": 32767
+    },
+    "/": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "hammerz:item.hammer",
+	"data": 0
+  }
+}
