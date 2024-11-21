@@ -1,48 +1,43 @@
 package vapourdrive.hammerz;
 
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.Mod.Instance;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import vapourdrive.hammerz.config.ConfigSettings;
+import vapourdrive.hammerz.setup.Registration;
 
-import vapourdrive.hammerz.proxies.CommonProxy;
-import vapourdrive.hammerz.utils.RandomUtils;
+@Mod(Hammerz.MODID)
+public class Hammerz {
+    // Directly reference a log4j logger.
+    public static final Logger LOGGER = LogManager.getLogger();
+    public static final String MODID = "hammerz";
+    public static final boolean debugMode = true;
 
-@Mod(modid = Reference.ModID, version = Reference.Version, name = Reference.Name, dependencies = "after:betterwithmods;after:techreborn;after:thaumcraft;after:botania;after:funores", acceptedMinecraftVersions = "1.10.2")
-public class Hammerz
-{
-	public static boolean hasStorageBlock = false;
+    public Hammerz(ModContainer container) {
+        IEventBus eventBus = container.getEventBus();
+//        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigSettings.CLIENT_CONFIG);
+        container.registerConfig(ModConfig.Type.SERVER, ConfigSettings.SERVER_CONFIG);
+        container.registerConfig(ModConfig.Type.CLIENT, ConfigSettings.CLIENT_CONFIG);
 
-	@Instance(Reference.ModID)
-	public static Hammerz Instance;
+        Registration.init(container.getEventBus());
 
-	@SidedProxy(clientSide = "vapourdrive.hammerz.proxies.ClientProxy", serverSide = "vapourdrive.hammerz.proxies.CommonProxy")
-	public static CommonProxy proxy;
-	public static final Logger log = LogManager.getLogger(Reference.ModID);
+        // Register the setup method for modloading
+        assert eventBus != null;
+        eventBus.addListener(Registration::buildContents);
+    }
 
-	@EventHandler
-	public void preInit(FMLPreInitializationEvent event)
-	{
-		proxy.preInit(event);
-	}
+    public static void debugLog(String toLog) {
+        if (isDebugMode()) {
+            LOGGER.log(Level.DEBUG, toLog);
+        }
+    }
 
-	@EventHandler
-	public void init(FMLInitializationEvent event)
-	{
-		
-		proxy.Init(event);
-	}
+    public static boolean isDebugMode() {
+        return java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().contains("jdwp") && debugMode;
+    }
 
-	@EventHandler
-	public void postInit(FMLPostInitializationEvent event)
-	{
-		proxy.posInit(event);
-	}
 }

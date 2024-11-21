@@ -1,6 +1,6 @@
 {
   "parent": "hammerz:item/hammer",
   "textures": {
-    "layer0": "hammerz:items/ironhammer"
+    "layer0": "hammerz:item/iron_hammer"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "parent": "item/generated",
+  "parent": "item/handheld",
   "display": {
     "thirdperson_righthand": {
       "rotation": [ 0, -90, 55 ],
