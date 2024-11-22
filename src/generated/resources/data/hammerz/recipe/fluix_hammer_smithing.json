@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "ae2:fluix_block"
+    }
+  ],
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "ae2:fluix_block"
+  },
+  "base": {
+    "tag": "hammerz:quartz_hammers"
+  },
+  "result": {
+    "count": 1,
+    "id": "hammerz:fluix_hammer"
+  },
+  "template": {
+    "item": "ae2:fluix_upgrade_smithing_template"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "H": {
+      "tag": "c:storage_blocks/diamond"
+    },
+    "R": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "pattern": [
+    "HHH",
+    " R ",
+    " R "
+  ],
+  "result": {
+    "count": 1,
+    "id": "hammerz:diamond_hammer"
+  }
+}

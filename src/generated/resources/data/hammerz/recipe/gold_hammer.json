@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "H": {
+      "tag": "c:storage_blocks/gold"
+    },
+    "R": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "pattern": [
+    "HHH",
+    " R ",
+    " R "
+  ],
+  "result": {
+    "count": 1,
+    "id": "hammerz:gold_hammer"
+  }
+}

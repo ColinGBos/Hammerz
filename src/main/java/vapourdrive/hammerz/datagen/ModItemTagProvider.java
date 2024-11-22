@@ -9,13 +9,14 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import vapourdrive.hammerz.Hammerz;
+import vapourdrive.hammerz.content.hammerz.materials.ModTags;
 import vapourdrive.hammerz.setup.Registration;
 
 import java.util.concurrent.CompletableFuture;
 
 public class ModItemTagProvider extends ItemTagsProvider {
 
-    public ModItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
+        public ModItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
                               CompletableFuture<TagLookup<Block>> blockTags, @Nullable ExistingFileHelper existingFileHelper) {
         super(output, lookupProvider, blockTags, Hammerz.MODID, existingFileHelper);
     }
@@ -29,7 +30,10 @@ public class ModItemTagProvider extends ItemTagsProvider {
         tag(ItemTags.PICKAXES).add(Registration.DIAMOND_HAMMER.get());
         tag(ItemTags.PICKAXES).add(Registration.NETHERITE_HAMMER.get());
         tag(ItemTags.PICKAXES).add(Registration.OSMIUM_HAMMER.get());
+        tag(ItemTags.PICKAXES).add(Registration.FLUIX_HAMMER.get());
 
+        tag(ModTags.Items.QUARTZ_HAMMERS).add(Registration.CERTUS_QUARTZ_HAMMER.get());
+        tag(ModTags.Items.QUARTZ_HAMMERS).add(Registration.NETHER_QUARTZ_HAMMER.get());
 
     }
 }

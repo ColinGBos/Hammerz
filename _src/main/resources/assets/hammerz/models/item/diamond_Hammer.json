@@ -1,0 +1,6 @@
+{
+  "parent": "hammerz:item/hammer",
+  "textures": {
+    "layer0": "hammerz:items/diamondhammer"
+  }
+}

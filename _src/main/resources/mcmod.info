@@ -1,0 +1,21 @@
+[
+{
+  "modid": "hammerz",
+  "name": "Hammerz",
+  "description": "My take on some simple hammers",
+  "version": "1.11-0.1.4.26",
+  "mcversion": "1.10.2",
+  "url": "",
+  "updateUrl": "",
+  "authors": [
+    "VapourDrive"
+  ],
+  "credits": "VapourDrive, CrazyPants, Tterrag, MDiyo, BonusBoni, Azanor, Vaskii",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent":"",
+  "dependencies": [
+  ]
+}
+]

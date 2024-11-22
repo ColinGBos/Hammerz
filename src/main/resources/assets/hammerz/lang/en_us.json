@@ -1,0 +1,21 @@
+{
+  "item.hammerz.wood_hammer": "Wood Hammer",
+  "item.hammerz.stone_hammer": "Stone Hammer",
+  "item.hammerz.iron_hammer": "Iron Hammer",
+  "item.hammerz.gold_hammer": "Gold Hammer",
+  "item.hammerz.diamond_hammer": "Diamond Hammer",
+  "item.hammerz.netherite_hammer": "Netherite Hammer",
+  "item.hammerz.osmium_hammer": "Osmium Hammer",
+  "item.hammerz.fluix_hammer": "Fluix Hammer",
+  "item.hammerz.certus_quartz_hammer": "Certus Quartz Hammer",
+  "item.hammerz.nether_quartz_hammer": "Nether Quartz Hammer",
+  "hammerz.keyword.durability": "Durability: %d",
+  "hammerz.keyword.phase": "Phase",
+
+  "hammerz.hammer.info": "3x3 Mining",
+  "phrase.hammerz.fortune": "Always has at least Fortune/Looting 1",
+  "phrase.hammerz.hammerinfo2": "Places torches from inventory with right click",
+  "phrase.hammerz.holdshift": "<Hold Shift>",
+  "phrase.hammerz.holdctrl": "<Hold CTRL>"
+
+}

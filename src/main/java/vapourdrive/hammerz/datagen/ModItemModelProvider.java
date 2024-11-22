@@ -17,6 +17,9 @@ public class ModItemModelProvider  extends ItemModelProvider {
     @Override
     protected void registerModels() {
         itemHammerModel(Registration.OSMIUM_HAMMER.get());
+        itemHammerModel(Registration.FLUIX_HAMMER.get());
+        itemHammerModel(Registration.NETHER_QUARTZ_HAMMER.get());
+        itemHammerModel(Registration.CERTUS_QUARTZ_HAMMER.get());
         itemHammerModel(Registration.NETHERITE_HAMMER.get());
 //        handheldHammer(Registration.OSMIUM_HAMMER);
     }

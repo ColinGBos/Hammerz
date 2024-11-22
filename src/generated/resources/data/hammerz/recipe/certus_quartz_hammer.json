@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "ae2:quartz_block"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "H": {
+      "item": "ae2:quartz_block"
+    },
+    "R": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "pattern": [
+    "HHH",
+    " R ",
+    " R "
+  ],
+  "result": {
+    "count": 1,
+    "id": "hammerz:certus_quartz_hammer"
+  }
+}

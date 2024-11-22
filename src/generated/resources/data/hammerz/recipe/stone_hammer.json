@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "H": {
+      "tag": "minecraft:stone_tool_materials"
+    },
+    "R": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "pattern": [
+    "HHH",
+    " R ",
+    " R "
+  ],
+  "result": {
+    "count": 1,
+    "id": "hammerz:stone_hammer"
+  }
+}

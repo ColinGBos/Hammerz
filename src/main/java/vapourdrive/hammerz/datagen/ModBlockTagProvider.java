@@ -22,5 +22,14 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         this.tag(ModTags.Blocks.NEEDS_OSMIUM_TOOL).addTags(BlockTags.NEEDS_IRON_TOOL);
         this.tag(ModTags.Blocks.INCORRECT_FOR_OSMIUM_TOOL).addTags(BlockTags.INCORRECT_FOR_IRON_TOOL).remove(ModTags.Blocks.NEEDS_OSMIUM_TOOL);
 
+        this.tag(ModTags.Blocks.NEEDS_CERTUS_QUARTZ_TOOL).addTags(BlockTags.NEEDS_IRON_TOOL);
+        this.tag(ModTags.Blocks.INCORRECT_FOR_CERTUS_QUARTZ_TOOL).addTags(BlockTags.INCORRECT_FOR_IRON_TOOL).remove(ModTags.Blocks.NEEDS_CERTUS_QUARTZ_TOOL);
+
+        this.tag(ModTags.Blocks.NEEDS_NETHER_QUARTZ_TOOL).addTags(BlockTags.NEEDS_IRON_TOOL);
+        this.tag(ModTags.Blocks.INCORRECT_FOR_NETHER_QUARTZ_TOOL).addTags(BlockTags.INCORRECT_FOR_IRON_TOOL).remove(ModTags.Blocks.NEEDS_NETHER_QUARTZ_TOOL);
+
+        this.tag(ModTags.Blocks.NEEDS_FLUIX_TOOL).addTags(BlockTags.NEEDS_IRON_TOOL);
+        this.tag(ModTags.Blocks.INCORRECT_FOR_FLUIX_TOOL).addTags(BlockTags.INCORRECT_FOR_IRON_TOOL).remove(ModTags.Blocks.NEEDS_FLUIX_TOOL);
+
     }
 }

@@ -1,0 +1,8 @@
+{
+  "remove": [
+    "#hammerz:needs_fluix_tool"
+  ],
+  "values": [
+    "#minecraft:incorrect_for_iron_tool"
+  ]
+}

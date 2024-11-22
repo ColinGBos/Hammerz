@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "ae2:nether_quartz_pickaxe"
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_nether_quartz": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:gems/nether_quartz"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hammerz:nether_quartz_hammer"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nether_quartz"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hammerz:nether_quartz_hammer"
+    ]
+  }
+}

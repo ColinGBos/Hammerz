@@ -1,0 +1,8 @@
+{
+  "remove": [
+    "#hammerz:needs_nether_quartz_tool"
+  ],
+  "values": [
+    "#minecraft:incorrect_for_iron_tool"
+  ]
+}

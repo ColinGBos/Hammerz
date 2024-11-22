@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "ae2:quartz_block"
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_certus_quartz": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:air"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hammerz:certus_quartz_hammer"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_certus_quartz"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hammerz:certus_quartz_hammer"
+    ]
+  }
+}
