@@ -1,17 +1,20 @@
 {
   "neoforge:conditions": [
     {
-      "type": "neoforge:item_exists",
-      "item": "ae2:fluix_block"
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/steel"
+      }
     }
   ],
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_fluix_gem": {
+    "has_steel": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:air"
+            "items": "#c:ingots/steel"
           }
         ]
       },
@@ -19,7 +22,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "hammerz:fluix_hammer_smithing"
+        "recipe": "hammerz:steel_hammer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -27,12 +30,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_fluix_gem"
+      "has_steel"
     ]
   ],
   "rewards": {
     "recipes": [
-      "hammerz:fluix_hammer_smithing"
+      "hammerz:steel_hammer"
     ]
   }
 }

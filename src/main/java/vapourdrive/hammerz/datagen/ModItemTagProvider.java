@@ -30,6 +30,9 @@ public class ModItemTagProvider extends ItemTagsProvider {
         tag(ItemTags.PICKAXES).add(Registration.DIAMOND_HAMMER.get());
         tag(ItemTags.PICKAXES).add(Registration.NETHERITE_HAMMER.get());
         tag(ItemTags.PICKAXES).add(Registration.OSMIUM_HAMMER.get());
+        tag(ItemTags.PICKAXES).add(Registration.BRONZE_HAMMER.get());
+        tag(ItemTags.PICKAXES).add(Registration.STEEL_HAMMER.get());
+        tag(ItemTags.PICKAXES).add(Registration.REFINED_OBSIDIAN_HAMMER.get());
         tag(ItemTags.PICKAXES).add(Registration.FLUIX_HAMMER.get());
 
         tag(ModTags.Items.QUARTZ_HAMMERS).add(Registration.CERTUS_QUARTZ_HAMMER.get());

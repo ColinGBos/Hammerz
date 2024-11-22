@@ -23,8 +23,16 @@ public class ToolTiers {
             () -> RegistryUtils.getIngredientFromTag("c", "storage_blocks/diamond"));
     public static final Tier NETHERITE = new SimpleTier(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 2031, 9.0F, 4.0F, 15,
             () -> RegistryUtils.getIngredientFromTag("c", "storage_blocks/netherite"));
+
     public static final Tier OSMIUM = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_OSMIUM_TOOL, 1024, 4.0f, 4.0f, 14,
             () -> RegistryUtils.getIngredientFromTag("c", "storage_blocks/osmium"));
+    public static final Tier BRONZE = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_BRONZE_TOOL, 375, 7.0f, 2.0f, 10,
+            () -> RegistryUtils.getIngredientFromTag("c", "storage_blocks/bronze"));
+    public static final Tier STEEL = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_STEEL_TOOL, 500, 8.0f, 3.0f, 16,
+            () -> RegistryUtils.getIngredientFromTag("c", "storage_blocks/steel"));
+    public static final Tier REFINED_OBSIDIAN = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_REFINED_OBSIDIAN_TOOL, 4096, 12.0f, 8.0f, 18,
+            () -> RegistryUtils.getIngredientFromTag("c", "storage_blocks/refined_obsidian"));
+
     public static final Tier CERTUS_QUARTZ = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_CERTUS_QUARTZ_TOOL, 250, 6.0F, 2.0F, 14,
             () -> Ingredient.of(RegistryUtils.getModItem("ae2", "quartz_block")));
     public static final Tier NETHER_QUARTZ = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_NETHER_QUARTZ_TOOL, 250, 6.0F, 2.0F, 14,

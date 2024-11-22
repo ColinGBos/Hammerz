@@ -22,6 +22,15 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         this.tag(ModTags.Blocks.NEEDS_OSMIUM_TOOL).addTags(BlockTags.NEEDS_IRON_TOOL);
         this.tag(ModTags.Blocks.INCORRECT_FOR_OSMIUM_TOOL).addTags(BlockTags.INCORRECT_FOR_IRON_TOOL).remove(ModTags.Blocks.NEEDS_OSMIUM_TOOL);
 
+        this.tag(ModTags.Blocks.NEEDS_BRONZE_TOOL).addTags(BlockTags.NEEDS_IRON_TOOL);
+        this.tag(ModTags.Blocks.INCORRECT_FOR_BRONZE_TOOL).addTags(BlockTags.INCORRECT_FOR_IRON_TOOL).remove(ModTags.Blocks.NEEDS_BRONZE_TOOL);
+
+        this.tag(ModTags.Blocks.NEEDS_STEEL_TOOL).addTags(BlockTags.NEEDS_DIAMOND_TOOL);
+        this.tag(ModTags.Blocks.INCORRECT_FOR_STEEL_TOOL).addTags(BlockTags.INCORRECT_FOR_DIAMOND_TOOL).remove(ModTags.Blocks.NEEDS_STEEL_TOOL);
+
+        this.tag(ModTags.Blocks.NEEDS_REFINED_OBSIDIAN_TOOL).addTags(BlockTags.NEEDS_DIAMOND_TOOL);
+        this.tag(ModTags.Blocks.INCORRECT_FOR_REFINED_OBSIDIAN_TOOL).addTags(BlockTags.INCORRECT_FOR_DIAMOND_TOOL).remove(ModTags.Blocks.NEEDS_REFINED_OBSIDIAN_TOOL);
+
         this.tag(ModTags.Blocks.NEEDS_CERTUS_QUARTZ_TOOL).addTags(BlockTags.NEEDS_IRON_TOOL);
         this.tag(ModTags.Blocks.INCORRECT_FOR_CERTUS_QUARTZ_TOOL).addTags(BlockTags.INCORRECT_FOR_IRON_TOOL).remove(ModTags.Blocks.NEEDS_CERTUS_QUARTZ_TOOL);
 

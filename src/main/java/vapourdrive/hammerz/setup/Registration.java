@@ -23,6 +23,9 @@ public class Registration {
     public static final Supplier<Item> DIAMOND_HAMMER = ITEMS.register("diamond_hammer", () -> new HammerItem(ToolTiers.DIAMOND));
     public static final Supplier<Item> NETHERITE_HAMMER = ITEMS.register("netherite_hammer", () -> new HammerItem(ToolTiers.NETHERITE));
     public static final Supplier<Item> OSMIUM_HAMMER = ITEMS.register("osmium_hammer", () -> new HammerItem(ToolTiers.OSMIUM));
+    public static final Supplier<Item> BRONZE_HAMMER = ITEMS.register("bronze_hammer", () -> new HammerItem(ToolTiers.BRONZE));
+    public static final Supplier<Item> STEEL_HAMMER = ITEMS.register("steel_hammer", () -> new HammerItem(ToolTiers.STEEL));
+    public static final Supplier<Item> REFINED_OBSIDIAN_HAMMER = ITEMS.register("refined_obsidian_hammer", () -> new HammerItem(ToolTiers.REFINED_OBSIDIAN));
     public static final Supplier<Item> NETHER_QUARTZ_HAMMER = ITEMS.register("nether_quartz_hammer", () -> new HammerItem(ToolTiers.NETHER_QUARTZ));
     public static final Supplier<Item> CERTUS_QUARTZ_HAMMER = ITEMS.register("certus_quartz_hammer", () -> new HammerItem(ToolTiers.CERTUS_QUARTZ));
     public static final Supplier<Item> FLUIX_HAMMER = ITEMS.register("fluix_hammer", () -> new FluixHammerItem(ToolTiers.FLUIX));
@@ -44,6 +47,15 @@ public class Registration {
 
             if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/osmium")) {
                 event.accept(OSMIUM_HAMMER.get().getDefaultInstance());
+            }
+            if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/bronze")) {
+                event.accept(BRONZE_HAMMER.get().getDefaultInstance());
+            }
+            if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/steel")) {
+                event.accept(STEEL_HAMMER.get().getDefaultInstance());
+            }
+            if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/refined_obsidian")) {
+                event.accept(REFINED_OBSIDIAN_HAMMER.get().getDefaultInstance());
             }
             if(RegistryUtils.modItemExists("ae2", "fluix_block")) {
                 event.accept(FLUIX_HAMMER.get().getDefaultInstance());

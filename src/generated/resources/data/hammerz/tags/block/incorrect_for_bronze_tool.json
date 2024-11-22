@@ -1,0 +1,8 @@
+{
+  "remove": [
+    "#hammerz:needs_bronze_tool"
+  ],
+  "values": [
+    "#minecraft:incorrect_for_iron_tool"
+  ]
+}

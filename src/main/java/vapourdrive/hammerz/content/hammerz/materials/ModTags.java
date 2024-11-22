@@ -13,6 +13,15 @@ public class ModTags {
         public static final TagKey<Block> NEEDS_OSMIUM_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID, "needs_osmium_tool");
         public static final TagKey<Block> INCORRECT_FOR_OSMIUM_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID,"incorrect_for_osmium_tool");
 
+        public static final TagKey<Block> NEEDS_BRONZE_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID, "needs_bronze_tool");
+        public static final TagKey<Block> INCORRECT_FOR_BRONZE_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID,"incorrect_for_bronze_tool");
+
+        public static final TagKey<Block> NEEDS_STEEL_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID, "needs_steel_tool");
+        public static final TagKey<Block> INCORRECT_FOR_STEEL_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID,"incorrect_for_steel_tool");
+
+        public static final TagKey<Block> NEEDS_REFINED_OBSIDIAN_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID, "needs_refined_obsidian_tool");
+        public static final TagKey<Block> INCORRECT_FOR_REFINED_OBSIDIAN_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID,"incorrect_for_refined_obsidian_tool");
+
         public static final TagKey<Block> NEEDS_CERTUS_QUARTZ_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID, "needs_certus_quartz_tool");
         public static final TagKey<Block> INCORRECT_FOR_CERTUS_QUARTZ_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID,"incorrect_for_certus_quartz_tool");
 

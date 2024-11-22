@@ -84,6 +84,33 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                         new NotCondition(new TagEmptyCondition("c","storage_blocks/osmium"))
                 ));
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, Registration.BRONZE_HAMMER.get())
+                .pattern("HHH").pattern(" R ").pattern(" R ")
+                .define('H', getIngredientFromTag("c", "storage_blocks/bronze"))
+                .define('R', getIngredientFromTag("c", "rods/wooden"))
+                .unlockedBy("has_bronze", has(getItemTag("c", "ingots/bronze")))
+                .save(output.withConditions(
+                        new NotCondition(new TagEmptyCondition("c","storage_blocks/bronze"))
+                ));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, Registration.STEEL_HAMMER.get())
+                .pattern("HHH").pattern(" R ").pattern(" R ")
+                .define('H', getIngredientFromTag("c", "storage_blocks/steel"))
+                .define('R', getIngredientFromTag("c", "rods/wooden"))
+                .unlockedBy("has_steel", has(getItemTag("c", "ingots/steel")))
+                .save(output.withConditions(
+                        new NotCondition(new TagEmptyCondition("c","storage_blocks/steel"))
+                ));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, Registration.REFINED_OBSIDIAN_HAMMER.get())
+                .pattern("HHH").pattern(" R ").pattern(" R ")
+                .define('H', getIngredientFromTag("c", "storage_blocks/refined_obsidian"))
+                .define('R', getIngredientFromTag("c", "rods/wooden"))
+                .unlockedBy("has_refined_obsidian", has(getItemTag("c", "ingots/refined_obsidian")))
+                .save(output.withConditions(
+                        new NotCondition(new TagEmptyCondition("c","storage_blocks/refined_obsidian"))
+                ));
+
         SmithingTransformRecipeBuilder.smithing(
                         Ingredient.of(RegistryUtils.getModItem("ae2", "fluix_upgrade_smithing_template")),
                         Ingredient.of(ModTags.Items.QUARTZ_HAMMERS),
