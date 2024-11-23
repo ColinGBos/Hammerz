@@ -1,4 +1,4 @@
-package vapourdrive.hammerz.datagen;
+package vapourdrive.hammerz.data.datagen;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;

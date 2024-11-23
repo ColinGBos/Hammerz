@@ -1,4 +1,4 @@
-package vapourdrive.hammerz.datagen;
+package vapourdrive.hammerz.data.datagen;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -33,6 +33,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
         tag(ItemTags.PICKAXES).add(Registration.BRONZE_HAMMER.get());
         tag(ItemTags.PICKAXES).add(Registration.STEEL_HAMMER.get());
         tag(ItemTags.PICKAXES).add(Registration.REFINED_OBSIDIAN_HAMMER.get());
+        tag(ItemTags.PICKAXES).add(Registration.REFINED_GLOWSTONE_HAMMER.get());
+        tag(ItemTags.PICKAXES).add(Registration.LAPIS_LAZULI_HAMMER.get());
         tag(ItemTags.PICKAXES).add(Registration.FLUIX_HAMMER.get());
 
         tag(ModTags.Items.QUARTZ_HAMMERS).add(Registration.CERTUS_QUARTZ_HAMMER.get());

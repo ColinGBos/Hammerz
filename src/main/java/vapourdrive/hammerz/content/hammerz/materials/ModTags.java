@@ -22,6 +22,12 @@ public class ModTags {
         public static final TagKey<Block> NEEDS_REFINED_OBSIDIAN_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID, "needs_refined_obsidian_tool");
         public static final TagKey<Block> INCORRECT_FOR_REFINED_OBSIDIAN_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID,"incorrect_for_refined_obsidian_tool");
 
+        public static final TagKey<Block> NEEDS_REFINED_GLOWSTONE_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID, "needs_refined_glowstone_tool");
+        public static final TagKey<Block> INCORRECT_FOR_REFINED_GLOWSTONE_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID,"incorrect_for_refined_glowstone_tool");
+
+        public static final TagKey<Block> NEEDS_LAPIS_LAZULI_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID, "needs_lapis_lazuli_tool");
+        public static final TagKey<Block> INCORRECT_FOR_LAPIS_LAZULI_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID,"incorrect_for_lapis_lazuli_tool");
+
         public static final TagKey<Block> NEEDS_CERTUS_QUARTZ_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID, "needs_certus_quartz_tool");
         public static final TagKey<Block> INCORRECT_FOR_CERTUS_QUARTZ_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID,"incorrect_for_certus_quartz_tool");
 

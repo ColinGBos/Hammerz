@@ -32,6 +32,10 @@ public class ToolTiers {
             () -> RegistryUtils.getIngredientFromTag("c", "storage_blocks/steel"));
     public static final Tier REFINED_OBSIDIAN = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_REFINED_OBSIDIAN_TOOL, 4096, 12.0f, 8.0f, 18,
             () -> RegistryUtils.getIngredientFromTag("c", "storage_blocks/refined_obsidian"));
+    public static final Tier REFINED_GLOWSTONE = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_REFINED_GLOWSTONE_TOOL, 384, 15.0f, 2.0f, 20,
+            () -> RegistryUtils.getIngredientFromTag("c", "storage_blocks/refined_glowstone"));
+    public static final Tier LAPIS_LAZULI = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_LAPIS_LAZULI_TOOL, 128, 9.0f, 1.0f, 32,
+            () -> RegistryUtils.getIngredientFromTag("c", "storage_blocks/lapis"));
 
     public static final Tier CERTUS_QUARTZ = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_CERTUS_QUARTZ_TOOL, 250, 6.0F, 2.0F, 14,
             () -> Ingredient.of(RegistryUtils.getModItem("ae2", "quartz_block")));

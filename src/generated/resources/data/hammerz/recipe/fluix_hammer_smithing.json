@@ -6,7 +6,9 @@
     }
   ],
   "type": "minecraft:smithing_transform",
-  "addition": [],
+  "addition": {
+    "item": "ae2:fluix_block"
+  },
   "base": {
     "tag": "hammerz:quartz_hammers"
   },
@@ -14,5 +16,7 @@
     "count": 1,
     "id": "hammerz:fluix_hammer"
   },
-  "template": []
+  "template": {
+    "item": "ae2:fluix_upgrade_smithing_template"
+  }
 }

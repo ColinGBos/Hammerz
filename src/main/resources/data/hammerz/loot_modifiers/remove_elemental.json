@@ -1,0 +1,16 @@
+{
+  "type": "hammerz:remove_item",
+  "conditions": [
+    {
+      "condition": "minecraft:match_tool",
+      "predicate": {
+        "items": "hammerz:wood_hammer"
+      }
+    },
+    {
+      "condition": "block_state_property",
+      "block": "minecraft:stone"
+    }
+  ],
+  "removed_item": "minecraft:cobblestone"
+}

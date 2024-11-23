@@ -15,13 +15,13 @@ license = "MIT"
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
 # The modid of the mod
-modId = "primitivequarry" #mandatory
+modId = "hammerz" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
 # ${file.jarVersion} will substitute the value of the Implementation-Version as read from the mod's JAR file metadata
 # see the associated build.gradle script for how to populate this completely automatically during a build
 version = "${file.jarVersion}" #mandatory
 # A display name for the mod
-displayName = "Primitive Quarry" #mandatory
+displayName = "Hammerz" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification https://mcforge.readthedocs.io/en/latest/gettingstarted/autoupdate/
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
@@ -34,10 +34,10 @@ credits = "Thanks goes to everyone who has contributed to the global modding kno
 authors = "VapourDrive" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description = '''
-This mod contains a simple fuel powered quarry
+This mod contains an array of Hammers, 3x3 AEO mining tools with a lot of duravility
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.primitivequarry]] #optional
+[[dependencies.hammerz]] #optional
 # the modid of the dependency
 modId = "forge" #mandatory
 # Does this dependency have to exist - if not, ordering below must be specified
@@ -49,9 +49,9 @@ ordering = "NONE"
 # Side this dependency is applied on - BOTH, CLIENT or SERVER
 side = "BOTH"
 
-[[dependencies.primitivequarry]]
+[[dependencies.hammerz]]
 modId = "vapourware"
 mandatory = true
-versionRange = "[0.1.16,)"
+versionRange = "[0.1.20,)"
 ordering = "AFTER"
 side = "BOTH"

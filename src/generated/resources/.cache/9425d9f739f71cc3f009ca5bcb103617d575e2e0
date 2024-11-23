@@ -1,15 +1,19 @@
-// 1.21.1	2024-11-21T21:38:27.2807328	Tags for minecraft:block mod id hammerz
+// 1.21.1	2024-11-22T16:46:03.2969015	Tags for minecraft:block mod id hammerz
 3f32306e55e8c0fbbb5f69f29f4beb721fbde1b7 data/hammerz/tags/block/incorrect_for_bronze_tool.json
 d7a865dbd24ba6f7a0c5ec196bfccdf908940a72 data/hammerz/tags/block/incorrect_for_certus_quartz_tool.json
 d071d10d7815b305f871d6610fb574c4e21b818e data/hammerz/tags/block/incorrect_for_fluix_tool.json
+427f2448fc2a0d26e2a9b8054cdecadf1da8241b data/hammerz/tags/block/incorrect_for_lapis_lazuli_tool.json
 412f1949b049f56c4276fdfe519f029240952efd data/hammerz/tags/block/incorrect_for_nether_quartz_tool.json
 1dc9e25e2a65d404571bb353e69e54536e78b25c data/hammerz/tags/block/incorrect_for_osmium_tool.json
+db1b22e6ccefce30e11caa75a57a3d5e6e5c2b3f data/hammerz/tags/block/incorrect_for_refined_glowstone_tool.json
 d40a9ab2ff23c4a8cd8559fdd6d5f0b41562237d data/hammerz/tags/block/incorrect_for_refined_obsidian_tool.json
 1d747ae57eb2e1400ab1ac9621aecfac6a1ad0d2 data/hammerz/tags/block/incorrect_for_steel_tool.json
 32b13946c4cd1f944b029659ccce5fcb2adad4ff data/hammerz/tags/block/needs_bronze_tool.json
 32b13946c4cd1f944b029659ccce5fcb2adad4ff data/hammerz/tags/block/needs_certus_quartz_tool.json
 32b13946c4cd1f944b029659ccce5fcb2adad4ff data/hammerz/tags/block/needs_fluix_tool.json
+781d959bb6bbea7b36ae6b2d4a71ced43fd662b9 data/hammerz/tags/block/needs_lapis_lazuli_tool.json
 32b13946c4cd1f944b029659ccce5fcb2adad4ff data/hammerz/tags/block/needs_nether_quartz_tool.json
 32b13946c4cd1f944b029659ccce5fcb2adad4ff data/hammerz/tags/block/needs_osmium_tool.json
+a249c46329a41538f49a564e1f14338aaf1be5a0 data/hammerz/tags/block/needs_refined_glowstone_tool.json
 a249c46329a41538f49a564e1f14338aaf1be5a0 data/hammerz/tags/block/needs_refined_obsidian_tool.json
 a249c46329a41538f49a564e1f14338aaf1be5a0 data/hammerz/tags/block/needs_steel_tool.json

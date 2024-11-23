@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "mekanismtools:lapis_lazuli_pickaxe"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "H": {
+      "tag": "c:storage_blocks/lapis"
+    },
+    "R": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "pattern": [
+    "HHH",
+    " R ",
+    " R "
+  ],
+  "result": {
+    "count": 1,
+    "id": "hammerz:lapis_lazuli_hammer"
+  }
+}

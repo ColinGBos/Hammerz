@@ -1,9 +1,11 @@
-// 1.21.1	2024-11-21T21:38:27.2767291	Item Models: hammerz
+// 1.21.1	2024-11-22T16:46:03.2948999	Item Models: hammerz
 b3e5851652e342f9a928554ec094d24b97fff7ef assets/hammerz/models/item/bronze_hammer.json
 fa1565ff868b28b84ca8088ee43d643f5465f023 assets/hammerz/models/item/certus_quartz_hammer.json
 fec49d772b45625cdb6a6170a82b1f5bce818bb6 assets/hammerz/models/item/fluix_hammer.json
+5cd39b38ae83240834350bb4047c68778d4c34f7 assets/hammerz/models/item/lapis_lazuli_hammer.json
 cb670cbe23ed443222e0e75957bc5ec3bb56409c assets/hammerz/models/item/netherite_hammer.json
 225661b7d41569111e77a0579c103262cdf17ea4 assets/hammerz/models/item/nether_quartz_hammer.json
 2b678d4a5157465f050f0ba9289697012a8259b4 assets/hammerz/models/item/osmium_hammer.json
+d03af5eab0f6fea5a73a3cca22ee39f17a632c45 assets/hammerz/models/item/refined_glowstone_hammer.json
 3e0e7f3f7cec7216e4deaba9e983d40ceb2bdb40 assets/hammerz/models/item/refined_obsidian_hammer.json
 6f654eda8520c4833d284825c464ea2fbe3fe366 assets/hammerz/models/item/steel_hammer.json

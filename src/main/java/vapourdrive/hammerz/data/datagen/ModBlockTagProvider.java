@@ -1,4 +1,4 @@
-package vapourdrive.hammerz.datagen;
+package vapourdrive.hammerz.data.datagen;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -22,6 +22,9 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         this.tag(ModTags.Blocks.NEEDS_OSMIUM_TOOL).addTags(BlockTags.NEEDS_IRON_TOOL);
         this.tag(ModTags.Blocks.INCORRECT_FOR_OSMIUM_TOOL).addTags(BlockTags.INCORRECT_FOR_IRON_TOOL).remove(ModTags.Blocks.NEEDS_OSMIUM_TOOL);
 
+        this.tag(ModTags.Blocks.NEEDS_LAPIS_LAZULI_TOOL).addTags(BlockTags.NEEDS_STONE_TOOL);
+        this.tag(ModTags.Blocks.INCORRECT_FOR_LAPIS_LAZULI_TOOL).addTags(BlockTags.INCORRECT_FOR_STONE_TOOL).remove(ModTags.Blocks.NEEDS_LAPIS_LAZULI_TOOL);
+
         this.tag(ModTags.Blocks.NEEDS_BRONZE_TOOL).addTags(BlockTags.NEEDS_IRON_TOOL);
         this.tag(ModTags.Blocks.INCORRECT_FOR_BRONZE_TOOL).addTags(BlockTags.INCORRECT_FOR_IRON_TOOL).remove(ModTags.Blocks.NEEDS_BRONZE_TOOL);
 
@@ -30,6 +33,9 @@ public class ModBlockTagProvider extends BlockTagsProvider {
 
         this.tag(ModTags.Blocks.NEEDS_REFINED_OBSIDIAN_TOOL).addTags(BlockTags.NEEDS_DIAMOND_TOOL);
         this.tag(ModTags.Blocks.INCORRECT_FOR_REFINED_OBSIDIAN_TOOL).addTags(BlockTags.INCORRECT_FOR_DIAMOND_TOOL).remove(ModTags.Blocks.NEEDS_REFINED_OBSIDIAN_TOOL);
+
+        this.tag(ModTags.Blocks.NEEDS_REFINED_GLOWSTONE_TOOL).addTags(BlockTags.NEEDS_DIAMOND_TOOL);
+        this.tag(ModTags.Blocks.INCORRECT_FOR_REFINED_GLOWSTONE_TOOL).addTags(BlockTags.INCORRECT_FOR_DIAMOND_TOOL).remove(ModTags.Blocks.NEEDS_REFINED_GLOWSTONE_TOOL);
 
         this.tag(ModTags.Blocks.NEEDS_CERTUS_QUARTZ_TOOL).addTags(BlockTags.NEEDS_IRON_TOOL);
         this.tag(ModTags.Blocks.INCORRECT_FOR_CERTUS_QUARTZ_TOOL).addTags(BlockTags.INCORRECT_FOR_IRON_TOOL).remove(ModTags.Blocks.NEEDS_CERTUS_QUARTZ_TOOL);

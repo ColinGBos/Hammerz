@@ -1,4 +1,4 @@
-package vapourdrive.hammerz.datagen;
+package vapourdrive.hammerz.data.datagen;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -7,7 +7,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 import net.neoforged.neoforge.common.conditions.ItemExistsCondition;
 import net.neoforged.neoforge.common.conditions.NotCondition;
@@ -71,9 +70,9 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 getIngredientFromTag("c", "storage_blocks/netherite"),
                 RecipeCategory.TOOLS,
                 Registration.NETHERITE_HAMMER.get()
-        )
-                .unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT))
-                        .save(output, ResourceLocation.fromNamespaceAndPath(Hammerz.MODID, "netherite_hammer_smithing"));
+                )
+                        .unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT))
+                                .save(output, ResourceLocation.fromNamespaceAndPath(Hammerz.MODID, "netherite_hammer_smithing"));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, Registration.OSMIUM_HAMMER.get())
                 .pattern("HHH").pattern(" R ").pattern(" R ")
@@ -109,6 +108,24 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_refined_obsidian", has(getItemTag("c", "ingots/refined_obsidian")))
                 .save(output.withConditions(
                         new NotCondition(new TagEmptyCondition("c","storage_blocks/refined_obsidian"))
+                ));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, Registration.REFINED_GLOWSTONE_HAMMER.get())
+                .pattern("HHH").pattern(" R ").pattern(" R ")
+                .define('H', getIngredientFromTag("c", "storage_blocks/refined_glowstone"))
+                .define('R', getIngredientFromTag("c", "rods/wooden"))
+                .unlockedBy("has_refined_glowstone", has(getItemTag("c", "ingots/refined_glowstone")))
+                .save(output.withConditions(
+                        new NotCondition(new TagEmptyCondition("c","storage_blocks/refined_glowstone"))
+                ));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, Registration.LAPIS_LAZULI_HAMMER.get())
+                .pattern("HHH").pattern(" R ").pattern(" R ")
+                .define('H', getIngredientFromTag("c", "storage_blocks/lapis"))
+                .define('R', getIngredientFromTag("c", "rods/wooden"))
+                .unlockedBy("has_lapis_lazuli", has(getItemTag("c", "gems/lapis")))
+                .save(output.withConditions(
+                        new ItemExistsCondition("mekanismtools","lapis_lazuli_pickaxe")
                 ));
 
         SmithingTransformRecipeBuilder.smithing(

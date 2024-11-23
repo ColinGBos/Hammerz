@@ -1,4 +1,4 @@
-package vapourdrive.hammerz.datagen;
+package vapourdrive.hammerz.data.datagen;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -20,6 +20,8 @@ public class ModItemModelProvider  extends ItemModelProvider {
         itemHammerModel(Registration.BRONZE_HAMMER.get());
         itemHammerModel(Registration.STEEL_HAMMER.get());
         itemHammerModel(Registration.REFINED_OBSIDIAN_HAMMER.get());
+        itemHammerModel(Registration.REFINED_GLOWSTONE_HAMMER.get());
+        itemHammerModel(Registration.LAPIS_LAZULI_HAMMER.get());
         itemHammerModel(Registration.FLUIX_HAMMER.get());
         itemHammerModel(Registration.NETHER_QUARTZ_HAMMER.get());
         itemHammerModel(Registration.CERTUS_QUARTZ_HAMMER.get());
