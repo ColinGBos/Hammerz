@@ -19,6 +19,9 @@ public class ModBlockTagProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
+        this.tag(ModTags.Blocks.NEEDS_DUSKBLOOM_TOOL).addTags(BlockTags.NEEDS_IRON_TOOL);
+        this.tag(ModTags.Blocks.INCORRECT_FOR_DUSKBLOOM_TOOL).addTags(BlockTags.INCORRECT_FOR_IRON_TOOL).remove(ModTags.Blocks.NEEDS_DUSKBLOOM_TOOL);
+
         this.tag(ModTags.Blocks.NEEDS_OSMIUM_TOOL).addTags(BlockTags.NEEDS_IRON_TOOL);
         this.tag(ModTags.Blocks.INCORRECT_FOR_OSMIUM_TOOL).addTags(BlockTags.INCORRECT_FOR_IRON_TOOL).remove(ModTags.Blocks.NEEDS_OSMIUM_TOOL);
 

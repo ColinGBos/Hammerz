@@ -24,6 +24,9 @@ public class ToolTiers {
     public static final Tier NETHERITE = new SimpleTier(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 2031, 9.0F, 4.0F, 15,
             () -> RegistryUtils.getIngredientFromTag("c", "storage_blocks/netherite"));
 
+    public static final Tier DUSKBLOOM = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_DUSKBLOOM_TOOL, 475, 6.5F, 2.5F, 18,
+            () -> RegistryUtils.getIngredientFromTag("c", "storage_blocks/duskbloom_shard"));
+
     public static final Tier OSMIUM = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_OSMIUM_TOOL, 1024, 4.0f, 4.0f, 14,
             () -> RegistryUtils.getIngredientFromTag("c", "storage_blocks/osmium"));
     public static final Tier BRONZE = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_BRONZE_TOOL, 375, 7.0f, 2.0f, 10,

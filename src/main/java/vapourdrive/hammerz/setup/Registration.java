@@ -21,11 +21,12 @@ public class Registration {
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, Hammerz.MODID);
 
     public static final Supplier<Item> WOOD_HAMMER = ITEMS.register("wood_hammer", () -> new HammerItem(ToolTiers.WOOD));
-    public static final Supplier<Item> STONE_HAMMER = ITEMS.register("stone_hammer", () -> new HammerItem(ToolTiers.STONE));
+    public static final Supplier<Item> STONE_HAMMER = ITEMS.register("stone_hammer", () -> new HammerItem(ToolTiers.STONE, 3));
     public static final Supplier<Item> IRON_HAMMER = ITEMS.register("iron_hammer", () -> new HammerItem(ToolTiers.IRON));
     public static final Supplier<Item> GOLD_HAMMER = ITEMS.register("gold_hammer", () -> new HammerItem(ToolTiers.GOLD));
     public static final Supplier<Item> DIAMOND_HAMMER = ITEMS.register("diamond_hammer", () -> new HammerItem(ToolTiers.DIAMOND));
     public static final Supplier<Item> NETHERITE_HAMMER = ITEMS.register("netherite_hammer", () -> new HammerItem(ToolTiers.NETHERITE));
+    public static final Supplier<Item> DUSKBLOOM_HAMMER = ITEMS.register("duskbloom_hammer", () -> new DuskbloomHammerItem(ToolTiers.DUSKBLOOM));
     public static final Supplier<Item> OSMIUM_HAMMER = ITEMS.register("osmium_hammer", () -> new HammerItem(ToolTiers.OSMIUM));
     public static final Supplier<Item> BRONZE_HAMMER = ITEMS.register("bronze_hammer", () -> new HammerItem(ToolTiers.BRONZE));
     public static final Supplier<Item> STEEL_HAMMER = ITEMS.register("steel_hammer", () -> new HammerItem(ToolTiers.STEEL));
@@ -57,6 +58,9 @@ public class Registration {
             event.accept(DIAMOND_HAMMER.get().getDefaultInstance());
             event.accept(NETHERITE_HAMMER.get().getDefaultInstance());
 
+            if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/duskbloom_shard")) {
+                event.accept(DUSKBLOOM_HAMMER.get().getDefaultInstance());
+            }
             if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/osmium")) {
                 event.accept(OSMIUM_HAMMER.get().getDefaultInstance());
             }

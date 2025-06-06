@@ -21,6 +21,6 @@
   "phrase.hammerz.fortune": "Always has at least Fortune/Looting 1",
   "phrase.hammerz.hammerinfo2": "Places torches from inventory with right click",
   "phrase.hammerz.holdshift": "<Hold Shift>",
-  "phrase.hammerz.holdctrl": "<Hold CTRL>"
-
+  "phrase.hammerz.holdctrl": "<Hold CTRL>",
+  "hammerz.duskbloom_tool": "Repairs at dusk"
 }

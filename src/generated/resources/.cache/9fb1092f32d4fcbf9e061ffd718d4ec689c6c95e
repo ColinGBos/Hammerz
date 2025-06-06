@@ -1,4 +1,4 @@
-// 1.21.1	2024-11-22T16:53:36.6158113	Recipes
+// 1.21.1	2025-05-28T15:54:45.7840999	Recipes
 f731df1267c39e457f108016fc79cd7548d0786c data/hammerz/advancement/recipes/tools/bronze_hammer.json
 7a13dbb08741063df6dec151c9211008c6a9c8dc data/hammerz/advancement/recipes/tools/certus_quartz_hammer.json
 d69e3e551c2a10c19fc289a3caebe1740e9cf764 data/hammerz/advancement/recipes/tools/diamond_hammer.json
@@ -27,5 +27,5 @@ bb6c0120770161e24257c54c2c6934f6966c2109 data/hammerz/recipe/nether_quartz_hamme
 8e885027070bde6136bf91c504d7ea2e3586da11 data/hammerz/recipe/refined_glowstone_hammer.json
 2a94800edaa8fb3e855c2332fb645884b2d09341 data/hammerz/recipe/refined_obsidian_hammer.json
 55655fafb032f75c0b2780df604d5f4cab72b2fc data/hammerz/recipe/steel_hammer.json
-716f9aa03721c76670ad5dc0dc7e3605f1686f85 data/hammerz/recipe/stone_hammer.json
+f6ec2b55f627c845a4326d9160d10004020e4736 data/hammerz/recipe/stone_hammer.json
 138b8f4140bd19f5067843d47df74c3c71375072 data/hammerz/recipe/wood_hammer.json

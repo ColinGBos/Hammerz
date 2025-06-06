@@ -16,6 +16,7 @@ public class ModItemModelProvider  extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        itemHammerModel(Registration.DUSKBLOOM_HAMMER.get());
         itemHammerModel(Registration.OSMIUM_HAMMER.get());
         itemHammerModel(Registration.BRONZE_HAMMER.get());
         itemHammerModel(Registration.STEEL_HAMMER.get());

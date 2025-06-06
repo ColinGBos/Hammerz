@@ -37,8 +37,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .save(output);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, Registration.STONE_HAMMER.get())
-                .pattern("HHH").pattern(" R ").pattern(" R ")
-                .define('H', ItemTags.STONE_TOOL_MATERIALS)
+                .pattern("HHH").pattern("HRH").pattern(" R ")
+                .define('H', ItemTags.STONE_CRAFTING_MATERIALS)
                 .define('R', getIngredientFromTag("c", "rods/wooden"))
                 .unlockedBy("has_stone", has(ItemTags.STONE_TOOL_MATERIALS))
                 .save(output);
@@ -73,6 +73,15 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 )
                         .unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT))
                                 .save(output, ResourceLocation.fromNamespaceAndPath(Hammerz.MODID, "netherite_hammer_smithing"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, Registration.DUSKBLOOM_HAMMER.get())
+                .pattern("HHH").pattern(" R ").pattern(" R ")
+                .define('H', getIngredientFromTag("c", "storage_blocks/duskbloom_shard"))
+                .define('R', getIngredientFromTag("c", "rods/wooden"))
+                .unlockedBy("has_duskbloom", has(getItemTag("c", "gems/duskbloom_shard")))
+                .save(output.withConditions(
+                        new NotCondition(new TagEmptyCondition("c","storage_blocks/duskbloom_shard"))
+                ));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, Registration.OSMIUM_HAMMER.get())
                 .pattern("HHH").pattern(" R ").pattern(" R ")

@@ -28,10 +28,17 @@ import java.util.List;
 public class HammerItem extends PickaxeItem {
     protected final DeferredComponent component;
     final DecimalFormat df = new DecimalFormat("#,###");
+    int damageMultiplier = 8;
 
     public HammerItem(Tier tier) {
         super(tier, new Item.Properties().attributes(PickaxeItem.createAttributes(tier, 5.0F, -3.0F)));
         component = new DeferredComponent(Hammerz.MODID, "hammer.info");
+    }
+
+    public HammerItem(Tier tier, int damageMultiplier) {
+        super(tier, new Item.Properties().attributes(PickaxeItem.createAttributes(tier, 5.0F, -3.0F)));
+        component = new DeferredComponent(Hammerz.MODID, "hammer.info");
+        this.damageMultiplier = damageMultiplier;
     }
 
     @Override
@@ -44,7 +51,7 @@ public class HammerItem extends PickaxeItem {
     @Override
     public float getDestroySpeed(ItemStack stack, @NotNull BlockState state) {
         Tool tool = stack.get(DataComponents.TOOL);
-        return tool != null ? tool.getMiningSpeed(state)*0.3F : 0.3F;
+        return tool != null ? tool.getMiningSpeed(state)*0.5F : 0.3F;
     }
 
     public boolean mineBlock(ItemStack stack, @NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos, @NotNull LivingEntity miningEntity) {
@@ -129,7 +136,7 @@ public class HammerItem extends PickaxeItem {
 
     @Override
     public int getMaxDamage(@NotNull ItemStack stack){
-        return stack.getOrDefault(DataComponents.MAX_DAMAGE, 0) * 10;
+        return stack.getOrDefault(DataComponents.MAX_DAMAGE, 0) * this.damageMultiplier;
     }
 
 }
