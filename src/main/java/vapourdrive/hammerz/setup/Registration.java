@@ -2,14 +2,17 @@ package vapourdrive.hammerz.setup;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import vapourdrive.hammerz.Hammerz;
-import vapourdrive.hammerz.content.hammerz.*;
+import vapourdrive.hammerz.content.hammerz.DuskbloomHammerItem;
+import vapourdrive.hammerz.content.hammerz.FluixHammerItem;
+import vapourdrive.hammerz.content.hammerz.HammerItem;
 import vapourdrive.hammerz.content.hammerz.materials.ToolTiers;
 import vapourdrive.hammerz.data.loot_modifiers.RemoveItemModifier;
 import vapourdrive.vapourware.shared.utils.RegistryUtils;
@@ -33,8 +36,8 @@ public class Registration {
     public static final Supplier<Item> REFINED_OBSIDIAN_HAMMER = ITEMS.register("refined_obsidian_hammer", () -> new HammerItem(ToolTiers.REFINED_OBSIDIAN));
     public static final Supplier<Item> REFINED_GLOWSTONE_HAMMER = ITEMS.register("refined_glowstone_hammer", () -> new HammerItem(ToolTiers.REFINED_GLOWSTONE));
     public static final Supplier<Item> LAPIS_LAZULI_HAMMER = ITEMS.register("lapis_lazuli_hammer", () -> new HammerItem(ToolTiers.LAPIS_LAZULI));
-    public static final Supplier<Item> NETHER_QUARTZ_HAMMER = ITEMS.register("nether_quartz_hammer", () -> new HammerItem(ToolTiers.NETHER_QUARTZ));
-    public static final Supplier<Item> CERTUS_QUARTZ_HAMMER = ITEMS.register("certus_quartz_hammer", () -> new HammerItem(ToolTiers.CERTUS_QUARTZ));
+    public static final Supplier<Item> NETHER_QUARTZ_HAMMER = ITEMS.register("nether_quartz_hammer", () -> new HammerItem(ToolTiers.NETHER_QUARTZ, 4));
+    public static final Supplier<Item> CERTUS_QUARTZ_HAMMER = ITEMS.register("certus_quartz_hammer", () -> new HammerItem(ToolTiers.CERTUS_QUARTZ, 4));
     public static final Supplier<Item> FLUIX_HAMMER = ITEMS.register("fluix_hammer", () -> new FluixHammerItem(ToolTiers.FLUIX));
 
     public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = DeferredRegister.create(NeoForgeRegistries.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Hammerz.MODID);

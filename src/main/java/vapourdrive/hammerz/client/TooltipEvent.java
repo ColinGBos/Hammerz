@@ -7,7 +7,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import vapourdrive.hammerz.Hammerz;
 
-import java.util.Arrays;
 import java.util.List;
 
 @EventBusSubscriber(modid = Hammerz.MODID)

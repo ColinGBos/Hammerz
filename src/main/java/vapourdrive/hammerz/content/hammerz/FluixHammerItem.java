@@ -1,6 +1,7 @@
 package vapourdrive.hammerz.content.hammerz;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -17,12 +18,14 @@ import java.util.List;
 public class FluixHammerItem extends HammerItem{
 
     public FluixHammerItem(Tier tier) {
-        super(tier);
+        super(tier, 4);
     }
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, Item.@NotNull TooltipContext context, List<Component> tooltipComponents, @NotNull TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.translatable("phrase.hammerz.fortune").withStyle(ChatFormatting.GRAY));
+        if(Screen.hasShiftDown()) {
+            tooltipComponents.add(Component.translatable("phrase.hammerz.fortune").withStyle(ChatFormatting.GRAY));
+        }
         super.appendHoverText(stack,context,tooltipComponents,tooltipFlag);
     }
 

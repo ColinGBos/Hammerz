@@ -1,6 +1,7 @@
 package vapourdrive.hammerz.content.hammerz;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -20,6 +21,7 @@ import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
 import vapourdrive.hammerz.Hammerz;
 import vapourdrive.hammerz.config.ConfigSettings;
+import vapourdrive.vapourware.shared.utils.CompUtils;
 import vapourdrive.vapourware.shared.utils.DeferredComponent;
 
 import java.text.DecimalFormat;
@@ -43,9 +45,15 @@ public class HammerItem extends PickaxeItem {
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, Item.@NotNull TooltipContext context, List<Component> tooltipComponents, @NotNull TooltipFlag tooltipFlag) {
-        tooltipComponents.add(this.component.get().withStyle(ChatFormatting.GRAY));
-        String durability = df.format(this.getMaxDamage(stack)-this.getDamage(stack)) + "/" + df.format(this.getMaxDamage(stack));
-        tooltipComponents.add(Component.translatable("hammerz.keyword.durability", durability).withStyle(ChatFormatting.GRAY));
+        if(Screen.hasShiftDown()) {
+            tooltipComponents.add(component.get().withStyle(ChatFormatting.GRAY));
+        } else {
+            CompUtils.addShiftInfo(tooltipComponents);
+        }
+        if(ConfigSettings.SHOW_TOOLTIP_DURABILITY.get()) {
+            String durability = df.format(this.getMaxDamage(stack) - this.getDamage(stack)) + "/" + df.format(this.getMaxDamage(stack));
+            tooltipComponents.add(Component.translatable("hammerz.keyword.durability", durability).withStyle(ChatFormatting.GRAY));
+        }
     }
 
     @Override

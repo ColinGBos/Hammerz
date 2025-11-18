@@ -36,6 +36,9 @@ public class ModItemTagProvider extends ItemTagsProvider {
         tag(ItemTags.PICKAXES).add(Registration.REFINED_GLOWSTONE_HAMMER.get());
         tag(ItemTags.PICKAXES).add(Registration.LAPIS_LAZULI_HAMMER.get());
         tag(ItemTags.PICKAXES).add(Registration.FLUIX_HAMMER.get());
+        tag(ItemTags.PICKAXES).add(Registration.CERTUS_QUARTZ_HAMMER.get());
+        tag(ItemTags.PICKAXES).add(Registration.NETHER_QUARTZ_HAMMER.get());
+        tag(ItemTags.PICKAXES).add(Registration.DUSKBLOOM_HAMMER.get());
 
         tag(ModTags.Items.QUARTZ_HAMMERS).add(Registration.CERTUS_QUARTZ_HAMMER.get());
         tag(ModTags.Items.QUARTZ_HAMMERS).add(Registration.NETHER_QUARTZ_HAMMER.get());

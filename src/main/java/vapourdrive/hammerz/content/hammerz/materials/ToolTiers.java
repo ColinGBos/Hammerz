@@ -6,7 +6,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.SimpleTier;
-
 import vapourdrive.vapourware.shared.utils.RegistryUtils;
 
 public class ToolTiers {
