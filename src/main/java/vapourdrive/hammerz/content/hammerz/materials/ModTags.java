@@ -13,6 +13,9 @@ public class ModTags {
         public static final TagKey<Block> NEEDS_DUSKBLOOM_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID, "needs_duskbloom_tool");
         public static final TagKey<Block> INCORRECT_FOR_DUSKBLOOM_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID,"incorrect_for_duskbloom_tool");
 
+        public static final TagKey<Block> NEEDS_DAWNVEIN_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID, "needs_dawnvein_tool");
+        public static final TagKey<Block> INCORRECT_FOR_DAWNVEIN_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID,"incorrect_for_dawnvein_tool");
+
         public static final TagKey<Block> NEEDS_OSMIUM_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID, "needs_osmium_tool");
         public static final TagKey<Block> INCORRECT_FOR_OSMIUM_TOOL = RegistryUtils.getBlockTag(Hammerz.MODID,"incorrect_for_osmium_tool");
 

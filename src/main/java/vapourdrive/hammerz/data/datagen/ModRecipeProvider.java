@@ -83,6 +83,26 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                         new NotCondition(new TagEmptyCondition("c","storage_blocks/duskbloom_shard"))
                 ));
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, Registration.DAWNVEIN_HAMMER.get())
+                .pattern("HHH").pattern(" R ").pattern(" R ")
+                .define('H', getIngredientFromTag("c", "storage_blocks/dawnvein"))
+                .define('R', getIngredientFromTag("c", "rods/wooden"))
+                .unlockedBy("has_dawnvein", has(getItemTag("c", "ingots/dawnvein")))
+                .save(output.withConditions(
+                        new NotCondition(new TagEmptyCondition("c","storage_blocks/dawnvein"))
+                ));
+
+        SmithingTransformRecipeBuilder.smithing(
+                Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+                Ingredient.of(Registration.DAWNVEIN_HAMMER.get()),
+                Ingredient.of(Items.NETHERITE_INGOT),
+                RecipeCategory.TOOLS,
+                Registration.NETHERITE_HAMMER.get()
+        ).unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT))
+                .save(output.withConditions(
+                        new NotCondition(new TagEmptyCondition("c","storage_blocks/dawnvein"))
+                ), ResourceLocation.fromNamespaceAndPath(Hammerz.MODID, "netherite_hammer_from_dawnvein_smithing"));
+
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, Registration.OSMIUM_HAMMER.get())
                 .pattern("HHH").pattern(" R ").pattern(" R ")
                 .define('H', getIngredientFromTag("c", "storage_blocks/osmium"))

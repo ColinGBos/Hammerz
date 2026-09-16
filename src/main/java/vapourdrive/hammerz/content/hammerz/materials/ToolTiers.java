@@ -26,7 +26,10 @@ public class ToolTiers {
     public static final Tier DUSKBLOOM = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_DUSKBLOOM_TOOL, 475, 6.5F, 2.5F, 18,
             () -> RegistryUtils.getIngredientFromTag("c", "storage_blocks/duskbloom_shard"));
 
-    public static final Tier OSMIUM = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_OSMIUM_TOOL, 1024, 4.0f, 4.0f, 14,
+    public static final Tier DAWNVEIN = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_DAWNVEIN_TOOL, 1276, 7.5F, 4.0F, 18,
+            () -> RegistryUtils.getIngredientFromTag("c", "storage_blocks/dawnvein_ingot"));
+
+    public static final Tier OSMIUM = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_OSMIUM_TOOL, 1024, 5.25f, 4.0f, 14,
             () -> RegistryUtils.getIngredientFromTag("c", "storage_blocks/osmium"));
     public static final Tier BRONZE = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_BRONZE_TOOL, 375, 7.0f, 2.0f, 10,
             () -> RegistryUtils.getIngredientFromTag("c", "storage_blocks/bronze"));

@@ -10,6 +10,7 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import vapourdrive.hammerz.Hammerz;
+import vapourdrive.hammerz.content.hammerz.DawnveinHammerItem;
 import vapourdrive.hammerz.content.hammerz.DuskbloomHammerItem;
 import vapourdrive.hammerz.content.hammerz.FluixHammerItem;
 import vapourdrive.hammerz.content.hammerz.HammerItem;
@@ -30,6 +31,7 @@ public class Registration {
     public static final Supplier<Item> DIAMOND_HAMMER = ITEMS.register("diamond_hammer", () -> new HammerItem(ToolTiers.DIAMOND));
     public static final Supplier<Item> NETHERITE_HAMMER = ITEMS.register("netherite_hammer", () -> new HammerItem(ToolTiers.NETHERITE));
     public static final Supplier<Item> DUSKBLOOM_HAMMER = ITEMS.register("duskbloom_hammer", () -> new DuskbloomHammerItem(ToolTiers.DUSKBLOOM));
+    public static final Supplier<Item> DAWNVEIN_HAMMER = ITEMS.register("dawnvein_hammer", () -> new DawnveinHammerItem(ToolTiers.DAWNVEIN));
     public static final Supplier<Item> OSMIUM_HAMMER = ITEMS.register("osmium_hammer", () -> new HammerItem(ToolTiers.OSMIUM));
     public static final Supplier<Item> BRONZE_HAMMER = ITEMS.register("bronze_hammer", () -> new HammerItem(ToolTiers.BRONZE));
     public static final Supplier<Item> STEEL_HAMMER = ITEMS.register("steel_hammer", () -> new HammerItem(ToolTiers.STEEL));
@@ -61,34 +63,37 @@ public class Registration {
             event.accept(DIAMOND_HAMMER.get().getDefaultInstance());
             event.accept(NETHERITE_HAMMER.get().getDefaultInstance());
 
-            if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/duskbloom_shard")) {
+            if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/duskbloom_shard") || Hammerz.isDebugMode()) {
                 event.accept(DUSKBLOOM_HAMMER.get().getDefaultInstance());
             }
-            if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/osmium")) {
+            if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/dawnvein_ingot") || Hammerz.isDebugMode()) {
+                event.accept(DAWNVEIN_HAMMER.get().getDefaultInstance());
+            }
+            if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/osmium") || Hammerz.isDebugMode()) {
                 event.accept(OSMIUM_HAMMER.get().getDefaultInstance());
             }
-            if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/bronze")) {
+            if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/bronze") || Hammerz.isDebugMode()) {
                 event.accept(BRONZE_HAMMER.get().getDefaultInstance());
             }
-            if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/steel")) {
+            if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/steel") || Hammerz.isDebugMode()) {
                 event.accept(STEEL_HAMMER.get().getDefaultInstance());
             }
-            if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/refined_obsidian")) {
+            if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/refined_obsidian") || Hammerz.isDebugMode()) {
                 event.accept(REFINED_OBSIDIAN_HAMMER.get().getDefaultInstance());
             }
-            if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/refined_glowstone")) {
+            if(RegistryUtils.itemTagIsNotEmpty("c", "storage_blocks/refined_glowstone") || Hammerz.isDebugMode()) {
                 event.accept(REFINED_GLOWSTONE_HAMMER.get().getDefaultInstance());
             }
-            if(RegistryUtils.modItemExists("ae2", "fluix_block")) {
+            if(RegistryUtils.modItemExists("ae2", "fluix_block") || Hammerz.isDebugMode()) {
                 event.accept(FLUIX_HAMMER.get().getDefaultInstance());
             }
-            if(RegistryUtils.modItemExists("ae2", "quartz_block")) {
+            if(RegistryUtils.modItemExists("ae2", "quartz_block") || Hammerz.isDebugMode()) {
                 event.accept(CERTUS_QUARTZ_HAMMER.get().getDefaultInstance());
             }
-            if(RegistryUtils.modItemExists("ae2", "nether_quartz_pickaxe")) {
+            if(RegistryUtils.modItemExists("ae2", "nether_quartz_pickaxe") || Hammerz.isDebugMode()) {
                 event.accept(NETHER_QUARTZ_HAMMER.get().getDefaultInstance());
             }
-            if(RegistryUtils.modItemExists("mekanismtools", "lapis_lazuli_pickaxe")) {
+            if(RegistryUtils.modItemExists("mekanismtools", "lapis_lazuli_pickaxe") || Hammerz.isDebugMode()) {
                 event.accept(LAPIS_LAZULI_HAMMER.get().getDefaultInstance());
             }
         }

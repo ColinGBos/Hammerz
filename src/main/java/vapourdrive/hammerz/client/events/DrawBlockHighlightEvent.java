@@ -1,9 +1,12 @@
 package vapourdrive.hammerz.client.events;
 
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.shapes.*;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
@@ -20,7 +23,7 @@ import vapourdrive.hammerz.content.hammerz.HammerItem;
 
 //Thanks Direwolf20 for the basis of the render code
 
-@EventBusSubscriber(modid = Hammerz.MODID)
+@EventBusSubscriber(modid = Hammerz.MODID, value = Dist.CLIENT)
 public class DrawBlockHighlightEvent {
     @SubscribeEvent
     static void renderBlockHighlight(RenderHighlightEvent.Block event) {
@@ -39,25 +42,59 @@ public class DrawBlockHighlightEvent {
         Vec3 vec3 = event.getCamera().getPosition();
         VertexConsumer vc = event.getMultiBufferSource().getBuffer(RenderType.lines());
         Direction direction = event.getTarget().getDirection();
-        renderHitOutline(event.getPoseStack(), vc, vec3.x(), vec3.y(), vec3.z(), pos, direction);
+        renderHitOutline(event.getPoseStack(), vc, vec3.x(), vec3.y(), vec3.z(), pos, direction, mc, player, itemStack);
         if(!ConfigSettings.ALWAYS_RENDER_CENTER_BLOCK_HITBOX.get()) {
             event.setCanceled(true);
         }
     }
 
-    private static void renderHitOutline(PoseStack pPoseStack, VertexConsumer pConsumer, double pCamX, double pCamY, double pCamZ, BlockPos pPos, Direction direction) {
-        VoxelShape shape;
-        if (direction.equals(Direction.EAST) || direction.equals(Direction.WEST)){
-            shape = Shapes.create(0,-1,-1,1,2,2);
-        } else if (direction.equals(Direction.NORTH) || direction.equals(Direction.SOUTH)) {
-            shape = Shapes.create(-1,-1,0,2,2,1);
+    private static void renderHitOutline(PoseStack pPoseStack, VertexConsumer pConsumer, double pCamX, double pCamY, double pCamZ, BlockPos pPos, Direction direction, Minecraft mc, Player player, ItemStack stack) {
+        int xmove = 0;
+        int ymove = 0;
+        int zmove = 0;
+
+        if (direction == Direction.UP || direction == Direction.DOWN) {
+            xmove = 1;
+            zmove = 1;
         } else {
-            shape = Shapes.create(-1,0,-1,2,1,2);
+            ymove = 1;
+            if (direction == Direction.WEST || direction == Direction.EAST) {
+                zmove = 1;
+            } else {
+                xmove = 1;
+            }
         }
-        double px = (double) pPos.getX() - pCamX;
-        double py = (double) pPos.getY() - pCamY;
-        double pz = (double) pPos.getZ() - pCamZ;
-        renderShape(pPoseStack, pConsumer, shape, px, py, pz);
+
+        Level level = player.level();
+        float baseSpeed = level.getBlockState(pPos).getDestroySpeed(level, pPos);
+
+        for (int i = -xmove; i <= xmove; i++) {
+            for (int j = -ymove; j <= ymove; j++) {
+                for (int k = -zmove; k <= zmove; k++) {
+                    BlockPos targetPos = pPos.offset(i, j, k);
+                    BlockState state = level.getBlockState(targetPos);
+
+                    if (isValidBlock(level, targetPos, state, stack, baseSpeed) || (i == 0 && j == 0 && k == 0)) {
+                        VoxelShape shape = state.getShape(level, targetPos);
+                        double px = (double) targetPos.getX() - pCamX;
+                        double py = (double) targetPos.getY() - pCamY;
+                        double pz = (double) targetPos.getZ() - pCamZ;
+                        renderShape(pPoseStack, pConsumer, shape, px, py, pz);
+                    }
+                }
+            }
+        }
+    }
+
+    private static boolean isValidBlock(Level world, BlockPos pos, BlockState state, ItemStack stack, float baseSpeed) {
+        if (state.isAir()) {
+            return false;
+        }
+        float testSpeed = state.getDestroySpeed(world, pos);
+        if (testSpeed < 0 || testSpeed > 2 * baseSpeed) {
+            return false;
+        }
+        return stack.isCorrectToolForDrops(state);
     }
 
     private static void renderShape(PoseStack pPoseStack, VertexConsumer pConsumer, VoxelShape pShape, double pX, double pY, double pZ) {

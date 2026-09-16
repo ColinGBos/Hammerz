@@ -22,6 +22,9 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         this.tag(ModTags.Blocks.NEEDS_DUSKBLOOM_TOOL).addTags(BlockTags.NEEDS_IRON_TOOL);
         this.tag(ModTags.Blocks.INCORRECT_FOR_DUSKBLOOM_TOOL).addTags(BlockTags.INCORRECT_FOR_IRON_TOOL).remove(ModTags.Blocks.NEEDS_DUSKBLOOM_TOOL);
 
+        this.tag(ModTags.Blocks.NEEDS_DAWNVEIN_TOOL).addTags(BlockTags.NEEDS_DIAMOND_TOOL);
+        this.tag(ModTags.Blocks.INCORRECT_FOR_DAWNVEIN_TOOL).addTags(BlockTags.INCORRECT_FOR_DIAMOND_TOOL).remove(ModTags.Blocks.NEEDS_DAWNVEIN_TOOL);
+
         this.tag(ModTags.Blocks.NEEDS_OSMIUM_TOOL).addTags(BlockTags.NEEDS_IRON_TOOL);
         this.tag(ModTags.Blocks.INCORRECT_FOR_OSMIUM_TOOL).addTags(BlockTags.INCORRECT_FOR_IRON_TOOL).remove(ModTags.Blocks.NEEDS_OSMIUM_TOOL);
 

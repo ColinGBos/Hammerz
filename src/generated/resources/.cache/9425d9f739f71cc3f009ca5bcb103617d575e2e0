@@ -1,6 +1,7 @@
-// 1.21.1	2025-06-06T16:39:42.4751316	Tags for minecraft:block mod id hammerz
+// 1.21.1	2026-07-23T20:31:23.1891664	Tags for minecraft:block mod id hammerz
 3f32306e55e8c0fbbb5f69f29f4beb721fbde1b7 data/hammerz/tags/block/incorrect_for_bronze_tool.json
 d7a865dbd24ba6f7a0c5ec196bfccdf908940a72 data/hammerz/tags/block/incorrect_for_certus_quartz_tool.json
+0d7d63681da1159c9923694d1b411135130fd90d data/hammerz/tags/block/incorrect_for_dawnvein_tool.json
 bc880bd69fc7a8ce567314fffa84dc667501e22a data/hammerz/tags/block/incorrect_for_duskbloom_tool.json
 d071d10d7815b305f871d6610fb574c4e21b818e data/hammerz/tags/block/incorrect_for_fluix_tool.json
 427f2448fc2a0d26e2a9b8054cdecadf1da8241b data/hammerz/tags/block/incorrect_for_lapis_lazuli_tool.json
@@ -11,6 +12,7 @@ d40a9ab2ff23c4a8cd8559fdd6d5f0b41562237d data/hammerz/tags/block/incorrect_for_r
 1d747ae57eb2e1400ab1ac9621aecfac6a1ad0d2 data/hammerz/tags/block/incorrect_for_steel_tool.json
 32b13946c4cd1f944b029659ccce5fcb2adad4ff data/hammerz/tags/block/needs_bronze_tool.json
 32b13946c4cd1f944b029659ccce5fcb2adad4ff data/hammerz/tags/block/needs_certus_quartz_tool.json
+a249c46329a41538f49a564e1f14338aaf1be5a0 data/hammerz/tags/block/needs_dawnvein_tool.json
 32b13946c4cd1f944b029659ccce5fcb2adad4ff data/hammerz/tags/block/needs_duskbloom_tool.json
 32b13946c4cd1f944b029659ccce5fcb2adad4ff data/hammerz/tags/block/needs_fluix_tool.json
 781d959bb6bbea7b36ae6b2d4a71ced43fd662b9 data/hammerz/tags/block/needs_lapis_lazuli_tool.json

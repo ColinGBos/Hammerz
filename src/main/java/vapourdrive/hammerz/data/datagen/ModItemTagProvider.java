@@ -39,6 +39,7 @@ public class ModItemTagProvider extends ItemTagsProvider {
         tag(ItemTags.PICKAXES).add(Registration.CERTUS_QUARTZ_HAMMER.get());
         tag(ItemTags.PICKAXES).add(Registration.NETHER_QUARTZ_HAMMER.get());
         tag(ItemTags.PICKAXES).add(Registration.DUSKBLOOM_HAMMER.get());
+        tag(ItemTags.PICKAXES).add(Registration.DAWNVEIN_HAMMER.get());
 
         tag(ModTags.Items.QUARTZ_HAMMERS).add(Registration.CERTUS_QUARTZ_HAMMER.get());
         tag(ModTags.Items.QUARTZ_HAMMERS).add(Registration.NETHER_QUARTZ_HAMMER.get());
